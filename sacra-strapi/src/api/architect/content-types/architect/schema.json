@@ -1,0 +1,28 @@
+{
+  "kind": "collectionType",
+  "collectionName": "architects",
+  "info": {
+    "singularName": "architect",
+    "pluralName": "architects",
+    "displayName": "Архитектор"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {
+    "i18n": {
+      "localized": true
+    }
+  },
+  "attributes": {
+    "title": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "string",
+      "required": true
+    }
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "kind": "collectionType",
+  "collectionName": "architectural_styles",
+  "info": {
+    "singularName": "architectural-style",
+    "pluralName": "architectural-styles",
+    "displayName": "Архитектурный стиль"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {
+    "i18n": {
+      "localized": true
+    }
+  },
+  "attributes": {
+    "title": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "string",
+      "required": true
+    }
+  }
+}

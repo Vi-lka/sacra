@@ -1,0 +1,21 @@
+{
+  "collectionName": "components_objects_appearance_changes",
+  "info": {
+    "displayName": "appearanceChanges",
+    "icon": "clock",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "date": {
+      "type": "component",
+      "repeatable": false,
+      "component": "objects.date-construction",
+      "required": true
+    }
+  }
+}

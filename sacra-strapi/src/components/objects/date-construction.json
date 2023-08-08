@@ -1,0 +1,14 @@
+{
+  "collectionName": "components_objects_date_constructions",
+  "info": {
+    "displayName": "dateConstruction",
+    "icon": "clock"
+  },
+  "options": {},
+  "attributes": {
+    "dateConstruction": {
+      "type": "date",
+      "required": true
+    }
+  }
+}

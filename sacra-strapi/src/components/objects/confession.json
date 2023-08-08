@@ -1,0 +1,25 @@
+{
+  "collectionName": "components_objects_confessions",
+  "info": {
+    "displayName": "Confession",
+    "icon": "bulletList",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "confession": {
+      "type": "enumeration",
+      "enum": [
+        "Православие",
+        "Буддизм",
+        "Ислам",
+        "Католицизм",
+        "Лютеранство",
+        "Протестантизм",
+        "Иудаизм",
+        "Шаманизм"
+      ],
+      "required": true
+    }
+  }
+}
