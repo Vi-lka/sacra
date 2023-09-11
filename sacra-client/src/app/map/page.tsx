@@ -1,7 +1,7 @@
+import MapComponent from '@/components/custom/map/MapComponent';
 import ErrorHandler from '@/components/custom/ui/ErrorHandler';
 import { getObjects } from '@/lib/queries/strapi-server';
 import React from 'react';
-import Map from 'react-map-gl';
 
 export default async function MapPage() {
 
@@ -20,23 +20,18 @@ export default async function MapPage() {
 
   const dataResult = await getObjects(1, 2147483647);
 
-
   return (
     <div>
         <div className="mx-auto w-[95%] max-w-[2200px] md:w-[85%]">
-            Map
-        </div>
+            <h1 className="font-bold md:text-2xl text-xl uppercase mb-3">
+                Сакральное Пространство <br/> Енисейской Сибири
+            </h1>
+            <p className='mb-3'>
+            Карта сакральных объектов представленных на сайте
+            </p>
 
-        <Map
-            mapboxAccessToken={process.env.MAPBOX_ACCESS_TOKEN}
-            initialViewState={{
-              longitude: -122.4,
-              latitude: 37.8,
-              zoom: 14
-            }}
-            style={{width: 600, height: 400}}
-            mapStyle="mapbox://styles/mapbox/streets-v9"
-        />
+            <MapComponent objects={dataResult} />
+        </div>
     </div>
   )
 }
