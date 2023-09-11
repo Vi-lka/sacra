@@ -5,16 +5,14 @@ import { MultiSelect } from "./MultiSelect"
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible"
 import { Button } from "@/components/ui/button"
 import { CaretSortIcon } from "@radix-ui/react-icons"
-import { Checkbox } from "@/components/ui/checkbox"
-import { Label } from "@/components/ui/label"
+import { confessionOptions, regionOptions } from "@/lib/statics"
 
-const options = [
-    { value: 'chocolate', label: 'Chocolate' },
-    { value: 'strawberry', label: 'Strawberry' },
-    { value: 'vanilla', label: 'Vanilla' }
-  ]
+type Props = {
+  archStyleOptions?: {value: string, label: string}[],
+  architectsOptions?: {value: string, label: string}[]
+}
 
-export function Filters() {
+export function Filters(props: Props) {
 
     const [isOpen, setIsOpen] = React.useState(false)
 
@@ -39,13 +37,16 @@ export function Filters() {
         </div>
         <CollapsibleContent className="">
             <div className="grid lg:grid-cols-4 grid-cols-1 gap-6">
-                <MultiSelect options={options} placeholder={'Местонахождение'} />
-                <MultiSelect options={options} placeholder={'Кофессия'} />
-                {/* <MultiSelect options={options} placeholder={'Дата постройки'} /> */}
-                <MultiSelect options={options} placeholder={'Архитектурный стиль'} />
-                <MultiSelect options={options} placeholder={'Архитектор'} />
+                <MultiSelect options={regionOptions} placeholder={'Местонахождение'} param={'region'} />
+                <MultiSelect options={confessionOptions} placeholder={'Кофессия'} param={'confession'} />
+                {props.archStyleOptions ? (
+                  <MultiSelect options={props.archStyleOptions} placeholder={'Архитектурный стиль'} param={'archStyle'} />
+                ) : null}
+                {props.architectsOptions ? (
+                  <MultiSelect options={props.architectsOptions} placeholder={'Архитектор'} param={'architect'} />
+                ) : null}
             </div>
-            <h1 className="font-bold md:text-lg text-base my-4">
+            {/* <h1 className="font-bold md:text-lg text-base my-4">
                 Дополнительные фильтры
             </h1>
             <div className="flex md:flex-row flex-col md:items-center gap-6">
@@ -63,7 +64,7 @@ export function Filters() {
                   <Checkbox id="3d" />
                   <Label htmlFor="3d">3D модель</Label>
                 </div>
-            </div>
+            </div> */}
         </CollapsibleContent>
     </Collapsible>
   )

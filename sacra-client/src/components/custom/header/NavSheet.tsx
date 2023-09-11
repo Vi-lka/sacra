@@ -36,8 +36,8 @@ export default function NavSheet() {
                 <SheetMenuItem text={'Главная'} url={'/'} />
                 <SheetMenuItem text={'Каталог'} url={'/catalog'} />
                 <SheetMenuItem text={'Карта'} url={'/map'} />
-                <SheetMenuItem text={'Публикации'} url={'/publications'} />
-                <SheetMenuItem text={'О проекте'} url={'/about'} />
+                {/* <SheetMenuItem text={'Публикации'} url={'/publications'} />
+                <SheetMenuItem text={'О проекте'} url={'/about'} /> */}
             </ScrollArea>
           </NavigationMenuList>
         </NavigationMenu>

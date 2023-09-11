@@ -2,9 +2,8 @@ import type { Metadata } from 'next'
 import { Montserrat } from 'next/font/google'
 
 import './globals.css'
-import Header from '@/custom-components/header/Header';
-import Footer from '@/custom-components/Footer';
 import { Toaster } from '@/components/ui/toaster';
+import Header from '@/components/custom/header/Header';
 
 const montserrat = Montserrat({ subsets: ['cyrillic'] })
 
@@ -44,7 +43,7 @@ export default function RootLayout({
           {children}
           <Toaster />
         </main>
-        <Footer />
+        {/* <Footer /> */}
       </body>
     </html>
   )

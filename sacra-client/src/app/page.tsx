@@ -32,7 +32,7 @@ export default function Home() {
           </p>
         </div>
 
-        <div className='flex md:flex-row flex-col gap-12 justify-between items-center md:mt-36 mt-[60vh]'>
+        {/* <div className='flex md:flex-row flex-col gap-12 justify-between items-center md:mt-36 mt-[60vh]'>
           <div className='flex flex-col gap-2 justify-center items-center md:w-1/4 w-[70%]'>
             <h1 className='font-bold xl:text-6xl text-4xl'>
               134
@@ -59,7 +59,7 @@ export default function Home() {
               Городов Енисейской Сибири
             </p>
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   )

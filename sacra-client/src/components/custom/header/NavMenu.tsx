@@ -10,10 +10,10 @@ export default function NavMenu() {
     <NavigationMenu>
       <NavigationMenuList>
         <NavMenuItem text={"Главная"} url={'/'} />
-        <NavMenuItem text={"Каталог"} url={'catalog'} />
-        <NavMenuItem text={"Карта"} url={'map'} />
-        <NavMenuItem text={"Публикации"} url={'publications'} />
-        <NavMenuItem text={"О проекте"} url={'about'} />
+        <NavMenuItem text={"Каталог"} url={'/catalog'} />
+        <NavMenuItem text={"Карта"} url={'/map'} />
+        {/* <NavMenuItem text={"Публикации"} url={'/publications'} />
+        <NavMenuItem text={"О проекте"} url={'/about'} /> */}
       </NavigationMenuList>
     </NavigationMenu>
   )
@@ -37,9 +37,6 @@ function NavMenuItem({
       .filter((v) => v.length > 0);
   
     const pathCurrentPage = (pathNestedRoutes[pathNestedRoutes.length  - 1] === undefined) ? "/" : pathNestedRoutes[pathNestedRoutes.length - 1];
-
-    console.log(pathCurrentPage)
-    console.log(url)
   
     return (
     <NavigationMenuItem>
