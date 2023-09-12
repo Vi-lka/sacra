@@ -1,14 +1,14 @@
 import { Separator } from "@/components/ui/separator";
 import ErrorHandler from "@/components/custom/ui/ErrorHandler";
-import { Filters } from "@/components/custom/ui/Filters";
 import ImgText from "@/components/custom/ui/ImgText";
 import PaginationControls from "@/components/custom/ui/PaginationControls";
 import SearchField from "@/components/custom/ui/SearchField";
 import Sort from "@/components/custom/ui/Sort";
-import { getArchitects, getArchitecturalStyles, getObjects } from "@/lib/queries/strapi-server";
+import { getObjects } from "@/lib/queries/strapi-server";
 import { getRegion } from "@/lib/utils";
 import type { Metadata } from "next";
 
+export const revalidate = 60
 
 export const metadata: Metadata = {
     title: "Каталог",
@@ -36,43 +36,43 @@ export default async function Catalog({
       { val: 'title:desc', text: 'Название: Я-А' },
     ] as {val:string, text: string}[]
 
-    try {
-      await getArchitecturalStyles()
-      await getArchitects()
-    } catch (error) {
-      return (
-        <ErrorHandler 
-          error={error} 
-          place="Objects" 
-          notFound 
-          goBack={false}
-        >
-          <div className="mx-auto w-[95%] max-w-[2200px] md:w-[85%] mb-20">
-              <div className="mt-10">
-                  <h1 className="font-bold md:text-2xl text-xl mb-4">
-                      Поиск по коллекции
-                  </h1>
-                  <SearchField placeholder="Найти..." />
-              </div>
+    // try {
+    //   await getArchitecturalStyles()
+    //   await getArchitects()
+    // } catch (error) {
+    //   return (
+    //     <ErrorHandler 
+    //       error={error} 
+    //       place="Objects" 
+    //       notFound 
+    //       goBack={false}
+    //     >
+    //       <div className="mx-auto w-[95%] max-w-[2200px] md:w-[85%] mb-20">
+    //           <div className="mt-10">
+    //               <h1 className="font-bold md:text-2xl text-xl mb-4">
+    //                   Поиск по коллекции
+    //               </h1>
+    //               <SearchField placeholder="Найти..." />
+    //           </div>
 
-              <Separator className="my-8 bg-foreground" />
-              <Filters />
-              <Separator className="my-8 bg-foreground" />
-          </div>
-        </ErrorHandler>
-      )
-    }
+    //           <Separator className="my-8 bg-foreground" />
+    //           <Filters />
+    //           <Separator className="my-8 bg-foreground" />
+    //       </div>
+    //     </ErrorHandler>
+    //   )
+    // }
 
-    const archStylesResult = await getArchitecturalStyles()
-    const architectsResult = await getArchitects()
+    // const archStylesResult = await getArchitecturalStyles()
+    // const architectsResult = await getArchitects()
 
-    const archStyleOptions = archStylesResult.data.map(style => {
-      return {value: style.attributes.title, label: style.attributes.title}
-    })
+    // const archStyleOptions = archStylesResult.data.map(style => {
+    //   return {value: style.attributes.title, label: style.attributes.title}
+    // })
 
-    const architectsOptions = architectsResult.data.map(style => {
-      return {value: style.attributes.title, label: style.attributes.title}
-    })
+    // const architectsOptions = architectsResult.data.map(style => {
+    //   return {value: style.attributes.title, label: style.attributes.title}
+    // })
 
     try {
         await getObjects(
@@ -101,8 +101,8 @@ export default async function Catalog({
                     <SearchField placeholder="Найти..." />
                 </div>
 
-                <Separator className="my-8 bg-foreground" />
-                <Filters archStyleOptions={archStyleOptions} architectsOptions={architectsOptions} />
+                {/* <Separator className="my-8 bg-foreground" /> */}
+                {/* <Filters archStyleOptions={archStyleOptions} architectsOptions={architectsOptions} /> */}
                 <Separator className="my-8 bg-foreground" />
             </div>
           </ErrorHandler>
@@ -130,8 +130,8 @@ export default async function Catalog({
                 <SearchField placeholder="Найти..." />
             </div>
 
-            <Separator className="my-8 bg-foreground" />
-            <Filters archStyleOptions={archStyleOptions} architectsOptions={architectsOptions} />
+            {/* <Separator className="my-8 bg-foreground" /> */}
+            {/* <Filters archStyleOptions={archStyleOptions} architectsOptions={architectsOptions} /> */}
             <Separator className="my-8 bg-foreground" />
         </div>
 
