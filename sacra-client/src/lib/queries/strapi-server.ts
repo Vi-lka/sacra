@@ -92,7 +92,10 @@ export const getObjects = async (
       body: JSON.stringify({
         query,
       }),
-      next: { tags: ["strapi"] },
+      next: { 
+        tags: ["strapi"],
+        revalidate: 60
+      },
     });
   
     if (!res.ok) {
@@ -107,7 +110,7 @@ export const getObjects = async (
     const json = await res.json();
   
     // await new Promise((resolve) => setTimeout(resolve, 3000));
-  
+
     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     if ((json.data.objects.meta.pagination.total === 0) || (json.data.objects.data.length === 0)) {
       notFound()
@@ -138,7 +141,10 @@ export const getArchitecturalStyles = async (): Promise<ArchitecturalStylesType>
       body: JSON.stringify({
         query,
       }),
-      next: { tags: ["strapi"] },
+      next: { 
+        tags: ["strapi"],
+        revalidate: 60
+      },
     });
   
     if (!res.ok) {
@@ -184,7 +190,10 @@ export const getArchitects = async (): Promise<ArchitectsType> => {
     body: JSON.stringify({
       query,
     }),
-    next: { tags: ["strapi"] },
+    next: { 
+      tags: ["strapi"],
+      revalidate: 60
+    },
   });
 
   if (!res.ok) {
@@ -301,7 +310,10 @@ export const getObjectBySlug = async (slug: string,): Promise<ObjectBySlugType> 
     body: JSON.stringify({
       query,
     }),
-    next: { tags: ["strapi"] },
+    next: { 
+      tags: ["strapi"],
+      revalidate: 60
+    },
   });
 
   if (!res.ok) {
