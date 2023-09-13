@@ -1,0 +1,28 @@
+version: '3'
+
+services:
+  sacra-client:
+    container_name: sacra-client
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        NEXT_PUBLIC_URL: ${NEXT_PUBLIC_URL}
+        NEXT_PUBLIC_STRAPI_API_URL: ${NEXT_PUBLIC_STRAPI_API_URL}
+        NEXT_PUBLIC_STRAPI_DOMAIN: ${NEXT_PUBLIC_STRAPI_DOMAIN}
+        REVALIDATE_TOKEN: ${REVALIDATE_TOKEN}
+        NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN: ${NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN}
+    restart: always
+    ports:
+      - 3000:3000
+    networks:
+      - sacra
+
+  # Add more containers below (nginx, postgres, etc.)
+
+# Define a network, which allows containers to communicate
+# with each other, by using their container name as a hostname
+networks:
+  sacra:
+    name: sacra
+    external: true

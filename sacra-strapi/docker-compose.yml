@@ -1,4 +1,5 @@
 version: '3'
+
 services:
   sacra-strapi:
     container_name: sacra-strapi
@@ -68,5 +69,5 @@ volumes:
 
 networks:
   sacra:
-    name: Sacra
+    name: sacra
     driver: bridge
