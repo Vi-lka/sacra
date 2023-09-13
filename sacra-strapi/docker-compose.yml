@@ -70,4 +70,4 @@ volumes:
 networks:
   sacra:
     name: sacra
-    driver: bridge
+    external: true
