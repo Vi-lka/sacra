@@ -44,10 +44,10 @@ export const getObjects = async (
           filters: {
             and: [
                 { title: {containsi: "${search}"} },
-                { region: {or: [${getFilter("region", region)}]} },
-                { confession: {or: [${getFilter("confession", confession)}]} },
-                { architecturalStyle: {or: [${getFilter("title", archStyle)}]} },
-                { architect: {or: [${getFilter("title", architect)}]} },
+                ${region ? `{ region: {or: [${getFilter("region", region)}]} },` : ''}
+                ${confession ? `{ confession: {or: [${getFilter("confession", confession)}]} },` : ''}
+                ${archStyle ? `{ architecturalStyle: {or: [${getFilter("title", archStyle)}]} },` : ''}
+                ${architect ? `{ architect: {or: [${getFilter("title", architect)}]} },` : ''}
                 ${tour ? `{ urlTour: {notNull: ${tour}} },` : ''}
                 ${model3d ? `{ model3d: {title: {notNull: ${model3d}}} }` : ''}
             ]
