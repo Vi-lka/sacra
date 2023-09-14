@@ -10,6 +10,7 @@ import MarkerIcon from './MarkerIcon';
 import { Popover, PopoverTrigger, PopoverContent } from '@/components/ui/popover';
 import Image from "next/image";
 import MapboxLanguage from '@mapbox/mapbox-gl-language';
+import Link from 'next/link';
 
 export default function MapComponent({
     objects,
@@ -71,6 +72,12 @@ export default function MapComponent({
                             : null
                           }
                           <p>{el.attributes.title}</p>
+                          <Link 
+                            href={`/catalog/${el.attributes.slug}`}
+                            className='text-accent hover:underline'
+                          >
+                            Перейти
+                          </Link>
                         </div>
                       </PopoverContent>
                     </Popover>

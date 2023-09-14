@@ -20,6 +20,8 @@ type FalseNotFoundProps = {
 
 export default function ErrorHandler(props: Props) {
 
+    console.log(props.error)
+
     if (props.error instanceof ZodError) {
 
         return <ErrorToast error={props.error.issues} place={props.place} />;
