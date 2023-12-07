@@ -11,8 +11,8 @@ export default function GoBack() {
 
   return (
     <Button 
-        className="flex items-center w-fit py-4 pr-4 cursor-pointer"
-        variant={"ghost"}
+        className="flex items-center w-fit py-4 pr-4 pl-0 cursor-pointer"
+        variant={"link"}
         onClick={() => router.back()}
     >
         <FiChevronLeft className="h-4 w-4" /> 

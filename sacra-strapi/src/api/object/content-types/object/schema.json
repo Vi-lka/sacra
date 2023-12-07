@@ -67,7 +67,7 @@
         "objects.date-construction",
         "objects.date-construction-list"
       ],
-      "required": true,
+      "required": false,
       "max": 1,
       "min": 1
     },
@@ -153,9 +153,9 @@
       "relation": "oneToOne",
       "target": "api::architect.architect"
     },
-    "architecturalStyle": {
+    "architecturalStyles": {
       "type": "relation",
-      "relation": "oneToOne",
+      "relation": "oneToMany",
       "target": "api::architectural-style.architectural-style"
     },
     "sources": {

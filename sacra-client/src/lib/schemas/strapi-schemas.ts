@@ -10,6 +10,9 @@ export const ImageSchema = z.object({
 .optional()
 export type ImageType = z.infer<typeof ImageSchema>;
 
+export const ConfessionEnum = z.enum(["Pravoslavie", "Buddizm", "Islam", "Katoliczizm", "Lyuteranstvo", "Protestantizm", "Iudaizm", "Shamanizm"]);
+export type ConfessionEnum = z.infer<typeof ConfessionEnum>;
+
 //.........................OBJECTS.........................//
 export const ObjectSchema = z.object({
     attributes: z.object({
@@ -88,7 +91,7 @@ export const ObjectBySlugSchema = z.object({
   title: z.string(),
   slug: z.string(),
   confession: z.object({
-    confession: z.string()
+    confession: ConfessionEnum
   }),
   region: z.object({
     region: z.string(),
@@ -123,12 +126,12 @@ export const ObjectBySlugSchema = z.object({
       })
     }).nullable()
   }),
-  architecturalStyle: z.object({
+  architecturalStyles: z.object({
     data: z.object({
       attributes: z.object({
         title: z.string()
       })
-    }).nullable()
+    }).array()
   }),
   dateOfConstruction: 
     DateOfConstructionSchema.array()

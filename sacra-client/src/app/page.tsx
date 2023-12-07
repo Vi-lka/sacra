@@ -10,7 +10,7 @@ export default function Home() {
         }}
       />
       <div 
-        className="gradient w-full h-[120vh] absolute top-0 z-[-1]" 
+        className="gradient w-full h-[100dvh] absolute top-0 z-[-1]" 
       />
       {/* <div className="relative lg:w-1/2 w-full h-[85vh] sm:text-start text-center sm:overflow-auto overflow-hidden">
         <ClientHydration fallback={

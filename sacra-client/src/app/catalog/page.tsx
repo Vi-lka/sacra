@@ -11,114 +11,65 @@ import type { Metadata } from "next";
 export const revalidate = 60
 
 export const metadata: Metadata = {
-    title: "Каталог",
+  title: "Каталог",
 };
 
 export default async function Catalog({
-    searchParams,
-  }: {
-    searchParams: { [key: string]: string | string[] | undefined },
-  }) {
+  searchParams,
+}: {
+  searchParams: { [key: string]: string | string[] | undefined },
+}) {
 
-    const defaultPageSize = 12
+  const defaultPageSize = 12
 
-    const page = searchParams['page'] ?? '1'
-    const per = searchParams['per'] ?? defaultPageSize
-    const sort = searchParams['sort'] as string | undefined
-    const search = searchParams['search'] as string | undefined
-    const region = searchParams['region'] as string | undefined
-    const confession = searchParams['confession'] as string | undefined
-    const archStyle = searchParams['archStyle'] as string | undefined
-    const architect = searchParams['architect'] as string | undefined
+  const page = searchParams['page'] ?? '1'
+  const per = searchParams['per'] ?? defaultPageSize
+  const sort = searchParams['sort'] as string | undefined
+  const search = searchParams['search'] as string | undefined
+  const region = searchParams['region'] as string | undefined
+  const confession = searchParams['confession'] as string | undefined
+  const archStyle = searchParams['archStyle'] as string | undefined
+  const architect = searchParams['architect'] as string | undefined
 
-    const sortData = [
-      { val: 'title:asc', text: 'Название: А-Я' },
-      { val: 'title:desc', text: 'Название: Я-А' },
-    ] as {val:string, text: string}[]
+  const sortData = [
+    { val: 'title:asc', text: 'Название: А-Я' },
+    { val: 'title:desc', text: 'Название: Я-А' },
+  ] as {val:string, text: string}[]
 
-    // try {
-    //   await getArchitecturalStyles()
-    //   await getArchitects()
-    // } catch (error) {
-    //   return (
-    //     <ErrorHandler 
-    //       error={error} 
-    //       place="Objects" 
-    //       notFound 
-    //       goBack={false}
-    //     >
-    //       <div className="mx-auto w-[95%] max-w-[2200px] md:w-[85%] mb-20">
-    //           <div className="mt-10">
-    //               <h1 className="font-bold md:text-2xl text-xl mb-4">
-    //                   Поиск по коллекции
-    //               </h1>
-    //               <SearchField placeholder="Найти..." />
-    //           </div>
+  const [ dataResult ] = await Promise.allSettled([
+    getObjects(
+      Number(page), 
+      Number(per), 
+      sort, 
+      search, 
+      region, 
+      confession, 
+      archStyle,
+      architect
+    )
+  ]);
+  if (dataResult.status === "rejected")
+  return (
+    <ErrorHandler
+      error={dataResult.reason as unknown}
+      place="Objects" 
+      notFound
+      goBack
+    >
+      <div className="mx-auto w-[95%] max-w-[2200px] md:w-[85%] mb-20">
+        <div className="mt-10">
+          <h1 className="font-bold md:text-2xl text-xl mb-4">
+            Поиск по коллекции
+          </h1>
+          <SearchField placeholder="Найти..." />
+        </div>
+        {/* <Separator className="my-8 bg-foreground" /> */}
+        {/* <Filters archStyleOptions={archStyleOptions} architectsOptions={architectsOptions} /> */}
+        <Separator className="my-8 bg-foreground" />
+      </div>
+    </ErrorHandler>
+  );
 
-    //           <Separator className="my-8 bg-foreground" />
-    //           <Filters />
-    //           <Separator className="my-8 bg-foreground" />
-    //       </div>
-    //     </ErrorHandler>
-    //   )
-    // }
-
-    // const archStylesResult = await getArchitecturalStyles()
-    // const architectsResult = await getArchitects()
-
-    // const archStyleOptions = archStylesResult.data.map(style => {
-    //   return {value: style.attributes.title, label: style.attributes.title}
-    // })
-
-    // const architectsOptions = architectsResult.data.map(style => {
-    //   return {value: style.attributes.title, label: style.attributes.title}
-    // })
-
-    try {
-        await getObjects(
-          Number(page), 
-          Number(per), 
-          sort, 
-          search, 
-          region, 
-          confession, 
-          archStyle,
-          architect
-        );
-    } catch (error) {
-        return (
-          <ErrorHandler 
-            error={error} 
-            place="Objects" 
-            notFound 
-            goBack={false}
-          >
-            <div className="mx-auto w-[95%] max-w-[2200px] md:w-[85%] mb-20">
-                <div className="mt-10">
-                    <h1 className="font-bold md:text-2xl text-xl mb-4">
-                        Поиск по коллекции
-                    </h1>
-                    <SearchField placeholder="Найти..." />
-                </div>
-
-                {/* <Separator className="my-8 bg-foreground" /> */}
-                {/* <Filters archStyleOptions={archStyleOptions} architectsOptions={architectsOptions} /> */}
-                <Separator className="my-8 bg-foreground" />
-            </div>
-          </ErrorHandler>
-        )
-    }
-
-    const dataResult = await getObjects(
-                              Number(page), 
-                              Number(per), 
-                              sort, 
-                              search, 
-                              region, 
-                              confession, 
-                              archStyle,
-                              architect
-                            );
 
   return (
     <div className="mx-auto w-[95%] max-w-[2200px] md:w-[85%] mb-20">
@@ -138,7 +89,7 @@ export default async function Catalog({
         <div className="">
             <div className="flex justify-between items-center mb-8">
                 <h1 className="font-bold md:text-lg text-base">
-                    Найдено {dataResult.meta.pagination.total} объектов
+                    Найдено {dataResult.value.meta.pagination.total} объектов
                 </h1>
 
                 <Sort 
@@ -147,7 +98,7 @@ export default async function Catalog({
             </div>
 
             <div className="md:w-full w-[85%] mx-auto mb-12 grid lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-6">
-                {dataResult.data.map((obj, index) => (
+                {dataResult.value.data.map((obj, index) => (
                   <ImgText
                     key={index}
                     className={"md:aspect-[5/4] aspect-square"}
@@ -168,7 +119,7 @@ export default async function Catalog({
 
             <div className="">
               <PaginationControls
-                length={dataResult.meta.pagination.total}
+                length={dataResult.value.meta.pagination.total}
                 defaultPageSize={defaultPageSize}
               />
             </div>

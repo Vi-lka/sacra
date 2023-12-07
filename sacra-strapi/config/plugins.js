@@ -4,7 +4,7 @@ module.exports = ({ env }) => ({
       enabled: true
     },
     'publisher': {
-          enabled: true
+        enabled: true
       },
     // ...
   });

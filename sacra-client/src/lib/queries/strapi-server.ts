@@ -275,7 +275,7 @@ export const getObjectBySlug = async (slug: string,): Promise<ObjectBySlugType> 
                 }
               }
             }
-            architecturalStyle {
+            architecturalStyles {
               data {
                 attributes {
                   title
