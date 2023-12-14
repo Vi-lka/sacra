@@ -37,7 +37,7 @@
   }
  
   .dark {
-    --background: 235, 89%, 7%;
+    --background: 235 89% 7%;
     --foreground: 0 0% 100%;
  
     --muted: 217.2 32.6% 17.5%;
@@ -58,8 +58,8 @@
     --secondary: 217.2 32.6% 17.5%;
     --secondary-foreground: 210 40% 98%;
  
-    --accent: 216, 86%, 75%;
-    --accent-foreground: 234, 86%, 12%;
+    --accent: 216 86% 75%;
+    --accent-foreground: 234 86% 12%;
  
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 85.7% 97.3%;
@@ -77,6 +77,10 @@
   }
 }
 
+html {
+  background-color: hsl(var(--background)) !important;
+}
+
 .gradient {
   background: rgb(11,24,51);
   background: linear-gradient(180deg, rgba(11,24,51,0.8) 0%, rgba(16,53,149,0.3) 40%, rgba(2,5,35,0.1) 55%, rgba(2,5,35,1) 80%, rgba(2,5,35,1) 95%)
@@ -86,4 +90,41 @@
   .circle {
     bottom: -65vw;
   }
+}
+
+.btn-shine {
+  position: relative;
+}
+.btn-shine:before {
+  content: "";
+  position: absolute;
+  left: -4px;
+  top: -4px;
+  right: -4px;
+  bottom: -4px;
+  transition: opacity 100ms ease-in-out, transform 100ms ease-in-out;
+  opacity: 0;
+  transform: scale(0.95);
+  will-change: opacity, transform;
+  background-image: linear-gradient(-45deg, transparent 30%, rgba(255, 255, 255, 0.4), transparent 70%);
+  background-size: 600%;
+  animation-duration: 5s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+.btn-shine.active:before, .btn-shine:focus:before, .btn-shine:hover:before {
+  opacity: 1;
+  transform: scale(1);
+  animation-name: animation-shine;
+}
+@keyframes animation-shine {
+  0% {
+    background-position: 100%;
+ }
+  30% {
+    background-position: 0%;
+ }
+  100% {
+    background-position: 0%;
+ }
 }

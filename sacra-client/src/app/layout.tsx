@@ -4,6 +4,7 @@ import { Montserrat } from 'next/font/google'
 import './globals.css'
 import { Toaster } from '@/components/ui/toaster';
 import Header from '@/components/custom/header/Header';
+import { Providers } from './providers';
 
 const montserrat = Montserrat({ subsets: ['cyrillic'] })
 
@@ -17,6 +18,7 @@ export const metadata: Metadata = {
     description: "Виртуальный путеводитель по сакральным местам Красноярского края, Республики Тывы и Республики Хакасии.",
     url: process.env.NEXT_PUBLIC_URL,
     siteName: "Сакра",
+    images: ["/images/image-placeholder-sacra.png"],
   },
   title: {
     default: "Сакра",
@@ -38,12 +40,14 @@ export default function RootLayout({
   return (
     <html lang="ru" suppressHydrationWarning className='dark'>
       <body className={montserrat.className}>
+      <Providers>
         <Header />
         <main>
           {children}
           <Toaster />
         </main>
         {/* <Footer /> */}
+      </Providers>
       </body>
     </html>
   )

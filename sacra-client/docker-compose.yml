@@ -13,6 +13,8 @@ services:
         REVALIDATE_TOKEN: ${REVALIDATE_TOKEN}
         NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN: ${NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN}
     restart: always
+    volumes:
+      - client_next_cache:/app/.next/cache
     ports:
       - 3000:3000
     networks:
@@ -25,4 +27,8 @@ services:
 networks:
   sacra:
     name: sacra
+    external: true
+
+volumes:
+  client_next_cache:
     external: true
