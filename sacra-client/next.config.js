@@ -11,7 +11,12 @@ const nextConfig = {
       NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN: process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN,
     },
     images: {
-      domains: [process.env.NEXT_PUBLIC_STRAPI_DOMAIN],
+      remotePatterns: [
+        {
+          protocol: "https",
+          hostname: process.env.NEXT_PUBLIC_STRAPI_DOMAIN,
+        },
+      ],
     },
     async rewrites() {
       return [

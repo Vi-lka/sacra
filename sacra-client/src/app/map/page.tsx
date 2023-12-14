@@ -22,7 +22,7 @@ export default async function MapPage() {
 
   return (
     <div>
-        <div className="mx-auto w-[95%] max-w-[2200px] md:w-[85%] mb-6">
+        <div className="mx-auto w-[95%] max-w-[2200px] md:w-[85%] mt-24 mb-6">
             <h1 className="font-bold md:text-2xl text-xl uppercase mb-3">
                 Сакральное Пространство <br/> Енисейской Сибири
             </h1>

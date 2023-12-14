@@ -5,6 +5,7 @@ import { useRouter, usePathname } from 'next/navigation'
 import { InputSearch } from './InputSearch'
 import { Button } from '@/components/ui/button'
 import { FiSearch, FiLoader, FiDelete } from 'react-icons/fi';
+import { cn } from '@/lib/utils'
 
 export default function SearchField({ placeholder }: { placeholder: string }) {
 
@@ -82,11 +83,13 @@ export default function SearchField({ placeholder }: { placeholder: string }) {
         onFocus={() => setFocus(true)}
         onBlur={() => setFocus(false)}
         placeholder={placeholder}
-        className={focus ? 
+        className={cn(
+          "transition-all",
+          focus ? 
             'w-full ring-ring ring-2 ring-offset-2' 
             : 
             'w-full'
-        }
+        )}
       >
         <FiSearch className="h-4 w-4" />
       </InputSearch>
