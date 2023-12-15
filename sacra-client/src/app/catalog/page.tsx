@@ -25,7 +25,7 @@ export default async function Catalog({
   const per = searchParams['per'] ?? defaultPageSize
   const sort = searchParams['sort'] as string | undefined
   const search = searchParams['search'] as string | undefined
-  const architects = searchParams['architects'] as string | undefined
+  const architects = searchParams['architect'] as string | undefined
 
   const sortData = [
     { val: 'title:asc', text: 'Название: А-Я' },
@@ -82,8 +82,8 @@ export default async function Catalog({
 
         <div className="">
             <div className="flex justify-between items-center mb-8">
-                <h1 className="font-bold md:text-lg text-base">
-                    Найдено {dataResult.value.meta.pagination.total} объектов
+                <h1 className="font-bold md:text-lg text-sm">
+                    <span className="md:inline hidden">Найдено</span> {dataResult.value.meta.pagination.total} объектов
                 </h1>
 
                 <Sort 

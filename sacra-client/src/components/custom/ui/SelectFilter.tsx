@@ -7,6 +7,7 @@ import React from 'react'
 import ErrorToast from './ErrorToast';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import type { Item } from '@/lib/schemas/strapi-schemas';
+import { cn } from '@/lib/utils';
 
 export default function SelectFilter({ 
   label,
@@ -17,7 +18,8 @@ export default function SelectFilter({
   loading,
   isError,
   error,
-  onLoadMore
+  onLoadMore,
+  className,
 }: {
   label: string,
   description: string,
@@ -27,7 +29,8 @@ export default function SelectFilter({
   loading: boolean,
   isError: boolean,
   error: Error | null,
-  onLoadMore: () => void
+  onLoadMore: () => void,
+  className?: string,
 }) {
   const [isOpen, setIsOpen] = React.useState(false);
 
@@ -88,7 +91,10 @@ export default function SelectFilter({
         onSelectionChange={handleSelectParams}
         variant="underlined"
         classNames={{popoverContent: "bg-background border border-border"}}
-        className="autocomplete max-w-sm lg:min-w-[40vw] min-w-[70vw]"
+        className={cn(
+          "autocomplete max-w-sm lg:min-w-[40vw] min-w-[65vw]",
+          className
+        )}
       >
         {(item) => (
           <AutocompleteItem key={item.attributes.title} className="capitalize" color="secondary">

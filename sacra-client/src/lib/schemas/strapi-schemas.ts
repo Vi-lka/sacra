@@ -1,5 +1,24 @@
 import { z } from "zod";
 
+export enum EntityEnum {
+  objects = "objects",
+  object = "object",
+  confessions = "confessions",
+  confession = "confession",
+  architects = "architects",
+  architect = "architect",
+  architecturalStyles = "architecturalStyles",
+  architecturalStyle = "architecturalStyle",
+  regions = "regions",
+  region = "region",
+  districts = "districts",
+  district = "district",
+  cities = "cities",
+  city = "city",
+  models3D = "models3D",
+  model3D = "model3D",
+}
+
 //.........................IMAGE.........................//
 export const Image = z.object({
   attributes: z.object({

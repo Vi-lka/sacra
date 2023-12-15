@@ -1,25 +1,25 @@
 import React from "react";
 import { useQuery } from "@tanstack/react-query";
 import request from "graphql-request";
-import type { Item, ItemsList } from "../schemas/strapi-schemas";
+import type { EntityEnum, Item, ItemsList } from "../schemas/strapi-schemas";
 
-export function useArchitectsList() {
+export function useList(entity: EntityEnum) {
   const [items, setItems] = React.useState<Array<Item>>([]);
   const [hasMore, setHasMore] = React.useState(true);
   const defaultLimit = 10; // Number of items per page
   const [limit, setLimit] = React.useState(defaultLimit);
 
   const { data, isFetching, isPending, isLoading, isError, error, refetch } = useQuery<
-    { architects: ItemsList },
+    { [entity in EntityEnum]: ItemsList },
     Error
   >({
-    queryKey: ["architects"],
+    queryKey: [entity],
     queryFn: async () =>
       request(
         `${process.env.NEXT_PUBLIC_STRAPI_API_URL}/graphql`,
         /* GraphGL */ `
-          query Architects {
-            architects(
+          query ${entity} {
+            ${entity}(
               pagination: {
                 pageSize: ${limit}
               }
@@ -53,10 +53,10 @@ export function useArchitectsList() {
   React.useEffect(() => {
     void refetch();
     if (!!data) {
-      setItems(data.architects.data)
-      setHasMore(limit < data.architects.meta.pagination.total)
+      setItems(data[entity].data)
+      setHasMore(limit < data[entity].meta.pagination.total)
     }
-  }, [data, limit, refetch]);
+  }, [entity, data, limit, refetch]);
 
   const onLoadMore = () => {
     setLimit(prev => prev + defaultLimit)
@@ -73,3 +73,4 @@ export function useArchitectsList() {
     onLoadMore,
   };
 };
+
