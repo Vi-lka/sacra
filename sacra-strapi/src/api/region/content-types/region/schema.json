@@ -4,7 +4,8 @@
   "info": {
     "singularName": "region",
     "pluralName": "regions",
-    "displayName": "Регион"
+    "displayName": "Регион",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -21,6 +22,12 @@
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::object.object",
+      "mappedBy": "region"
+    },
+    "districts": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::district.district",
       "mappedBy": "region"
     }
   }

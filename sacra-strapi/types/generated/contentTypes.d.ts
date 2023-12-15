@@ -855,6 +855,11 @@ export interface ApiCityCity extends Schema.CollectionType {
       'oneToMany',
       'api::object.object'
     >;
+    district: Attribute.Relation<
+      'api::city.city',
+      'manyToOne',
+      'api::district.district'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -912,6 +917,7 @@ export interface ApiDistrictDistrict extends Schema.CollectionType {
     singularName: 'district';
     pluralName: 'districts';
     displayName: '\u0420\u0430\u0439\u043E\u043D';
+    description: '';
   };
   options: {
     draftAndPublish: true;
@@ -927,6 +933,16 @@ export interface ApiDistrictDistrict extends Schema.CollectionType {
       'api::district.district',
       'oneToMany',
       'api::object.object'
+    >;
+    region: Attribute.Relation<
+      'api::district.district',
+      'manyToOne',
+      'api::region.region'
+    >;
+    cities: Attribute.Relation<
+      'api::district.district',
+      'oneToMany',
+      'api::city.city'
     >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
@@ -1013,7 +1029,6 @@ export interface ApiObjectObject extends Schema.CollectionType {
         };
       }>;
     location: Attribute.String &
-      Attribute.Required &
       Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
@@ -1036,7 +1051,6 @@ export interface ApiObjectObject extends Schema.CollectionType {
         maxLength: 5000;
       }>;
     imagesSlider: Attribute.Media &
-      Attribute.Required &
       Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
@@ -1124,6 +1138,12 @@ export interface ApiObjectObject extends Schema.CollectionType {
       'manyToOne',
       'api::city.city'
     >;
+    architectsString: Attribute.Text &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1154,6 +1174,7 @@ export interface ApiRegionRegion extends Schema.CollectionType {
     singularName: 'region';
     pluralName: 'regions';
     displayName: '\u0420\u0435\u0433\u0438\u043E\u043D';
+    description: '';
   };
   options: {
     draftAndPublish: true;
@@ -1169,6 +1190,11 @@ export interface ApiRegionRegion extends Schema.CollectionType {
       'api::region.region',
       'oneToMany',
       'api::object.object'
+    >;
+    districts: Attribute.Relation<
+      'api::region.region',
+      'oneToMany',
+      'api::district.district'
     >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;

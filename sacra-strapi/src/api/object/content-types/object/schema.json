@@ -32,7 +32,7 @@
         }
       },
       "type": "string",
-      "required": true
+      "required": false
     },
     "geolocation": {
       "type": "component",
@@ -58,7 +58,7 @@
     "imagesSlider": {
       "type": "media",
       "multiple": true,
-      "required": true,
+      "required": false,
       "allowedTypes": [
         "images"
       ],
@@ -179,6 +179,14 @@
       "relation": "manyToOne",
       "target": "api::city.city",
       "inversedBy": "objects"
+    },
+    "architectsString": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "text"
     }
   }
 }

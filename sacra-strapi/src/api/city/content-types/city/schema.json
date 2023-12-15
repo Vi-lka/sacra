@@ -22,6 +22,12 @@
       "relation": "oneToMany",
       "target": "api::object.object",
       "mappedBy": "city"
+    },
+    "district": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::district.district",
+      "inversedBy": "cities"
     }
   }
 }
