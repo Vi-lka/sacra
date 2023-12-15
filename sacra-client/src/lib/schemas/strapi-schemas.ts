@@ -1,104 +1,79 @@
 import { z } from "zod";
 
 //.........................IMAGE.........................//
-export const ImageSchema = z.object({
+export const Image = z.object({
   attributes: z.object({
     url: z.string(),
   }),
 })
 .nullable()
 .optional()
-export type ImageType = z.infer<typeof ImageSchema>;
-
-export const ConfessionEnum = z.enum(["Pravoslavie", "Buddizm", "Islam", "Katoliczizm", "Lyuteranstvo", "Protestantizm", "Iudaizm", "Shamanizm"]);
-export type ConfessionEnum = z.infer<typeof ConfessionEnum>;
-
-//.........................OBJECTS.........................//
-export const ObjectSchema = z.object({
-    attributes: z.object({
-      title: z.string(),
-      slug: z.string(),
-      region: z.object({
-        region: z.string(),
-      }),
-      location: z.string(),
-      geolocation: z.object({
-        latitude: z.number(),
-        longitude: z.number()
-      }),
-      imagesSlider: z.object({
-        data: ImageSchema.array()
-      }),
-    }),
-});
-export type ObjectType = z.infer<typeof ObjectSchema>;
-
-export const ObjectsSchema = z.object({
-  meta: z.object({
-    pagination: z.object({
-      total: z.number(),
-    })
-  }),
-  data: ObjectSchema.array()
-});
-export type ObjectsType = z.infer<typeof ObjectsSchema>;
+export type Image = z.infer<typeof Image>;
 
 //.........................ARCHITECTURAl STYLES.........................//
-export const ArchitecturalStyleSingleSchema = z.object({
+export const ArchitecturalStyleSingle = z.object({
   attributes: z.object({
     title: z.string()
   })
 });
-export type ArchitecturalStyleSingleType = z.infer<typeof ArchitecturalStyleSingleSchema>;
+export type ArchitecturalStyleSingle = z.infer<typeof ArchitecturalStyleSingle>;
 
-export const ArchitecturalStylesSchema = z.object({
-  data: ArchitecturalStyleSingleSchema.array()
+export const ArchitecturalStyles = z.object({
+  data: ArchitecturalStyleSingle.array()
 });
-export type ArchitecturalStylesType = z.infer<typeof ArchitecturalStylesSchema>;
+export type ArchitecturalStyles = z.infer<typeof ArchitecturalStyles>;
 
 //.........................ARCHITECTS.........................//
-export const ArchitectSingleSchema = z.object({
+export const ArchitectSingle = z.object({
   attributes: z.object({
     title: z.string()
   })
 });
-export type ArchitectSingleType = z.infer<typeof ArchitectSingleSchema>;
+export type ArchitectSingle = z.infer<typeof ArchitectSingle>;
 
-export const ArchitectsSchema = z.object({
-  data: ArchitectSingleSchema.array()
+export const Architects = z.object({
+  data: ArchitectSingle.array()
 });
-export type ArchitectsType = z.infer<typeof ArchitectsSchema>;
+export type Architects = z.infer<typeof Architects>;
 
-//.........................DATE LIST.........................//
-export const DateListSchema = z.object({
-  prefix: z.string().nullable(),
-  firstDate: z.string(),
-  secondPrefix: z.string().nullable(),
-  secondDate: z.string().nullable(),
-  postfix: z.string(),
-  era: z.string()
-})
-export type DateListType = z.infer<typeof DateListSchema>;
+//.........................OBJECTS.........................//
+export const Object = z.object({
+  attributes: z.object({
+    title: z.string(),
+    slug: z.string(),
+    location: z.string(),
+    geolocation: z.object({
+      latitude: z.number(),
+      longitude: z.number()
+    }),
+    imagesSlider: z.object({
+      data: Image.array()
+    }),
+  }),
+});
+export type Object = z.infer<typeof Object>;
+
+export const Objects = z.object({
+meta: z.object({
+  pagination: z.object({
+    total: z.number(),
+  })
+}),
+data: Object.array()
+});
+export type Objects = z.infer<typeof Objects>;
 
 //.........................OBJECT BY SLUG.........................//
-export const DateOfConstructionSchema = z.object({
-  dateConstruction: z.string()
-})
-export type DateOfConstructionType = z.infer<typeof DateOfConstructionSchema>;
 
-
-export const ObjectBySlugSchema = z.object({
+export const ObjectBySlug = z.object({
   title: z.string(),
   slug: z.string(),
-  confession: z.object({
-    confession: ConfessionEnum
-  }),
   region: z.object({
     region: z.string(),
   }),
   location: z.string(),
   imagesSlider: z.object({
-    data: ImageSchema.array()
+    data: Image.array()
   }),
   geolocation: z.object({
     latitude: z.number(),
@@ -133,14 +108,9 @@ export const ObjectBySlugSchema = z.object({
       })
     }).array()
   }),
-  dateOfConstruction: 
-    DateOfConstructionSchema.array()
-  .or(
-    DateListSchema.array()
-  ),
   sources: z.object({
     title: z.string(),
     url: z.string()
   }).array().nullable()
 });
-export type ObjectBySlugType = z.infer<typeof ObjectBySlugSchema>;
+export type ObjectBySlug = z.infer<typeof ObjectBySlug>;

@@ -23,7 +23,7 @@ export default function ImgText(props: Props) {
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
-        transition={{ duration: 0.3, type: "tween" }}
+        transition={{ duration: 0.3, type: "tween", delay: 0.1 }}
         className="flex flex-col gap-3 h-fit"
       >
         <Link
@@ -34,10 +34,10 @@ export default function ImgText(props: Props) {
           )}
         >
           <motion.div
-            initial={{ scale: 0.6, y: -120 }}
-            whileInView={{ scale: 1, y: 0 }}
+            initial={{ y: -20 }}
+            whileInView={{ y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6, type: "spring" }}
+            transition={{ duration: 0.6, type: "spring", delay: 0.1 }}
             className="btn-shine relative flex w-full"
           >
             <ImageComponent
@@ -46,7 +46,7 @@ export default function ImgText(props: Props) {
               height={props.height ? props.height : 320}
               fill={false}
               priority={true}
-              className={"w-full object-cover"}
+              className={"min-h-full my-auto object-cover "}
               alt={props.title ? props.title : ""}
             />
             <div className="absolute bottom-0 h-full w-full bg-black bg-opacity-10" />

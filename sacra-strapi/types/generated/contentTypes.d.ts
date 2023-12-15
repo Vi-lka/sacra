@@ -724,6 +724,7 @@ export interface ApiArchitectArchitect extends Schema.CollectionType {
     singularName: 'architect';
     pluralName: 'architects';
     displayName: '\u0410\u0440\u0445\u0438\u0442\u0435\u043A\u0442\u043E\u0440';
+    description: '';
   };
   options: {
     draftAndPublish: true;
@@ -736,11 +737,20 @@ export interface ApiArchitectArchitect extends Schema.CollectionType {
   attributes: {
     title: Attribute.String &
       Attribute.Required &
+      Attribute.Unique &
       Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
+      }> &
+      Attribute.SetMinMaxLength<{
+        maxLength: 255;
       }>;
+    objects: Attribute.Relation<
+      'api::architect.architect',
+      'manyToMany',
+      'api::object.object'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -772,6 +782,7 @@ export interface ApiArchitecturalStyleArchitecturalStyle
     singularName: 'architectural-style';
     pluralName: 'architectural-styles';
     displayName: '\u0410\u0440\u0445\u0438\u0442\u0435\u043A\u0442\u0443\u0440\u043D\u044B\u0439 \u0441\u0442\u0438\u043B\u044C';
+    description: '';
   };
   options: {
     draftAndPublish: true;
@@ -784,11 +795,20 @@ export interface ApiArchitecturalStyleArchitecturalStyle
   attributes: {
     title: Attribute.String &
       Attribute.Required &
+      Attribute.Unique &
       Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
+      }> &
+      Attribute.SetMinMaxLength<{
+        maxLength: 255;
       }>;
+    objects: Attribute.Relation<
+      'api::architectural-style.architectural-style',
+      'manyToMany',
+      'api::object.object'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -813,6 +833,119 @@ export interface ApiArchitecturalStyleArchitecturalStyle
   };
 }
 
+export interface ApiCityCity extends Schema.CollectionType {
+  collectionName: 'cities';
+  info: {
+    singularName: 'city';
+    pluralName: 'cities';
+    displayName: '\u0413\u043E\u0440\u043E\u0434';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    title: Attribute.String &
+      Attribute.Required &
+      Attribute.Unique &
+      Attribute.SetMinMaxLength<{
+        maxLength: 255;
+      }>;
+    objects: Attribute.Relation<
+      'api::city.city',
+      'oneToMany',
+      'api::object.object'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<'api::city.city', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<'api::city.city', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+  };
+}
+
+export interface ApiConfessionConfession extends Schema.CollectionType {
+  collectionName: 'confessions';
+  info: {
+    singularName: 'confession';
+    pluralName: 'confessions';
+    displayName: '\u041A\u043E\u043D\u0444\u0435\u0441\u0441\u0438\u044F';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    title: Attribute.String &
+      Attribute.Required &
+      Attribute.Unique &
+      Attribute.SetMinMaxLength<{
+        maxLength: 255;
+      }>;
+    objects: Attribute.Relation<
+      'api::confession.confession',
+      'oneToMany',
+      'api::object.object'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::confession.confession',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::confession.confession',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiDistrictDistrict extends Schema.CollectionType {
+  collectionName: 'districts';
+  info: {
+    singularName: 'district';
+    pluralName: 'districts';
+    displayName: '\u0420\u0430\u0439\u043E\u043D';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    title: Attribute.String &
+      Attribute.Required &
+      Attribute.Unique &
+      Attribute.SetMinMaxLength<{
+        maxLength: 255;
+      }>;
+    objects: Attribute.Relation<
+      'api::district.district',
+      'oneToMany',
+      'api::object.object'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::district.district',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::district.district',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiModels3DModels3D extends Schema.CollectionType {
   collectionName: 'model3d';
   info: {
@@ -826,7 +959,17 @@ export interface ApiModels3DModels3D extends Schema.CollectionType {
   };
   attributes: {
     file: Attribute.Media & Attribute.Required;
-    title: Attribute.String & Attribute.Required;
+    title: Attribute.String &
+      Attribute.Required &
+      Attribute.Unique &
+      Attribute.SetMinMaxLength<{
+        maxLength: 255;
+      }>;
+    object: Attribute.Relation<
+      'api::models3d.models3d',
+      'manyToOne',
+      'api::object.object'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -869,13 +1012,6 @@ export interface ApiObjectObject extends Schema.CollectionType {
           localized: true;
         };
       }>;
-    region: Attribute.Component<'objects.region'> &
-      Attribute.Required &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
     location: Attribute.String &
       Attribute.Required &
       Attribute.SetPluginOptions<{
@@ -885,26 +1021,6 @@ export interface ApiObjectObject extends Schema.CollectionType {
       }>;
     geolocation: Attribute.Component<'objects.geolocation'> &
       Attribute.Required &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
-    dateOfConstruction: Attribute.DynamicZone<
-      ['objects.date-construction', 'objects.date-construction-list']
-    > &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }> &
-      Attribute.SetMinMax<{
-        min: 1;
-        max: 1;
-      }>;
-    appearanceChanges: Attribute.DynamicZone<
-      ['objects.appearance-changes', 'objects.appearance-changes-date-list']
-    > &
       Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
@@ -938,27 +1054,21 @@ export interface ApiObjectObject extends Schema.CollectionType {
           localized: true;
         };
       }>;
-    confession: Attribute.Component<'objects.confession'> &
-      Attribute.Required &
+    order: Attribute.BigInteger &
+      Attribute.Unique &
       Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }>;
-    order: Attribute.BigInteger &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: false;
-        };
-      }>;
-    architect: Attribute.Relation<
+    architects: Attribute.Relation<
       'api::object.object',
-      'oneToOne',
+      'manyToMany',
       'api::architect.architect'
     >;
-    architecturalStyles: Attribute.Relation<
+    architectural_styles: Attribute.Relation<
       'api::object.object',
-      'oneToMany',
+      'manyToMany',
       'api::architectural-style.architectural-style'
     >;
     sources: Attribute.Component<'objects.sources', true> &
@@ -974,10 +1084,45 @@ export interface ApiObjectObject extends Schema.CollectionType {
           localized: true;
         };
       }>;
-    model3d: Attribute.Relation<
+    models: Attribute.Relation<
       'api::object.object',
-      'oneToOne',
+      'oneToMany',
       'api::models3d.models3d'
+    >;
+    dateConstruction: Attribute.Text &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    appearanceChangesList: Attribute.Component<
+      'objects.appearance-changes',
+      true
+    > &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    confession: Attribute.Relation<
+      'api::object.object',
+      'manyToOne',
+      'api::confession.confession'
+    >;
+    region: Attribute.Relation<
+      'api::object.object',
+      'manyToOne',
+      'api::region.region'
+    >;
+    district: Attribute.Relation<
+      'api::object.object',
+      'manyToOne',
+      'api::district.district'
+    >;
+    city: Attribute.Relation<
+      'api::object.object',
+      'manyToOne',
+      'api::city.city'
     >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
@@ -1003,6 +1148,46 @@ export interface ApiObjectObject extends Schema.CollectionType {
   };
 }
 
+export interface ApiRegionRegion extends Schema.CollectionType {
+  collectionName: 'regions';
+  info: {
+    singularName: 'region';
+    pluralName: 'regions';
+    displayName: '\u0420\u0435\u0433\u0438\u043E\u043D';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    title: Attribute.String &
+      Attribute.Required &
+      Attribute.Unique &
+      Attribute.SetMinMaxLength<{
+        maxLength: 255;
+      }>;
+    objects: Attribute.Relation<
+      'api::region.region',
+      'oneToMany',
+      'api::object.object'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::region.region',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::region.region',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 declare module '@strapi/types' {
   export module Shared {
     export interface ContentTypes {
@@ -1022,8 +1207,12 @@ declare module '@strapi/types' {
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
       'api::architect.architect': ApiArchitectArchitect;
       'api::architectural-style.architectural-style': ApiArchitecturalStyleArchitecturalStyle;
+      'api::city.city': ApiCityCity;
+      'api::confession.confession': ApiConfessionConfession;
+      'api::district.district': ApiDistrictDistrict;
       'api::models3d.models3d': ApiModels3DModels3D;
       'api::object.object': ApiObjectObject;
+      'api::region.region': ApiRegionRegion;
     }
   }
 }

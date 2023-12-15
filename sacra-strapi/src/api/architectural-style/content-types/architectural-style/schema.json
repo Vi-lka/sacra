@@ -4,7 +4,8 @@
   "info": {
     "singularName": "architectural-style",
     "pluralName": "architectural-styles",
-    "displayName": "Архитектурный стиль"
+    "displayName": "Архитектурный стиль",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -22,7 +23,15 @@
         }
       },
       "type": "string",
-      "required": true
+      "required": true,
+      "unique": true,
+      "maxLength": 255
+    },
+    "objects": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::object.object",
+      "mappedBy": "architectural_styles"
     }
   }
 }

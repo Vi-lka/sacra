@@ -92,6 +92,20 @@ html {
   }
 }
 
+.navbar header {
+  width: 95%;
+  max-width: 2200px;
+  margin: 0 auto;
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
+@media (min-width: 768px) {
+  .navbar header {
+    width: 85%;
+  }
+}
+
 .btn-shine {
   position: relative;
 }
@@ -127,4 +141,8 @@ html {
   100% {
     background-position: 0%;
  }
+}
+
+.no-anim * {
+  animation-delay: -99s !important;
 }

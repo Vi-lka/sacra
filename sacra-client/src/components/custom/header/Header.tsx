@@ -12,26 +12,22 @@ export default function Header() {
   const [bg, setBg] = React.useState(false);
 
   React.useEffect(() => {
-    if (position > 10) setBg(true)
+    if (position > 10 || isMenuOpen) setBg(true)
     else setBg(false)
-  }, [position])
+  }, [isMenuOpen, position])
 
   return (
           <Navbar 
             onScrollPositionChange={setPosition} 
             onMenuOpenChange={setIsMenuOpen} 
-            isBlurred={isMenuOpen || bg ? true : false}
+            isBlurred={false}
             isBordered={bg}
             className={cn(
-              "font-Inter fixed z-50 transition-all",
-              bg ? "bg-background/50 lg:py-1" : "bg-transparent lg:py-3"
+              "navbar w-full font-Inter fixed z-50 transition-all",
+              bg ? "bg-background/95 lg:py-1" : "bg-transparent lg:py-3"
             )} 
           >
             <NavbarContent>
-              <NavbarMenuToggle
-                aria-label={isMenuOpen ? "Close menu" : "Open menu"}
-                className="sm:hidden"
-              />
               <NavbarBrand>
                 <Link
                   href={`/`}
@@ -40,7 +36,11 @@ export default function Header() {
                   <LogoSvg />
                 </Link>
               </NavbarBrand>
-              </NavbarContent>
+              <NavbarMenuToggle
+                aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+                className="sm:hidden"
+              />
+            </NavbarContent>
         
             <NavbarContent className="hidden sm:flex gap-4" justify="center">
               <NavbarItem>
@@ -65,7 +65,7 @@ export default function Header() {
                 </Link>
               </NavbarItem>
             </NavbarContent>
-            <NavbarMenu className='pt-12'>
+            <NavbarMenu className='pt-12 bg-background/95'>
                 <NavbarMenuItem>
                   <NextUILink color="foreground" className="w-full font-medium text-lg mb-6" href="/" size="lg">
                     Главная

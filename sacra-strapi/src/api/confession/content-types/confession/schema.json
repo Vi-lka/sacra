@@ -1,10 +1,10 @@
 {
   "kind": "collectionType",
-  "collectionName": "model3d",
+  "collectionName": "confessions",
   "info": {
-    "singularName": "models3d",
-    "pluralName": "model3d",
-    "displayName": "3D модели",
+    "singularName": "confession",
+    "pluralName": "confessions",
+    "displayName": "Конфессия",
     "description": ""
   },
   "options": {
@@ -12,25 +12,17 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "file": {
-      "type": "media",
-      "multiple": false,
-      "required": true,
-      "allowedTypes": [
-        "files"
-      ]
-    },
     "title": {
       "type": "string",
       "required": true,
       "maxLength": 255,
       "unique": true
     },
-    "object": {
+    "objects": {
       "type": "relation",
-      "relation": "manyToOne",
+      "relation": "oneToMany",
       "target": "api::object.object",
-      "inversedBy": "models"
+      "mappedBy": "confession"
     }
   }
 }

@@ -1,0 +1,27 @@
+{
+  "kind": "collectionType",
+  "collectionName": "regions",
+  "info": {
+    "singularName": "region",
+    "pluralName": "regions",
+    "displayName": "Регион"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true,
+      "maxLength": 255,
+      "unique": true
+    },
+    "objects": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::object.object",
+      "mappedBy": "region"
+    }
+  }
+}

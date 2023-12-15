@@ -1,36 +1,15 @@
 import "server-only"
 
 import { notFound } from "next/navigation";
-import { ArchitectsSchema, ArchitecturalStylesSchema, ObjectBySlugSchema, ObjectsSchema  } from "../schemas/strapi-schemas";
-import type {ArchitectsType, ArchitecturalStylesType, ObjectBySlugType, ObjectsType} from "../schemas/strapi-schemas";
+import {Architects, ArchitecturalStyles, ObjectBySlug, Objects} from "../schemas/strapi-schemas";
 
 export const getObjects = async (
     page: number,
     per: number,
     sort = "order:asc",
     search = "",
-    region: string | null = null,
-    confession: string | null = null,
-    archStyle: string | null = null,
-    architect: string | null = null,
-    tour = false,
-    model3d = false,
-  ): Promise<ObjectsType> => {
+  ): Promise<Objects> => {
     const headers = { "Content-Type": "application/json" };
-
-    function getFilter(entity: string, string: string | null) {
-      let filter = ""
-
-      const arrayFormString = string?.split('_')
-
-      if (arrayFormString) {
-        arrayFormString.forEach(filterString => {
-          filter = filter + `{${entity}: {eqi: "${filterString}"}}`
-        })
-      }
-
-      return filter
-    }
 
     const query = /* GraphGL */ `
       query Objects {
@@ -43,13 +22,7 @@ export const getObjects = async (
           },
           filters: {
             and: [
-                { title: {containsi: "${search}"} },
-                ${region ? `{ region: {or: [${getFilter("region", region)}]} },` : ''}
-                ${confession ? `{ confession: {or: [${getFilter("confession", confession)}]} },` : ''}
-                ${archStyle ? `{ architecturalStyle: {or: [${getFilter("title", archStyle)}]} },` : ''}
-                ${architect ? `{ architect: {or: [${getFilter("title", architect)}]} },` : ''}
-                ${tour ? `{ urlTour: {notNull: ${tour}} },` : ''}
-                ${model3d ? `{ model3d: {title: {notNull: ${model3d}}} }` : ''}
+              { title: {containsi: "${search}"} },
             ]
           }
         ) {
@@ -62,9 +35,6 @@ export const getObjects = async (
             attributes {
               title
               slug
-              region {
-                region
-              }
               location
               geolocation {
                 latitude
@@ -117,12 +87,12 @@ export const getObjects = async (
     }
   
     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-    const Objects = ObjectsSchema.parse(json.data?.objects);
+    const objects = Objects.parse(json.data?.objects);
   
-    return Objects;
+    return objects;
 };
 
-export const getArchitecturalStyles = async (): Promise<ArchitecturalStylesType> => {
+export const getArchitecturalStyles = async (): Promise<ArchitecturalStyles> => {
     const headers = { "Content-Type": "application/json" };
     const query = /* GraphGL */ `
       query ArchStyles {
@@ -166,12 +136,12 @@ export const getArchitecturalStyles = async (): Promise<ArchitecturalStylesType>
     }
   
     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-    const ArchitecturalStyles = ArchitecturalStylesSchema.parse(json.data?.architecturalStyles);
+    const architecturalStyles = ArchitecturalStyles.parse(json.data?.architecturalStyles);
   
-    return ArchitecturalStyles;
+    return architecturalStyles;
 };
 
-export const getArchitects = async (): Promise<ArchitectsType> => {
+export const getArchitects = async (): Promise<Architects> => {
   const headers = { "Content-Type": "application/json" };
   const query = /* GraphGL */ `
     query Architects {
@@ -215,12 +185,12 @@ export const getArchitects = async (): Promise<ArchitectsType> => {
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-  const Architects = ArchitectsSchema.parse(json.data?.architects);
+  const architects = Architects.parse(json.data?.architects);
 
-  return Architects;
+  return architects;
 };
 
-export const getObjectBySlug = async (slug: string,): Promise<ObjectBySlugType> => {
+export const getObjectBySlug = async (slug: string,): Promise<ObjectBySlug> => {
   const headers = { "Content-Type": "application/json" };
   const query = /* GraphGL */ `
     query ObjectBySlug {
@@ -335,7 +305,7 @@ export const getObjectBySlug = async (slug: string,): Promise<ObjectBySlugType> 
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-  const ObjectBySlug = ObjectBySlugSchema.parse(json.data?.objects.data[0].attributes);
+  const object = ObjectBySlug.parse(json.data?.objects.data[0].attributes);
 
-  return ObjectBySlug;
+  return object;
 };

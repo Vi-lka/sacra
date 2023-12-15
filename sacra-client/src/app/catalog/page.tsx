@@ -5,7 +5,6 @@ import PaginationControls from "@/components/custom/ui/PaginationControls";
 import SearchField from "@/components/custom/ui/SearchField";
 import Sort from "@/components/custom/ui/Sort";
 import { getObjects } from "@/lib/queries/strapi-server";
-import { getRegion } from "@/lib/utils";
 import type { Metadata } from "next";
 
 export const revalidate = 60
@@ -26,10 +25,6 @@ export default async function Catalog({
   const per = searchParams['per'] ?? defaultPageSize
   const sort = searchParams['sort'] as string | undefined
   const search = searchParams['search'] as string | undefined
-  const region = searchParams['region'] as string | undefined
-  const confession = searchParams['confession'] as string | undefined
-  const archStyle = searchParams['archStyle'] as string | undefined
-  const architect = searchParams['architect'] as string | undefined
 
   const sortData = [
     { val: 'title:asc', text: 'Название: А-Я' },
@@ -41,11 +36,7 @@ export default async function Catalog({
       Number(page), 
       Number(per), 
       sort, 
-      search, 
-      region, 
-      confession, 
-      archStyle,
-      architect
+      search,
     )
   ]);
   if (dataResult.status === "rejected")
@@ -110,8 +101,6 @@ export default async function Catalog({
                   >
                      <p className="w-full xl:text-sm text-xs text-center">
                         <span className="font-bold xl:text-base text-sm">{obj.attributes.title}</span>
-                        <br/>
-                        {getRegion(obj.attributes.region.region)}, {obj.attributes.location}
                       </p>
                   </ImgText>
                 ))}
