@@ -106,6 +106,10 @@ html {
   }
 }
 
+.autocomplete label {
+  color: hsl(var(--foreground))
+}
+
 .btn-shine {
   position: relative;
 }
@@ -122,8 +126,8 @@ html {
   will-change: opacity, transform;
   background-image: linear-gradient(-45deg, transparent 30%, rgba(255, 255, 255, 0.4), transparent 70%);
   background-size: 600%;
-  animation-duration: 5s;
-  animation-timing-function: linear;
+  animation-duration: 3s;
+  animation-timing-function: ease-out;
   animation-iteration-count: infinite;
 }
 .btn-shine.active:before, .btn-shine:focus:before, .btn-shine:hover:before {

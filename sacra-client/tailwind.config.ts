@@ -85,7 +85,8 @@ module.exports = {
         },
         dark: {
           // ...
-          colors: {},
+          colors: {
+          },
         },
         // ... custom themes
       },

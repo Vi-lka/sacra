@@ -1,13 +1,14 @@
 import "server-only"
 
 import { notFound } from "next/navigation";
-import {Architects, ArchitecturalStyles, ObjectBySlug, Objects} from "../schemas/strapi-schemas";
+import { ItemsList, ObjectBySlug, Objects } from "../schemas/strapi-schemas";
 
 export const getObjects = async (
     page: number,
     per: number,
     sort = "order:asc",
     search = "",
+    architects?: string
   ): Promise<Objects> => {
     const headers = { "Content-Type": "application/json" };
 
@@ -23,6 +24,17 @@ export const getObjects = async (
           filters: {
             and: [
               { title: {containsi: "${search}"} },
+              ${architects 
+                ? `{
+                  architects: {
+                    title: {
+                      containsi: "${architects}"
+                    }
+                  }
+                }`
+                : ''
+              }
+
             ]
           }
         ) {
@@ -92,7 +104,7 @@ export const getObjects = async (
     return objects;
 };
 
-export const getArchitecturalStyles = async (): Promise<ArchitecturalStyles> => {
+export const getArchitecturalStyles = async (): Promise<ItemsList> => {
     const headers = { "Content-Type": "application/json" };
     const query = /* GraphGL */ `
       query ArchStyles {
@@ -136,12 +148,12 @@ export const getArchitecturalStyles = async (): Promise<ArchitecturalStyles> => 
     }
   
     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-    const architecturalStyles = ArchitecturalStyles.parse(json.data?.architecturalStyles);
+    const architecturalStyles = ItemsList.parse(json.data?.architecturalStyles);
   
     return architecturalStyles;
 };
 
-export const getArchitects = async (): Promise<Architects> => {
+export const getArchitects = async (): Promise<ItemsList> => {
   const headers = { "Content-Type": "application/json" };
   const query = /* GraphGL */ `
     query Architects {
@@ -185,7 +197,7 @@ export const getArchitects = async (): Promise<Architects> => {
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-  const architects = Architects.parse(json.data?.architects);
+  const architects = ItemsList.parse(json.data?.architects);
 
   return architects;
 };
@@ -203,15 +215,8 @@ export const getObjectBySlug = async (slug: string,): Promise<ObjectBySlug> => {
       ) {
         data {
           attributes {
-            title
             slug
-            confession {
-              confession
-            }
-            region {
-              region
-            }
-            location
+            title
             imagesSlider {
               data {
                 attributes {
@@ -219,14 +224,75 @@ export const getObjectBySlug = async (slug: string,): Promise<ObjectBySlug> => {
                 }
               }
             }
+            confession {
+              data {
+                attributes {
+                  title
+                }
+              }
+            }
+            architectural_styles {
+              data {
+                attributes {
+                  title
+                }
+              }
+            }
+            architects {
+              data {
+                attributes {
+                  title
+                }
+              }
+            }
+            architectsString
+            region {
+              data {
+                attributes {
+                  title
+                }
+              }
+            }
+            district {
+              data {
+                attributes {
+                  title
+                }
+              }
+            }
+            city {
+              data {
+                attributes {
+                  title
+                }
+              }
+            }
+            location
             geolocation {
               latitude
               longitude
             }
+            dateConstruction
+            appearanceChangesList {
+              title
+            }
+            historicalNote
             urlTour
-            model3d {
+            videos {
               data {
                 attributes {
+                  url
+                }
+              }
+            }
+            sources {
+              title
+              url
+            }
+            models {
+              data {
+                attributes {
+                  title
                   file {
                     data {
                       attributes {
@@ -236,38 +302,6 @@ export const getObjectBySlug = async (slug: string,): Promise<ObjectBySlug> => {
                   }
                 }
               }
-            }
-            historicalNote
-            architect {
-              data {
-                attributes {
-                  title
-                }
-              }
-            }
-            architecturalStyles {
-              data {
-                attributes {
-                  title
-                }
-              }
-            }
-            dateOfConstruction {
-              ... on ComponentObjectsDateConstruction {
-                dateConstruction
-              }
-              ... on ComponentObjectsDateConstructionList {
-                prefix
-                firstDate
-                secondPrefix
-                secondDate
-                postfix
-                era
-              }
-            }
-            sources {
-              title
-              url
             }
           }
         }
@@ -296,8 +330,6 @@ export const getObjectBySlug = async (slug: string,): Promise<ObjectBySlug> => {
 
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   const json = await res.json();
-
-  // await new Promise((resolve) => setTimeout(resolve, 3000));
 
   // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
   if ((json.data.objects.data.length === 0)) {

@@ -6,8 +6,7 @@ import React from 'react'
 import { FiChevronLeft } from 'react-icons/fi'
 
 export default function GoBack() {
-
-    const router = useRouter()
+  const router = useRouter()
 
   return (
     <Button 

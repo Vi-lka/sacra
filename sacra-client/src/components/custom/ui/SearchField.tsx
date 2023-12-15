@@ -4,10 +4,11 @@ import React from 'react'
 import { useRouter, usePathname } from 'next/navigation'
 import { InputSearch } from './InputSearch'
 import { Button } from '@/components/ui/button'
-import { FiSearch, FiLoader, FiDelete } from 'react-icons/fi';
+import { FiSearch, FiDelete } from 'react-icons/fi';
 import { cn } from '@/lib/utils'
+import { Spinner } from '@nextui-org/react'
 
-export default function SearchField({ placeholder }: { placeholder: string }) {
+export default function SearchField({ placeholder, className }: { placeholder: string, className?: string }) {
 
     const [inputValue, setInputValue] = React.useState<string>("")
     const [debouncedValue, setDebouncedValue] = React.useState<string>("")
@@ -36,11 +37,6 @@ export default function SearchField({ placeholder }: { placeholder: string }) {
         },
         [pathname, router],
     );
-
-    // EFFECT: Set Focus
-    React.useEffect(() => {
-      if (inputValue.length > 0) inputRef.current?.focus()
-    }, [inputRef, inputValue.length])
 
     // EFFECT: Set Initial Params
     React.useEffect(() => {
@@ -73,7 +69,7 @@ export default function SearchField({ placeholder }: { placeholder: string }) {
     }, [debouncedValue, handleSearchParams, mounted])
     
   return (
-    <div className='relative'>
+    <div className={cn("relative", className)}>
       <InputSearch
         ref={inputRef}
         value={inputValue}
@@ -96,7 +92,7 @@ export default function SearchField({ placeholder }: { placeholder: string }) {
       
       {isPending ? (
         <div className="absolute top-2 right-2">
-          <FiLoader className='w-6 h-6 animate-spin' />
+          <Spinner size='sm' />
         </div>
       ) : null}
       

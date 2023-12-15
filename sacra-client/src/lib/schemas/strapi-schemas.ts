@@ -10,38 +10,53 @@ export const Image = z.object({
 .optional()
 export type Image = z.infer<typeof Image>;
 
-//.........................ARCHITECTURAl STYLES.........................//
-export const ArchitecturalStyleSingle = z.object({
+//.........................ITEMS LIST.........................//
+export const Item = z.object({
+  id: z.string(),
   attributes: z.object({
     title: z.string()
   })
 });
-export type ArchitecturalStyleSingle = z.infer<typeof ArchitecturalStyleSingle>;
+export type Item = z.infer<typeof Item>;
 
-export const ArchitecturalStyles = z.object({
-  data: ArchitecturalStyleSingle.array()
+export const ItemsList = z.object({
+  meta: z.object({
+    pagination: z.object({
+      total: z.number(),
+    })
+  }),
+  data: Item.array()
 });
-export type ArchitecturalStyles = z.infer<typeof ArchitecturalStyles>;
+export type ItemsList = z.infer<typeof ItemsList>;
 
-//.........................ARCHITECTS.........................//
-export const ArchitectSingle = z.object({
+//.........................MODELS.........................//
+export const Model = z.object({
   attributes: z.object({
-    title: z.string()
+    title: z.string(),
+    file: z.object({
+      data: Image
+    }),
   })
 });
-export type ArchitectSingle = z.infer<typeof ArchitectSingle>;
+export type Model = z.infer<typeof Model>;
 
-export const Architects = z.object({
-  data: ArchitectSingle.array()
+export const Models = z.object({
+  meta: z.object({
+    pagination: z.object({
+      total: z.number(),
+    })
+  }),
+  data: Model.array()
 });
-export type Architects = z.infer<typeof Architects>;
+export type Models = z.infer<typeof Models>;
+
 
 //.........................OBJECTS.........................//
 export const Object = z.object({
   attributes: z.object({
     title: z.string(),
     slug: z.string(),
-    location: z.string(),
+    location: z.string().nullable(),
     geolocation: z.object({
       latitude: z.number(),
       longitude: z.number()
@@ -64,53 +79,51 @@ data: Object.array()
 export type Objects = z.infer<typeof Objects>;
 
 //.........................OBJECT BY SLUG.........................//
-
 export const ObjectBySlug = z.object({
-  title: z.string(),
   slug: z.string(),
-  region: z.object({
-    region: z.string(),
-  }),
-  location: z.string(),
+  title: z.string(),
   imagesSlider: z.object({
     data: Image.array()
   }),
+  confession: z.object({
+    data: Item.nullable()
+  }),
+  architectural_styles: z.object({
+    data: Item.array()
+  }),
+  architects: z.object({
+    data: Item.array()
+  }),
+  architectsString: z.string().nullable(),
+  region: z.object({
+    data: Item.nullable()
+  }),
+  district: z.object({
+    data: Item.nullable()
+  }),
+  city: z.object({
+    data: Item.nullable()
+  }),
+  location: z.string().nullable(),
   geolocation: z.object({
     latitude: z.number(),
     longitude: z.number()
   }),
-  urlTour: z.string().nullable(),
-  model3d: z.object({
-    data: z.object({
-      attributes: z.object({
-        file: z.object({
-          data: z.object({
-            attributes: z.object({
-              url: z.string()
-            })
-          })
-        })
-      })
-    }).nullable()
-  }),
+  dateConstruction: z.string().nullable(),
+  appearanceChangesList: z.object({
+    title: z.string(),
+  }).array(),
   historicalNote: z.string().nullable(),
-  architect: z.object({
-    data: z.object({
-      attributes: z.object({
-        title: z.string()
-      })
-    }).nullable()
-  }),
-  architecturalStyles: z.object({
-    data: z.object({
-      attributes: z.object({
-        title: z.string()
-      })
-    }).array()
+  urlTour: z.string().nullable(),
+  videos: z.object({
+    data: Image.array()
   }),
   sources: z.object({
     title: z.string(),
     url: z.string()
-  }).array().nullable()
+  }).array(),
+  models: z.object({
+    data: Model.array()
+  }),
 });
 export type ObjectBySlug = z.infer<typeof ObjectBySlug>;
