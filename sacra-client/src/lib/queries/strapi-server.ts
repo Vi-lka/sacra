@@ -1,14 +1,15 @@
 import "server-only"
 
 import { notFound } from "next/navigation";
-import { ItemsList, ObjectBySlug, Objects } from "../schemas/strapi-schemas";
+import { ObjectBySlug, Objects } from "../schemas/strapi-schemas";
 
 export const getObjects = async (
     page: number,
     per: number,
     sort = "order:asc",
     search = "",
-    architects?: string
+    architects?: string,
+    architecturalStyle?: string
   ): Promise<Objects> => {
     const headers = { "Content-Type": "application/json" };
 
@@ -34,7 +35,16 @@ export const getObjects = async (
                 }`
                 : ''
               }
-
+              ${architecturalStyle 
+                ? `{
+                  architectural_styles: {
+                    title: {
+                      containsi: "${architecturalStyle}"
+                    }
+                  }
+                }`
+                : ''
+              }
             ]
           }
         ) {
@@ -91,7 +101,7 @@ export const getObjects = async (
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     const json = await res.json();
   
-    // await new Promise((resolve) => setTimeout(resolve, 3000));
+    // await new Promise((resolve) => setTimeout(resolve, 1000));
 
     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     if ((json.data.objects.meta.pagination.total === 0) || (json.data.objects.data.length === 0)) {
@@ -104,105 +114,7 @@ export const getObjects = async (
     return objects;
 };
 
-export const getArchitecturalStyles = async (): Promise<ItemsList> => {
-    const headers = { "Content-Type": "application/json" };
-    const query = /* GraphGL */ `
-      query ArchStyles {
-        architecturalStyles {
-          data {
-            attributes {
-              title
-            }
-          }
-        }
-      }
-    `;
-    const res = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_API_URL}/graphql`, {
-      headers,
-      method: "POST",
-      body: JSON.stringify({
-        query,
-      }),
-      next: { 
-        tags: ["strapi"],
-        revalidate: 60
-      },
-    });
-  
-    if (!res.ok) {
-      // Log the error to an error reporting service
-      const err = await res.text();
-      console.log(err);
-      // Throw an error
-      throw new Error("Failed to fetch data 'Architectural Styles'");
-    }
-  
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-    const json = await res.json();
-  
-    // await new Promise((resolve) => setTimeout(resolve, 3000));
-  
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-    if ((json.data.architecturalStyles.data.length === 0)) {
-      notFound()
-    }
-  
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-    const architecturalStyles = ItemsList.parse(json.data?.architecturalStyles);
-  
-    return architecturalStyles;
-};
-
-export const getArchitects = async (): Promise<ItemsList> => {
-  const headers = { "Content-Type": "application/json" };
-  const query = /* GraphGL */ `
-    query Architects {
-      architects {
-        data {
-          attributes {
-            title
-          }
-        }
-      }
-    }
-  `;
-  const res = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_API_URL}/graphql`, {
-    headers,
-    method: "POST",
-    body: JSON.stringify({
-      query,
-    }),
-    next: { 
-      tags: ["strapi"],
-      revalidate: 60
-    },
-  });
-
-  if (!res.ok) {
-    // Log the error to an error reporting service
-    const err = await res.text();
-    console.log(err);
-    // Throw an error
-    throw new Error("Failed to fetch data 'Architects'");
-  }
-
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-  const json = await res.json();
-
-  // await new Promise((resolve) => setTimeout(resolve, 3000));
-
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-  if ((json.data.architects.data.length === 0)) {
-    notFound()
-  }
-
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-  const architects = ItemsList.parse(json.data?.architects);
-
-  return architects;
-};
-
-export const getObjectBySlug = async (slug: string,): Promise<ObjectBySlug> => {
+export const getObjectBySlug = async (slug: string): Promise<ObjectBySlug> => {
   const headers = { "Content-Type": "application/json" };
   const query = /* GraphGL */ `
     query ObjectBySlug {
@@ -226,6 +138,7 @@ export const getObjectBySlug = async (slug: string,): Promise<ObjectBySlug> => {
             }
             confession {
               data {
+                id
                 attributes {
                   title
                 }
@@ -233,6 +146,7 @@ export const getObjectBySlug = async (slug: string,): Promise<ObjectBySlug> => {
             }
             architectural_styles {
               data {
+                id
                 attributes {
                   title
                 }
@@ -240,6 +154,7 @@ export const getObjectBySlug = async (slug: string,): Promise<ObjectBySlug> => {
             }
             architects {
               data {
+                id
                 attributes {
                   title
                 }
@@ -248,6 +163,7 @@ export const getObjectBySlug = async (slug: string,): Promise<ObjectBySlug> => {
             architectsString
             region {
               data {
+                id
                 attributes {
                   title
                 }
@@ -255,6 +171,7 @@ export const getObjectBySlug = async (slug: string,): Promise<ObjectBySlug> => {
             }
             district {
               data {
+                id
                 attributes {
                   title
                 }
@@ -262,6 +179,7 @@ export const getObjectBySlug = async (slug: string,): Promise<ObjectBySlug> => {
             }
             city {
               data {
+                id
                 attributes {
                   title
                 }

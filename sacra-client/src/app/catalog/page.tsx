@@ -19,13 +19,14 @@ export default async function Catalog({
   searchParams: { [key: string]: string | string[] | undefined },
 }) {
 
-  const defaultPageSize = 1
+  const defaultPageSize = 12
 
   const page = searchParams['page'] ?? '1'
   const per = searchParams['per'] ?? defaultPageSize
   const sort = searchParams['sort'] as string | undefined
   const search = searchParams['search'] as string | undefined
   const architects = searchParams['architect'] as string | undefined
+  const architecturalStyle = searchParams['architecturalStyle'] as string | undefined
 
   const sortData = [
     { val: 'title:asc', text: 'Название: А-Я' },
@@ -38,7 +39,8 @@ export default async function Catalog({
       Number(per), 
       sort, 
       search,
-      architects
+      architects,
+      architecturalStyle
     )
   ]);
   if (dataResult.status === "rejected")

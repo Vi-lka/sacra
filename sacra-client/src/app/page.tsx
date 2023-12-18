@@ -5,7 +5,7 @@ export default function Home() {
     <div className="w-full gap-6 mb-20">
       <Hero />
       <div 
-        className="gradient w-full h-[100dvh] absolute top-0" 
+        className="gradient w-full h-screen absolute top-0" 
       />
       <div className="flex flex-col gap-6 items-center text-center">
 

@@ -95,7 +95,7 @@ export default function PaginationControls({
           onClick={() => handlePageSizeParams((Number(per) + defaultPageSize).toString())}
         >
           <span className="sr-only">Показать ещё</span>
-          {isPendingMore ? <Spinner size='sm' /> : "Показать ещё"}
+          {isPendingMore ? <Spinner size="sm" color="current" /> : "Показать ещё"}
         </Button>
       ) : null}
 
@@ -103,7 +103,7 @@ export default function PaginationControls({
 
             <div className='font-Inter flex items-center'>
                 {isPendingPage ? 
-                  <Spinner size='sm' />
+                  <Spinner />
                   : 
                   (
                     <>

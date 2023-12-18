@@ -47,7 +47,7 @@ export default function Hero() {
     };
 
     return (
-        <div className='flex relative h-max min-h-[95vh]'>
+        <div className='flex relative h-max min-h-screen'>
             <SacraSvg className='w-1/3 z-10 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2' />
             <LinesSvg className='absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2'/>
             <div className="z-10 flex flex-col gap-1 w-[90%] 2xl:mt-[40vh] xl:mt-[35vh] md:mt-[20vh] mt-[25vh] text-center absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
