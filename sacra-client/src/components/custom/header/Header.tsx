@@ -45,21 +45,21 @@ export default function Header() {
             <NavbarContent className="hidden sm:flex gap-4" justify="center">
               <NavbarItem>
                 <Link href="/" passHref>
-                  <Button color="primary" variant="light">
+                  <Button color="primary" variant="light" radius='sm'>
                     Главная
                   </Button>
                 </Link>
               </NavbarItem>
               <NavbarItem>
                 <Link href="/catalog" passHref>
-                  <Button color="primary" variant="light">
+                  <Button color="primary" variant="light" radius='sm'>
                     Каталог
                   </Button>
                 </Link>
               </NavbarItem>
               <NavbarItem>
                 <Link href="/map" passHref>
-                  <Button color="primary" variant="light">
+                  <Button color="primary" variant="light" radius='sm'>
                     Карта
                   </Button>
                 </Link>

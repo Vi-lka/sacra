@@ -19,7 +19,7 @@ export default async function Catalog({
   searchParams: { [key: string]: string | string[] | undefined },
 }) {
 
-  const defaultPageSize = 12
+  const defaultPageSize = 1
 
   const page = searchParams['page'] ?? '1'
   const per = searchParams['per'] ?? defaultPageSize

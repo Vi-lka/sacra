@@ -1,10 +1,9 @@
 "use client"
 
-import { Button } from '@/components/ui/button'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import React from 'react'
-import { Spinner } from '@nextui-org/react'
+import { Button, Spinner } from '@nextui-org/react'
 
 export default function Sort({ 
     data,
@@ -42,7 +41,7 @@ export default function Sort({
       value={sort}
       onValueChange={handleSortParams}
     >
-      <SelectTrigger className="w-fit border-none">
+      <SelectTrigger className="w-fit border-none rounded-sm">
         <SelectValue placeholder={"Сортировать по:"} />
       </SelectTrigger>
       <SelectContent side="top" className='bg-background transition-all'>
@@ -54,6 +53,7 @@ export default function Sort({
         {sort ? (
             <Button
                 className='w-full h-8 px-2 py-0 mt-4 rounded-sm font-Inter font-normal text-xs uppercase transition-all'
+                color="primary"
                 onClick={() => {
                     const params = new URLSearchParams(window.location.search);
                     params.delete("sort");
