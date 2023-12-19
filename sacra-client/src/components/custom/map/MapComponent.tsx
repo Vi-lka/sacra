@@ -2,7 +2,7 @@
 
 import 'mapbox-gl/dist/mapbox-gl.css';
 
-import type { ObjectsType } from '@/lib/schemas/strapi-schemas';
+import type { Objects } from '@/lib/schemas/strapi-schemas';
 import React from 'react'
 import type { MapRef} from 'react-map-gl';
 import Map, { Marker } from 'react-map-gl'
@@ -11,11 +11,12 @@ import { Popover, PopoverTrigger, PopoverContent } from '@/components/ui/popover
 import Image from "next/image";
 import MapboxLanguage from '@mapbox/mapbox-gl-language';
 import Link from 'next/link';
+import { motion } from 'framer-motion';
 
 export default function MapComponent({
     objects,
 }: {
-    objects: ObjectsType
+    objects: Objects
 }) {
 
   const mapRefCallback = React.useCallback((ref: MapRef | null) => {
@@ -30,7 +31,13 @@ export default function MapComponent({
   }, [])
 
   return (
-    <div className='w-full'>
+    <motion.div
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.3, type: "tween", delay: 0.3 }}
+      className='w-full overflow-hidden rounded-md'
+    >
         <Map
             ref={mapRefCallback}
             mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN}
@@ -85,6 +92,6 @@ export default function MapComponent({
                 </Marker>
             ))}
         </Map>
-    </div>
+    </motion.div>
   )
 }

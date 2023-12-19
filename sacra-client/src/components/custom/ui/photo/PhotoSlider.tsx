@@ -9,6 +9,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { cn } from "@/lib/utils";
 import PhotoModal from "./PhotoModal";
 import PhotoSliderImg from "./PhotoSliderImg";
+import { motion } from "framer-motion";
 
 export default function PhotoSlider({
   data,
@@ -44,8 +45,12 @@ export default function PhotoSlider({
 
   return (
     <div className="w-full">
-      <div
+      <motion.div
         ref={sliderRef}
+        initial={{ opacity: 0, y: -10 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.3, type: "tween", delay: 0.2 }} 
         className="keen-slider bg-secondary aspect-square max-h-96 cursor-grab rounded-md md:aspect-video 2xl:aspect-[2/1.2] 2xl:max-h-[500px]"
       >
         {data.map((image, index) => (
@@ -57,9 +62,15 @@ export default function PhotoSlider({
             )}
           </div>
         ))}
-      </div>
+      </motion.div>
       {created && !!instanceRef.current ? (
-        <div className="mt-2 flex items-center gap-6">
+        <motion.div 
+          initial={{ opacity: 0, y: 10 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.3, type: "tween", delay: 0.2 }} 
+          className="mt-2 flex items-center gap-6"
+        >
           <div className="flex flex-auto gap-2">
             {data.map((_, index) => (
               <button
@@ -95,7 +106,7 @@ export default function PhotoSlider({
 
             <PhotoModal data={data} />
           </div>
-        </div>
+        </motion.div>
       ) : (
         <Skeleton className="mb-3.5 mt-3 h-7 w-full" />
       )}

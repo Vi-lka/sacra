@@ -5,6 +5,7 @@ import { TransformComponent, TransformWrapper } from "react-zoom-pan-pinch";
 import ImageComponent from "../ImageComponent";
 import { cn } from "@/lib/utils";
 import { Modal, ModalContent, useDisclosure } from "@nextui-org/react";
+import { motion } from "framer-motion";
 
 export default function PhotoZoom({
   alt,
@@ -18,7 +19,14 @@ export default function PhotoZoom({
 
     return (
         <>
-            <div className="max-h-fit w-full cursor-pointer" onClick={onOpen}>
+            <motion.div 
+              initial={{ opacity: 0, y: -10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.3, type: "tween", delay: 0.2 }}
+              className="max-h-fit w-full cursor-pointer" 
+              onClick={onOpen}
+            >
                 <ImageComponent
                   src={src}
                   fill={false}
@@ -32,7 +40,7 @@ export default function PhotoZoom({
                   priority={true}
                   onLoad={() => setLoading(false)}
                 />
-            </div>
+            </motion.div>
             <Modal 
               isOpen={isOpen} 
               onOpenChange={onOpenChange}

@@ -58,8 +58,8 @@ export default function NavMenu() {
 
       <NavbarContent className="hidden sm:flex gap-4" justify="center">
         <NavMenuItem url="/" text='Главная' isBG={bg} />
-        <NavMenuItem url="catalog" text='Каталог' />
-        <NavMenuItem url="map" text='Карта' />
+        <NavMenuItem url="/catalog" text='Каталог' />
+        <NavMenuItem url="/map" text='Карта' />
       </NavbarContent>
       <NavbarMenu className='pt-12 bg-background/95'>
           <NavbarMenuItem>
@@ -98,7 +98,7 @@ function NavMenuItem({
       .filter((v) => v.length > 0);
   
     const isMainPage = pathNestedRoutes[pathNestedRoutes.length  - 1] === undefined
-    const pathCurrentPage = isMainPage ? "/" : pathNestedRoutes[pathNestedRoutes.length - 1];
+    const pathCurrentPage = isMainPage ? "/" : "/" + pathNestedRoutes[0];
   
     return (
       <NavbarItem isActive={isMainPage ? isBG : pathCurrentPage === url}>

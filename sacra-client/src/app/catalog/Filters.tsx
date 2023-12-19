@@ -71,8 +71,8 @@ export default function Filters() {
           {...districts}
         />
         <SelectFilter
-          label="Город"
-          description="Выберите Город"
+          label="Населённый пункт"
+          description="Выберите Населённый пункт"
           param="city"
           className='mb-2'
           {...cities}
