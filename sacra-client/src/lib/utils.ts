@@ -1,39 +1,32 @@
 import {  clsx } from "clsx"
 import type {ClassValue} from "clsx";
 import { twMerge } from "tailwind-merge"
-import type { ConfessionEnum } from "./schemas/strapi-schemas";
  
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
 
-export function getRegion(region: string) {
-  switch (region) {
-    case "Respublika_Tyva":
-      return "Республика Тыва";
-  
-    case "Krasnoyarskij_kraj":
-      return "Красноярский край";
+export function getMultiFilter(string: string) {
+  let filter = "";
 
-    case "Respublika_Hakasiya":
-      return "Республика Хакасия";
-      
-    default:
-      break;
-  }
+  const arrayFormString = string.split("_");
+
+  arrayFormString.forEach((filterString) => {
+    filter = filter + `"${filterString}",`;
+  });
+
+  return filter;
 }
 
+export function getShortDescription(
+  description: string,
+  length?: number,
+) {
+  const array = description.split(" ");
 
+  const sliceLength = length ? length : 30;
 
-export function getConfession(confession: ConfessionEnum) {
-  switch (confession) {
-    case "Pravoslavie": return "Православие";
-    case "Buddizm": return "Буддизм";
-    case "Islam": return "Ислам";
-    case "Katoliczizm": return "Католицизм";
-    case "Lyuteranstvo": return "Лютеранство";
-    case "Protestantizm": return "Протестантизм";
-    case "Iudaizm": return "Иудаизм";
-    case "Shamanizm": return "Шаманизм";
-  }
+  if (array.length >= sliceLength + 1) {
+    return array.slice(0, sliceLength).join(" ") + "...";
+  } else return array.join(" ");
 }

@@ -20,22 +20,22 @@ export default function NotFound({
     <>
         {children}
         
-        <div className='flex flex-col items-center text-center gap-10 w-max mx-auto mt-10 mb-10'>
+        <div className='flex flex-col items-center text-center gap-10 w-max mx-auto pt-24 mb-10'>
             <div className='flex flex-col items-center text-center gap-4'>
                 <VscSearchStop size={36} />
 
-                <h2 className='font-OpenSans uppercase text-3xl font-bold'>
+                <h2 className='font-OpenSans uppercase lg:text-3xl text-xl font-bold'>
                     Не найдено
                 </h2>
 
-                <p className='font-Inter font-normal text-sm'>
+                <p className='font-Inter font-normal lg:text-sm text-xs'>
                     Не удалось найти запрошенный ресурс
                 </p>
             </div>
 
             {goBack ? (
                 <Button 
-                    className="p-6 uppercase font-Inter w-full"
+                    className="lg:p-6 p-3 uppercase font-Inter w-full"
                     onClick={() => router.back()}
                 >
                     Вернуться

@@ -8,13 +8,7 @@
   "options": {},
   "attributes": {
     "title": {
-      "type": "string",
-      "required": true
-    },
-    "date": {
-      "type": "component",
-      "repeatable": false,
-      "component": "objects.date-construction",
+      "type": "text",
       "required": true
     }
   }

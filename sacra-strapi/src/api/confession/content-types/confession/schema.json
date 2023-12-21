@@ -1,0 +1,28 @@
+{
+  "kind": "collectionType",
+  "collectionName": "confessions",
+  "info": {
+    "singularName": "confession",
+    "pluralName": "confessions",
+    "displayName": "Конфессия",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true,
+      "maxLength": 255,
+      "unique": true
+    },
+    "objects": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::object.object",
+      "mappedBy": "confession"
+    }
+  }
+}

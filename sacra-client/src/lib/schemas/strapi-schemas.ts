@@ -1,146 +1,167 @@
 import { z } from "zod";
 
+export enum EntityEnum {
+  objects = "objects",
+  object = "object",
+  confessions = "confessions",
+  confession = "confession",
+  architects = "architects",
+  architect = "architect",
+  architecturalStyles = "architecturalStyles",
+  architecturalStyle = "architecturalStyle",
+  regions = "regions",
+  region = "region",
+  districts = "districts",
+  district = "district",
+  cities = "cities",
+  city = "city",
+  models3D = "models3D",
+  model3D = "model3D",
+}
+
 //.........................IMAGE.........................//
-export const ImageSchema = z.object({
+export const Image = z.object({
   attributes: z.object({
     url: z.string(),
   }),
 })
 .nullable()
 .optional()
-export type ImageType = z.infer<typeof ImageSchema>;
+export type Image = z.infer<typeof Image>;
 
-export const ConfessionEnum = z.enum(["Pravoslavie", "Buddizm", "Islam", "Katoliczizm", "Lyuteranstvo", "Protestantizm", "Iudaizm", "Shamanizm"]);
-export type ConfessionEnum = z.infer<typeof ConfessionEnum>;
-
-//.........................OBJECTS.........................//
-export const ObjectSchema = z.object({
-    attributes: z.object({
-      title: z.string(),
-      slug: z.string(),
-      region: z.object({
-        region: z.string(),
-      }),
-      location: z.string(),
-      geolocation: z.object({
-        latitude: z.number(),
-        longitude: z.number()
-      }),
-      imagesSlider: z.object({
-        data: ImageSchema.array()
-      }),
-    }),
+//.........................ITEMS LIST.........................//
+export const Item = z.object({
+  id: z.string(),
+  attributes: z.object({
+    title: z.string()
+  })
 });
-export type ObjectType = z.infer<typeof ObjectSchema>;
+export type Item = z.infer<typeof Item>;
 
-export const ObjectsSchema = z.object({
+export const ItemsList = z.object({
   meta: z.object({
     pagination: z.object({
       total: z.number(),
     })
   }),
-  data: ObjectSchema.array()
+  data: Item.array()
 });
-export type ObjectsType = z.infer<typeof ObjectsSchema>;
+export type ItemsList = z.infer<typeof ItemsList>;
 
-//.........................ARCHITECTURAl STYLES.........................//
-export const ArchitecturalStyleSingleSchema = z.object({
+//.........................MODELS.........................//
+export const Model = z.object({
   attributes: z.object({
-    title: z.string()
+    title: z.string(),
+    file: z.object({
+      data: Image
+    }),
   })
 });
-export type ArchitecturalStyleSingleType = z.infer<typeof ArchitecturalStyleSingleSchema>;
+export type Model = z.infer<typeof Model>;
 
-export const ArchitecturalStylesSchema = z.object({
-  data: ArchitecturalStyleSingleSchema.array()
+export const Models = z.object({
+  meta: z.object({
+    pagination: z.object({
+      total: z.number(),
+    })
+  }),
+  data: Model.array()
 });
-export type ArchitecturalStylesType = z.infer<typeof ArchitecturalStylesSchema>;
+export type Models = z.infer<typeof Models>;
 
-//.........................ARCHITECTS.........................//
-export const ArchitectSingleSchema = z.object({
+
+//.........................OBJECTS.........................//
+export const Object = z.object({
   attributes: z.object({
-    title: z.string()
+    title: z.string(),
+    slug: z.string(),
+    region: z.object({
+      data: Item.nullable()
+    }),
+    district: z.object({
+      data: Item.nullable()
+    }),
+    city: z.object({
+      data: Item.nullable()
+    }),
+    location: z.string().nullable(),
+    geolocation: z.object({
+      latitude: z.number(),
+      longitude: z.number()
+    }),
+    imagesSlider: z.object({
+      data: Image.array()
+    }),
+  }),
+});
+export type Object = z.infer<typeof Object>;
+
+export const Objects = z.object({
+meta: z.object({
+  pagination: z.object({
+    total: z.number(),
   })
+}),
+data: Object.array()
 });
-export type ArchitectSingleType = z.infer<typeof ArchitectSingleSchema>;
-
-export const ArchitectsSchema = z.object({
-  data: ArchitectSingleSchema.array()
-});
-export type ArchitectsType = z.infer<typeof ArchitectsSchema>;
-
-//.........................DATE LIST.........................//
-export const DateListSchema = z.object({
-  prefix: z.string().nullable(),
-  firstDate: z.string(),
-  secondPrefix: z.string().nullable(),
-  secondDate: z.string().nullable(),
-  postfix: z.string(),
-  era: z.string()
-})
-export type DateListType = z.infer<typeof DateListSchema>;
+export type Objects = z.infer<typeof Objects>;
 
 //.........................OBJECT BY SLUG.........................//
-export const DateOfConstructionSchema = z.object({
-  dateConstruction: z.string()
-})
-export type DateOfConstructionType = z.infer<typeof DateOfConstructionSchema>;
-
-
-export const ObjectBySlugSchema = z.object({
-  title: z.string(),
+export const ObjectBySlug = z.object({
   slug: z.string(),
-  confession: z.object({
-    confession: ConfessionEnum
-  }),
-  region: z.object({
-    region: z.string(),
-  }),
-  location: z.string(),
+  title: z.string(),
   imagesSlider: z.object({
-    data: ImageSchema.array()
+    data: Image.array()
   }),
+  confession: z.object({
+    data: Item.nullable()
+  }),
+  architectural_styles: z.object({
+    data: Item.array()
+  }),
+  architects: z.object({
+    data: Item.array()
+  }),
+  architectsString: z.string().nullable(),
+  region: z.object({
+    data: Item.nullable()
+  }),
+  district: z.object({
+    data: Item.nullable()
+  }),
+  city: z.object({
+    data: Item.nullable()
+  }),
+  location: z.string().nullable(),
   geolocation: z.object({
     latitude: z.number(),
     longitude: z.number()
   }),
-  urlTour: z.string().nullable(),
-  model3d: z.object({
-    data: z.object({
-      attributes: z.object({
-        file: z.object({
-          data: z.object({
-            attributes: z.object({
-              url: z.string()
-            })
-          })
-        })
-      })
-    }).nullable()
-  }),
+  dateConstruction: z.string().nullable(),
+  appearanceChangesList: z.object({
+    title: z.string(),
+  }).array(),
   historicalNote: z.string().nullable(),
-  architect: z.object({
-    data: z.object({
-      attributes: z.object({
-        title: z.string()
-      })
-    }).nullable()
+  urlTour: z.string().nullable(),
+  videos: z.object({
+    data: Image.array()
   }),
-  architecturalStyles: z.object({
-    data: z.object({
-      attributes: z.object({
-        title: z.string()
-      })
-    }).array()
-  }),
-  dateOfConstruction: 
-    DateOfConstructionSchema.array()
-  .or(
-    DateListSchema.array()
-  ),
   sources: z.object({
     title: z.string(),
     url: z.string()
-  }).array().nullable()
+  }).array(),
+  models: z.object({
+    data: Model.array()
+  }),
 });
-export type ObjectBySlugType = z.infer<typeof ObjectBySlugSchema>;
+export type ObjectBySlug = z.infer<typeof ObjectBySlug>;
+
+
+export const Cities = z.object({
+  meta: z.object({
+    pagination: z.object({
+      total: z.number(),
+    })
+  }),
+});
+export type Cities = z.infer<typeof Cities>;

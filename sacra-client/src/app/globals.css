@@ -83,13 +83,31 @@ html {
 
 .gradient {
   background: rgb(11,24,51);
-  background: linear-gradient(180deg, rgba(11,24,51,0.8) 0%, rgba(16,53,149,0.3) 40%, rgba(2,5,35,0.1) 55%, rgba(2,5,35,1) 80%, rgba(2,5,35,1) 95%)
+  background: linear-gradient(180deg, rgba(11,24,51,0.8) 0%, rgba(16,53,149,0.3) 10%, rgba(2,5,35,0.1) 70%, rgba(2,5,35,1) 90%, rgba(2,5,35,1) 95%);
 }
 
 @media (max-width: 440px) {
   .circle {
     bottom: -65vw;
   }
+}
+
+.navbar header {
+  width: 95%;
+  max-width: 2200px;
+  margin: 0 auto;
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
+@media (min-width: 768px) {
+  .navbar header {
+    width: 85%;
+  }
+}
+
+.autocomplete label {
+  color: hsl(var(--foreground))
 }
 
 .btn-shine {
@@ -108,8 +126,8 @@ html {
   will-change: opacity, transform;
   background-image: linear-gradient(-45deg, transparent 30%, rgba(255, 255, 255, 0.4), transparent 70%);
   background-size: 600%;
-  animation-duration: 5s;
-  animation-timing-function: linear;
+  animation-duration: 3s;
+  animation-timing-function: ease-out;
   animation-iteration-count: infinite;
 }
 .btn-shine.active:before, .btn-shine:focus:before, .btn-shine:hover:before {
@@ -127,4 +145,51 @@ html {
   100% {
     background-position: 0%;
  }
+}
+
+.no-anim * {
+  animation-delay: -99s !important;
+}
+
+.cluster-marker {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: hsl(var(--background));
+  background: hsl(var(--primary));
+  border-radius: 9999px;
+  border-width: 4px;
+  border-color: hsl(var(--accent));
+  cursor: pointer;
+}
+
+.popup-marker {
+  font-family: var(--Montserrat);
+}
+
+.popup-marker > .mapboxgl-popup-tip {
+  border-top-color: hsl(var(--background)) !important;
+}
+
+.popup-marker > .mapboxgl-popup-content {
+  padding: 0px;
+  width: fit-content;
+  border-radius: calc(var(--radius) - 2px);
+  overflow: hidden;
+  background-color: hsl(var(--background));
+}
+
+.popup-marker .mapboxgl-popup-close-button {
+  font-size: 1.5rem;
+  padding: 0.1rem;
+  border-bottom-left-radius: calc(var(--radius) - 2px);
+  transition-property: all;
+  transition-timing-function: ease;
+  transition-duration: 250ms;
+  background-color: hsl(var(--background))
+}
+
+.popup-marker .mapboxgl-popup-close-button:hover,
+.popup-marker .mapboxgl-popup-close-button:focus {
+  background-color: hsl(var(--accent))
 }

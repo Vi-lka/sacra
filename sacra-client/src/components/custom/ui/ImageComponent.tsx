@@ -7,6 +7,7 @@ type Props = {
   src: string | undefined;
   alt: string;
   priority?: boolean;
+  loading?: "eager" | "lazy" | undefined;
   quality?: number;
   className?: string;
   onLoad?: React.ReactEventHandler<HTMLImageElement>;
@@ -70,6 +71,7 @@ export default function ImageComponent(props: Props) {
       className={props.className}
       alt={props.alt}
       priority={props.priority}
+      loading={props.loading}
       onLoad={props.onLoad}
     />
   );

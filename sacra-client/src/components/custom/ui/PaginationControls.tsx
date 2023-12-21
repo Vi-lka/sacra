@@ -3,9 +3,10 @@
 import React from 'react'
 import Link from 'next/link'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
-import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { FiChevronLeft, FiChevronRight, FiChevronsLeft, FiChevronsRight, FiLoader } from 'react-icons/fi';
+import { FiChevronLeft, FiChevronRight, FiChevronsLeft, FiChevronsRight } from 'react-icons/fi';
+import { Button, Spinner } from '@nextui-org/react'
+import { cn } from '@/lib/utils'
 
 export default function PaginationControls({ 
     length,
@@ -82,27 +83,36 @@ export default function PaginationControls({
 
   return (
     <div className='flex lg:gap-0 gap-12 lg:items-start items-center lg:flex-row flex-col lg:justify-end relative'>
+      {Number(page) === 1 ? (
         <Button
-          className="px-10 py-6 uppercase lg:absolute lg:left-1/2 lg:-translate-x-1/2"
-          variant={(Number(page) >= max_page) ? "hidden" : "default"}
-          disabled={isPendingPage || isPendingMore}
+          className={cn(
+            "px-10 py-6 uppercase lg:absolute lg:left-1/2 lg:-translate-x-1/2",
+            (Number(page) >= max_page) ? "hidden" : "flex"
+          )}
+          color="primary"
+          radius="sm"
+          isDisabled={isPendingPage || isPendingMore}
           onClick={() => handlePageSizeParams((Number(per) + defaultPageSize).toString())}
         >
           <span className="sr-only">Показать ещё</span>
-          {isPendingMore ? <FiLoader className='animate-spin' /> : "Показать ещё"}
+          {isPendingMore ? <Spinner size="sm" color="current" /> : "Показать ещё"}
         </Button>
+      ) : null}
 
         <div className='flex items-center lg:flex-row flex-col-reverse lg:gap-6 gap-3' style={{ display: Number(per) >= length ? 'none' : 'flex'}}>
 
-            <p className='font-Inter flex items-center'>
+            <div className='font-Inter flex items-center'>
                 {isPendingPage ? 
-                  <FiLoader className='animate-spin' /> 
+                  <Spinner />
                   : 
                   (
                     <>
                       Страница
                       <Input 
-                        className='w-14 mx-2 font-Inter font-normal text-base'
+                        className={cn(
+                          "w-16 mx-2 text-base font-normal",
+                          max_page < 9 ? "w-14" : max_page > 99 ? "w-20" : "w-16",
+                        )}
                         type="number" 
                         value={pageInput} 
                         onChange={handleChangeInput}
@@ -116,14 +126,16 @@ export default function PaginationControls({
                       из {max_page}
                     </>
                   )}
-            </p>
+            </div>
 
             <div className="flex items-center space-x-2">
                 {/* FIRST */}
                 <Button
-                  variant="outline"
-                  className="h-10 w-10 p-0"
-                  disabled={(Number(page) <= 1) || isPendingPage || isPendingMore}
+                  isIconOnly
+                  variant="bordered"
+                  radius='sm'
+                  className="p-0 border-secondary "
+                  isDisabled={(Number(page) <= 1) || isPendingPage || isPendingMore}
                   onClick={() => handlePageParams('1')}
                 >
                   {/* For SEO */}
@@ -134,9 +146,11 @@ export default function PaginationControls({
 
                 {/* PREVIOUS */}
                 <Button
-                  variant="outline"
-                  className="h-10 w-10 p-0"
-                  disabled={(Number(page) <= 1) || isPendingPage || isPendingMore}
+                  isIconOnly
+                  variant="bordered"
+                  radius='sm'
+                  className="p-0 border-secondary "
+                  isDisabled={(Number(page) <= 1) || isPendingPage || isPendingMore}
                   onClick={() => handlePageParams((Number(page) - 1).toString())}
                 >
                   {/* For SEO */}
@@ -147,9 +161,11 @@ export default function PaginationControls({
 
                 {/* NEXT */}
                 <Button
-                  variant="outline"
-                  className="h-10 w-10 p-0"
-                  disabled={(Number(page) >= max_page) || isPendingPage || isPendingMore}
+                  isIconOnly
+                  variant="bordered"
+                  radius='sm'
+                  className="p-0 border-secondary "
+                  isDisabled={(Number(page) >= max_page) || isPendingPage || isPendingMore}
                   onClick={() => handlePageParams((Number(page) + 1).toString())}
                 >
                   {/* For SEO */}
@@ -160,9 +176,11 @@ export default function PaginationControls({
 
                 {/* LAST */}
                 <Button
-                  variant="outline"
-                  className="h-10 w-10 p-0"
-                  disabled={(Number(page) >= max_page) || isPendingPage || isPendingMore}
+                  isIconOnly
+                  variant="bordered"
+                  radius='sm'
+                  className="p-0 border-secondary "
+                  isDisabled={(Number(page) >= max_page) || isPendingPage || isPendingMore}
                   onClick={() => handlePageParams(max_page.toString())}
                 >
                   {/* For SEO */}

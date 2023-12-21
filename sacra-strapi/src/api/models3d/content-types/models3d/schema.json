@@ -22,7 +22,15 @@
     },
     "title": {
       "type": "string",
-      "required": true
+      "required": true,
+      "maxLength": 255,
+      "unique": true
+    },
+    "object": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::object.object",
+      "inversedBy": "models"
     }
   }
 }

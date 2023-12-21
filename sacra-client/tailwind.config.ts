@@ -19,6 +19,21 @@ module.exports = {
       },
     },
     extend: {
+      height: {
+        screen: [
+          '100vh','100dvh'
+        ]
+      },
+      minHeight: {
+        'screen': [
+          '100vh','100dvh'
+        ]
+      },
+      maxHeight: {
+        'screen': [
+          '100vh','100dvh'
+        ]
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
@@ -59,6 +74,9 @@ module.exports = {
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
       },
+      fontFamily: {
+        Montserrat: ["var(--Montserrat)"],
+      },
       keyframes: {
         "accordion-down": {
           from: { height: 0 },
@@ -85,7 +103,8 @@ module.exports = {
         },
         dark: {
           // ...
-          colors: {},
+          colors: {
+          },
         },
         // ... custom themes
       },
