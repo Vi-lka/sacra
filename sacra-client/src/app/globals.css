@@ -150,3 +150,31 @@ html {
 .no-anim * {
   animation-delay: -99s !important;
 }
+
+.cluster-marker {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: hsl(var(--background));
+  background: hsl(var(--primary));
+  border-radius: 9999px;
+  border-width: 4px;
+  border-color: hsl(var(--accent));
+  cursor: pointer;
+}
+
+.popup-marker {
+  font-family: var(--Montserrat);
+}
+
+.popup-marker > .mapboxgl-popup-tip {
+  border-top-color: hsl(var(--background)) !important;
+}
+
+.popup-marker > .mapboxgl-popup-content {
+  padding: 0px;
+  width: fit-content;
+  border-radius: calc(var(--radius) - 2px);
+  overflow: hidden;
+  background-color: hsl(var(--background));
+}

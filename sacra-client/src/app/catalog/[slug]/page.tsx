@@ -11,6 +11,7 @@ import { AnimatedText } from '@/components/custom/animation/AnimatedText';
 import Metadata from './Metadata';
 import { ClientHydration } from '@/components/custom/ui/ClientHydration';
 import Loading from '@/components/custom/Loading';
+import OpenOnMap from './OpenOnMap';
 
 export default async function Object({
   params: { slug },
@@ -55,7 +56,12 @@ export default async function Object({
         duration: 0.05,
       },
     },
-};
+  };
+
+  const city = !!dataResult.value.city.data ? dataResult.value.city.data.attributes.title + ", " : ""
+  const location = !!dataResult.value.location ? dataResult.value.location : ""
+
+  const locationForMap = city + location
 
   return (
     <ClientHydration fallback={<Loading />}>
@@ -95,6 +101,15 @@ export default async function Object({
                   ? dataResult.value.models.data[0].attributes.file.data?.attributes.url
                   : undefined
               }/>
+              <OpenOnMap properties={{
+                objectId: dataResult.value.slug,
+                title: dataResult.value.title,
+                image: dataResult.value.imagesSlider.data[0]?.attributes.url,
+                locationFull: locationForMap,
+                geolocation: dataResult.value.geolocation,
+                point_count: 1,
+                cluster: false
+              }}/>
             </div>
           </div>
 

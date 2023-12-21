@@ -6,7 +6,10 @@ import { Toaster } from '@/components/ui/toaster';
 import Header from '@/components/custom/header/Header';
 import { Providers } from './providers';
 
-const montserrat = Montserrat({ subsets: ['cyrillic'] })
+const montserrat = Montserrat({ 
+  subsets: ['cyrillic'],
+  variable: "--Montserrat",
+})
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_URL as string),
@@ -38,8 +41,12 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="ru" suppressHydrationWarning className='dark'>
-      <body className={montserrat.className}>
+    <html 
+      lang="ru" 
+      suppressHydrationWarning
+      className={`dark ${montserrat.variable}`}
+    >
+      <body className='font-Montserrat'>
       <Providers>
         <Header />
         <main>

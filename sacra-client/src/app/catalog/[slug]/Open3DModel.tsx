@@ -20,7 +20,7 @@ export default function Open3DModel({
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: 1 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.3, type: "tween", delay: 0.3 }}
+                transition={{ duration: 0.3, type: "tween", delay: 0.4 }}
             >
                 <Button 
                     isIconOnly 

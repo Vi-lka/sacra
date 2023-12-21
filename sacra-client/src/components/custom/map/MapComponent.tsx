@@ -4,31 +4,122 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 
 import type { Objects } from '@/lib/schemas/strapi-schemas';
 import React from 'react'
-import type { MapRef} from 'react-map-gl';
+import type { LngLatLike, MapRef} from 'react-map-gl';
 import Map, { Marker } from 'react-map-gl'
 import MarkerIcon from './MarkerIcon';
-import { Popover, PopoverTrigger, PopoverContent } from '@/components/ui/popover';
-import Image from "next/image";
 import MapboxLanguage from '@mapbox/mapbox-gl-language';
-import Link from 'next/link';
 import { motion } from 'framer-motion';
+import type { BBox } from "geojson";
+import useSupercluster from "use-supercluster"
+import type { PointFeature } from 'supercluster';
+import PopupMarker from './PopupMarker';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { Spinner } from '@nextui-org/react';
+
+export type Properties = {
+  objectId: string,
+  title: string,
+  image: string | undefined,
+  locationFull: string,
+  geolocation: {
+    latitude: number;
+    longitude: number;
+  }
+  point_count: number,
+  cluster: boolean,
+}
+
+export const param = "marker"
 
 export default function MapComponent({
-    objects,
+  objects,
 }: {
-    objects: Objects
+  objects: Objects
 }) {
+  const router = useRouter()
+  const searchParams = useSearchParams()
+  const pathname = usePathname()
+  const [isPending, startTransition] = React.useTransition()
 
-  const mapRefCallback = React.useCallback((ref: MapRef | null) => {
-    if (ref !== null) {
-      //Set the actual ref we use elsewhere
+  const currentParam = searchParams.get(param) ?? undefined
+  const paramJSON = currentParam 
+    ? JSON.parse(currentParam) as Properties
+    : null
+
+  const mapRef = React.useRef<MapRef>();
+  const mapRefCallback = React.useCallback((ref: MapRef | undefined) => {
+    if (!!ref) {
+      //Set the actual ref
+      mapRef.current = ref;
       const map = ref;
-
       //Add language control that updates map text i18n based on browser preferences
       const language = new MapboxLanguage();
       map.addControl(language);
     }
   }, [])
+
+  const [viewState, setViewState] = React.useState({
+    longitude: paramJSON ? paramJSON.geolocation.longitude : 93.282883,
+    latitude: paramJSON ? paramJSON.geolocation.latitude : 57.700747,
+    zoom: paramJSON ? 5 : 4,
+    bearing: 0,
+    pitch: 50
+  });
+  const [bounds, setBounds] = React.useState<BBox | undefined>(undefined);
+
+  const [popupInfo, setPopupInfo] = React.useState<Properties | null>(paramJSON);
+
+  const points: Array<PointFeature<Properties>> = objects.data.map(object => {
+    const city = !!object.attributes.city.data ? object.attributes.city.data.attributes.title + ", " : ""
+    const location = !!object.attributes.location ? object.attributes.location : ""
+  
+    const locationFull = city + location
+
+    return ({
+      type: "Feature",
+      properties: { 
+        objectId: object.attributes.slug,
+        title: object.attributes.title,
+        image: object.attributes.imagesSlider.data[0]?.attributes.url,
+        locationFull: locationFull,
+        geolocation: {
+          longitude: object.attributes.geolocation.longitude,
+          latitude: object.attributes.geolocation.latitude
+        },
+        point_count: 1,
+        cluster: false,
+      },
+      geometry: {
+        type: "Point",
+        coordinates: [
+          object.attributes.geolocation.longitude,
+          object.attributes.geolocation.latitude
+        ]
+      }
+    })
+  });
+
+  const { clusters } = useSupercluster({
+    points,
+    bounds,
+    zoom: viewState.zoom,
+    options: { radius: 70, maxZoom: 22 }
+  });
+
+  const onSelectCluster = React.useCallback((coordinates: LngLatLike, zoom: number) => {
+    mapRef.current?.flyTo({center: coordinates, duration: 1000, zoom});
+  }, []);
+
+  const onSelectMarker = React.useCallback((properties: Properties) => {
+      mapRef.current?.flyTo({center: [properties.geolocation.longitude, properties.geolocation.latitude], duration: 1000});
+      setPopupInfo(properties);
+
+      const params = new URLSearchParams(window.location.search);
+      params.set(param, JSON.stringify(properties));
+      startTransition(() => {
+        router.push(`${pathname}?${params.toString()}`, { scroll: false });
+      });
+  }, [pathname, router]);
 
   return (
     <motion.div
@@ -36,61 +127,78 @@ export default function MapComponent({
       whileInView={{ opacity: 1 }}
       viewport={{ once: true }}
       transition={{ duration: 0.3, type: "tween", delay: 0.3 }}
-      className='w-full overflow-hidden rounded-md'
+      className='relative w-full overflow-hidden rounded-md'
     >
+      {isPending && <Spinner className='absolute top-2 left-2 z-50'/>}
         <Map
-            ref={mapRefCallback}
-            mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN}
-            initialViewState={{
-              longitude: objects.data[0].attributes.geolocation.longitude,
-              latitude: objects.data[0].attributes.geolocation.latitude,
-              zoom: 5
-            }}
-            style={{width: "100%",  margin: "0 auto", height: "80vh"}}
-            mapStyle="mapbox://styles/mapbox/navigation-night-v1"
+          {...viewState}
+          ref={mapRef as React.Ref<MapRef> | undefined}
+          mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN}
+          mapStyle="mapbox://styles/vi-per/clqdi9xq300a101qy9jo4bbbm"
+          style={{width: "100%",  margin: "0 auto", height: "80vh"}}
+          onMove={evt => {
+            setViewState(evt.viewState)
+            setBounds(evt.target.getBounds().toArray().flat() as BBox)
+          }}
+          onLoad={evt => {
+            setBounds(evt.target.getBounds().toArray().flat() as BBox)
+          }}
+          onStyleData={() => mapRefCallback(mapRef.current)}
         >
-            {objects.data.map((el, index) => (
-                <Marker 
-                    key={index}
-                    longitude={el.attributes.geolocation.longitude}
-                    latitude={el.attributes.geolocation.latitude}
-                    anchor="center"
+          {clusters.map(cluster => {
+            const [longitude, latitude] = cluster.geometry.coordinates;
+            const {
+              cluster: isCluster,
+              point_count: pointCount
+            } = cluster.properties;
+          
+            // cluster to render
+            if (isCluster) {
+              return (
+                <Marker
+                  key={`cluster-${cluster.id}`}
+                  latitude={latitude}
+                  longitude={longitude}
                 >
-                  <div className='cursor-pointer'>
-                    <Popover>
-                      <PopoverTrigger>
-                        <div className="flex flex-col items-center gap-1">
-                          <MarkerIcon />
-                          {/* <p className='bg-foreground text-background px-2 py-1 rounded-md'>{el.attributes.title}</p> */}
-                        </div>
-                      </PopoverTrigger>
-                      <PopoverContent>
-                        <div className='flex flex-col gap-1 items-center text-center'>
-                          {el.attributes.imagesSlider.data[0] 
-                            ? (
-                              <Image
-                                src={el.attributes.imagesSlider.data[0].attributes.url}
-                                width={200}
-                                height={200}
-                                // className={"w-full object-cover"}
-                                alt={el.attributes.title}
-                              />
-                            )
-                            : null
-                          }
-                          <p>{el.attributes.title}</p>
-                          <Link 
-                            href={`/catalog/${el.attributes.slug}`}
-                            className='text-accent hover:underline'
-                          >
-                            Перейти
-                          </Link>
-                        </div>
-                      </PopoverContent>
-                    </Popover>
+                  <div
+                    className="cluster-marker text-base"
+                    style={{
+                      width: `${10 + (pointCount / points.length) * 50}px`,
+                      height: `${10 + (pointCount / points.length) * 50}px`
+                    }}
+                    onClick={() => {
+                      onSelectCluster(cluster.geometry.coordinates as LngLatLike, viewState.zoom + 2)
+                    }}
+                  >
+                    {pointCount}
                   </div>
                 </Marker>
-            ))}
+              );
+            }
+
+            // single point to render
+            return (
+              <Marker 
+                key={`crime-${cluster.properties.objectId}`}
+                longitude={longitude}
+                latitude={latitude}
+                anchor="center"
+                onClick={e => {
+                  // If we let the click event propagates to the map, it will immediately close the popup
+                  // with `closeOnClick: true`
+                  e.originalEvent.stopPropagation();
+                  onSelectMarker(cluster.properties as Properties)
+                }}
+              >
+                <MarkerIcon className='cursor-pointer'/>
+              </Marker>
+            );
+          })}
+
+          <PopupMarker 
+            popupInfo={popupInfo} 
+            onClose={() => setPopupInfo(null)}
+          />
         </Map>
     </motion.div>
   )

@@ -75,6 +75,15 @@ export const Object = z.object({
   attributes: z.object({
     title: z.string(),
     slug: z.string(),
+    region: z.object({
+      data: Item.nullable()
+    }),
+    district: z.object({
+      data: Item.nullable()
+    }),
+    city: z.object({
+      data: Item.nullable()
+    }),
     location: z.string().nullable(),
     geolocation: z.object({
       latitude: z.number(),

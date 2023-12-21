@@ -57,6 +57,30 @@ export const getObjects = async (
             attributes {
               title
               slug
+              region {
+                data {
+                  id
+                  attributes {
+                    title
+                  }
+                }
+              }
+              district {
+                data {
+                  id
+                  attributes {
+                    title
+                  }
+                }
+              }
+              city {
+                data {
+                  id
+                  attributes {
+                    title
+                  }
+                }
+              }
               location
               geolocation {
                 latitude

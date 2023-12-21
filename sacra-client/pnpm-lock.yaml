@@ -71,6 +71,12 @@ dependencies:
   '@tanstack/react-query':
     specifier: ^5.14.1
     version: 5.14.1(react@18.2.0)
+  '@types/geojson':
+    specifier: ^7946.0.13
+    version: 7946.0.13
+  '@types/supercluster':
+    specifier: ^7.1.3
+    version: 7.1.3
   '@types/three':
     specifier: ^0.159.0
     version: 0.159.0
@@ -83,6 +89,9 @@ dependencies:
   framer-motion:
     specifier: ^10.16.16
     version: 10.16.16(react-dom@18.2.0)(react@18.2.0)
+  geojson:
+    specifier: ^0.5.0
+    version: 0.5.0
   graphql-request:
     specifier: ^6.1.0
     version: 6.1.0(graphql@16.8.1)
@@ -131,6 +140,9 @@ dependencies:
   sharp:
     specifier: ^0.33.1
     version: 0.33.1
+  supercluster:
+    specifier: ^8.0.1
+    version: 8.0.1
   tailwind-merge:
     specifier: ^2.1.0
     version: 2.1.0
@@ -140,6 +152,9 @@ dependencies:
   three:
     specifier: ^0.159.0
     version: 0.159.0
+  use-supercluster:
+    specifier: ^1.1.0
+    version: 1.1.0(react@18.2.0)(supercluster@8.0.1)
   zod:
     specifier: ^3.22.4
     version: 3.22.4
@@ -4353,6 +4368,12 @@ packages:
     resolution: {integrity: sha512-pXNfAD3KHOdif9EQXZ9deK82HVNaXP5ZIF5RP2QG6OQFNTaY2YIetfrE9t528vEreGQvEPRDDc8muaoYeK0SxQ==}
     dev: false
 
+  /@types/supercluster@7.1.3:
+    resolution: {integrity: sha512-Z0pOY34GDFl3Q6hUFYf3HkTwKEE02e7QgtJppBt+beEAxnyOpJua+voGFvxINBHa06GwLFFym7gRPY2SiKIfIA==}
+    dependencies:
+      '@types/geojson': 7946.0.13
+    dev: false
+
   /@types/three@0.159.0:
     resolution: {integrity: sha512-2gybdh7HtX+rGUgslzK7QEJfzD2I0qrbUGzKk+dK0FDx49UHkNX0rqZVRzIgeFjBd1HzzhNNgwNoMacm3Wyc7w==}
     dependencies:
@@ -5785,6 +5806,11 @@ packages:
 
   /geojson-vt@3.2.1:
     resolution: {integrity: sha512-EvGQQi/zPrDA6zr6BnJD/YhwAkBP8nnJ9emh3EnHQKVMfg/MRVtPbMYdgVy/IaEmn4UfagD2a6fafPDL5hbtwg==}
+    dev: false
+
+  /geojson@0.5.0:
+    resolution: {integrity: sha512-/Bx5lEn+qRF4TfQ5aLu6NH+UKtvIv7Lhc487y/c8BdludrCTpiWf9wyI0RTyqg49MFefIAvFDuEi5Dfd/zgNxQ==}
+    engines: {node: '>= 0.10'}
     dev: false
 
   /get-intrinsic@1.2.2:
@@ -8520,6 +8546,17 @@ packages:
       react: 18.2.0
     dev: false
 
+  /use-deep-compare-effect@1.8.1(react@18.2.0):
+    resolution: {integrity: sha512-kbeNVZ9Zkc0RFGpfMN3MNfaKNvcLNyxOAAd9O4CBZ+kCBXXscn9s/4I+8ytUER4RDpEYs5+O6Rs4PqiZ+rHr5Q==}
+    engines: {node: '>=10', npm: '>=6'}
+    peerDependencies:
+      react: '>=16.13'
+    dependencies:
+      '@babel/runtime': 7.23.6
+      dequal: 2.0.3
+      react: 18.2.0
+    dev: false
+
   /use-isomorphic-layout-effect@1.1.2(@types/react@18.2.45)(react@18.2.0):
     resolution: {integrity: sha512-49L8yCO3iGT/ZF9QttjwLF/ZD9Iwto5LnH5LmEdk/6cFmXddqi2ulF0edxTwjj+7mqvpVVGQWvbXZdn32wRSHA==}
     peerDependencies:
@@ -8561,6 +8598,18 @@ packages:
       detect-node-es: 1.1.0
       react: 18.2.0
       tslib: 2.6.2
+    dev: false
+
+  /use-supercluster@1.1.0(react@18.2.0)(supercluster@8.0.1):
+    resolution: {integrity: sha512-MO/COIbXWMpUV3GhR7tRn6HzH0fMKNGxTd5iCM6rJRAgH8bByhReRgCAmKBzjZCeG8DtccUxa5HSEXpvcgsJbg==}
+    peerDependencies:
+      react: '>=16'
+      supercluster: '>=8'
+    dependencies:
+      dequal: 2.0.3
+      react: 18.2.0
+      supercluster: 8.0.1
+      use-deep-compare-effect: 1.8.1(react@18.2.0)
     dev: false
 
   /util-deprecate@1.0.2:
