@@ -15,6 +15,7 @@ import type { PointFeature } from 'supercluster';
 import PopupMarker from './PopupMarker';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { Spinner } from '@nextui-org/react';
+import { cn } from '@/lib/utils';
 
 export type Properties = {
   objectId: string,
@@ -190,7 +191,15 @@ export default function MapComponent({
                   onSelectMarker(cluster.properties as Properties)
                 }}
               >
-                <MarkerIcon className='cursor-pointer'/>
+                <MarkerIcon 
+                  className='cursor-pointer transition-all' 
+                  classNamePath={cn(
+                    "transition-all",
+                    cluster.properties.objectId === popupInfo?.objectId 
+                      ? 'fill-accent' 
+                      : 'fill-foreground'
+                  )}
+                />
               </Marker>
             );
           })}

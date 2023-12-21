@@ -33,7 +33,7 @@ export default function PopupMarker({
           <Image
             src={popupInfo.image ? popupInfo.image : "/images/image-placeholder-sacra.png"}
             width={260}
-            height={260}
+            height={200}
             alt={popupInfo.title}
           />
           <div className="max-w-[260px] px-2">
