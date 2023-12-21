@@ -70,7 +70,6 @@ export default async function Object({
         <div className='flex lg:flex-row flex-col gap-6 my-6'>
           <section className="flex flex-col gap-2 lg:w-1/2">
             <AnimatedText
-              el="h1"
               text={dataResult.value.title}
               className='2xl:text-3xl lg:text-2xl text-xl font-bold drop-shadow-[0_6px_6px_rgba(0,0,0,0.7)]'
               animation={titleAnimations}
