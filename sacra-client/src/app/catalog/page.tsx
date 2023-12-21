@@ -66,7 +66,6 @@ export default async function Catalog({
     </ErrorHandler>
   );
 
-
   return (
     <div className="mx-auto w-[95%] max-w-[2200px] md:w-[85%] mt-24 mb-20">
         <div className="mb-6">
@@ -94,21 +93,26 @@ export default async function Catalog({
             </div>
 
             <div key={Math.random()} className="md:w-full w-[85%] mx-auto mb-12 grid min-[3000px]:grid-cols-6 min-[2000px]:grid-cols-4 lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-6">
-                {dataResult.value.data.map((obj, index) => (
-                  <ImgText
-                    key={index}
-                    className={"md:aspect-[5/4] aspect-square"}
-                    title={obj.attributes.title}
-                    src={obj.attributes.imagesSlider.data[0]?.attributes.url}
-                    url={`/catalog/${obj.attributes.slug}`}
-                    width={450}
-                    height={400}
-                  >
-                     <p className="w-full xl:text-sm text-xs text-center">
-                        <span className="font-bold xl:text-base text-sm">{obj.attributes.title}</span>
-                      </p>
-                  </ImgText>
-                ))}
+                {dataResult.value.data.map((object, index) => {
+                  const region = !!object.attributes.region.data ? object.attributes.region.data.attributes.title + ", " : ""
+                  const city = !!object.attributes.city.data ? object.attributes.city.data.attributes.title : ""
+                  return (
+                    <ImgText
+                      key={index}
+                      className={"md:aspect-[5/4] aspect-square"}
+                      title={object.attributes.title}
+                      src={object.attributes.imagesSlider.data[0]?.attributes.url}
+                      url={`/catalog/${object.attributes.slug}`}
+                      width={450}
+                      height={400}
+                    >
+                       <div className="w-full text-center">
+                          <p className="font-bold xl:text-lg text-base">{object.attributes.title}</p>
+                          <p className="xl:text-sm text-xs">{region + city}</p>
+                        </div>
+                    </ImgText>
+                  )
+                })}
             </div>
 
             <div className="">
