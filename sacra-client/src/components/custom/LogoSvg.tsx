@@ -1,6 +1,10 @@
-export default function LogoSvg() {
+export default function LogoSvg({
+    className
+}: {
+    className?: string;
+}) {
     return (
-      <svg width="181" height="33" viewBox="0 0 181 33" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <svg width="30" height="33" viewBox="0 0 30 33" fill="none" className={className} xmlns="http://www.w3.org/2000/svg">
           <g id="Frame" clipPath="url(#clip0_440_775)">
               <g id="Group">
                   <path id="Vector_2" d="M8.70747 6.07418C8.75928 6.10856 8.82236 6.10856 8.87418 6.07877C10.1403 5.36133 11.9178 5.00146 14.209 5.00146C17.7258 5.00146 20.783 5.85643 23.3828 7.56408L25.8407 2.92707C24.4823 2.03313 22.743 1.32028 20.6253 0.793082C18.5053 0.265889 16.3876 0 14.2699 0C10.2327 0 7.01554 0.884768 4.6162 2.6543C4.49905 2.73911 4.38866 2.82851 4.27827 2.91561C4.19041 2.98666 4.19942 3.12648 4.29404 3.18837L8.70747 6.07418Z" fill="#8FBAF9"/>

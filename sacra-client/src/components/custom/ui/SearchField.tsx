@@ -80,7 +80,7 @@ export default function SearchField({ placeholder, className }: { placeholder: s
         onBlur={() => setFocus(false)}
         placeholder={placeholder}
         className={cn(
-          "transition-all",
+          "border-primary hover:border-secondary transition-all",
           focus ? 
             'w-full ring-ring ring-2 ring-offset-2' 
             : 

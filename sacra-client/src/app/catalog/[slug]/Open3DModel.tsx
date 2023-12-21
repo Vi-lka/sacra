@@ -24,7 +24,7 @@ export default function Open3DModel({
             >
                 <Button 
                     isIconOnly 
-                    isDisabled={url.length === 0} 
+                    isDisabled={url.length === 0}
                     variant="bordered"
                     className="mt-1 font-medium text-xs border-accent hover:scale-110" 
                     onPress={onOpen} 

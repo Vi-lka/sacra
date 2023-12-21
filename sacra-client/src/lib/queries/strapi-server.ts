@@ -1,7 +1,7 @@
 import "server-only"
 
 import { notFound } from "next/navigation";
-import { ObjectBySlug, Objects } from "../schemas/strapi-schemas";
+import { Cities, ObjectBySlug, Objects } from "../schemas/strapi-schemas";
 
 export const getObjects = async (
     page: number,
@@ -282,4 +282,53 @@ export const getObjectBySlug = async (slug: string): Promise<ObjectBySlug> => {
   const object = ObjectBySlug.parse(json.data?.objects.data[0].attributes);
 
   return object;
+};
+
+export const getCities = async (): Promise<Cities> => {
+  const headers = { "Content-Type": "application/json" };
+  const query = /* GraphGL */ `
+    query Cities {
+      cities {
+        meta {
+          pagination {
+            total
+          }
+        }
+      }
+    }
+  `;
+  const res = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_API_URL}/graphql`, {
+    headers,
+    method: "POST",
+    body: JSON.stringify({
+      query,
+    }),
+    next: { 
+      tags: ["strapi"],
+      revalidate: 60
+    },
+  });
+
+  if (!res.ok) {
+    // Log the error to an error reporting service
+    const err = await res.text();
+    console.log(err);
+    // Throw an error
+    throw new Error("Failed to fetch data 'Cities'");
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+  const json = await res.json();
+
+  // await new Promise((resolve) => setTimeout(resolve, 1000));
+
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+  if ((json.data.cities.meta.pagination.total === 0)) {
+    notFound()
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+  const cities = Cities.parse(json.data.cities);
+
+  return cities;
 };

@@ -18,6 +18,7 @@ export default function GoBack() {
     >
       <Button 
         className="flex items-center w-fit py-4 pr-4 pl-0 cursor-pointer underline underline-offset-4"
+        color="primary"
         variant="light"
         onClick={() => router.back()}
       >

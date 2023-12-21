@@ -20,7 +20,7 @@ export default async function MapPage() {
 
   return (
     <ClientHydration fallback={<Loading />}>
-      <div className="mx-auto w-[95%] max-w-[2200px] md:w-[85%] mt-24 mb-6">
+      <div className="mx-auto w-[95%] max-w-[2200px] md:w-[85%] pt-24 mb-6">
         <MapComponent objects={dataResult.value} />
       </div>
     </ClientHydration>

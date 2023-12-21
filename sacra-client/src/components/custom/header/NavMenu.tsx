@@ -45,9 +45,9 @@ export default function NavMenu() {
         <NavbarBrand>
           <Link
             href={`/`}
-            className="relative flex items-center h-[2.5rem] w-[7rem] md:h-[3.5rem] md:w-[9rem]"
+            className="relative flex items-center w-fit h-[2.5rem] md:h-[3.5rem] hover:scale-125 transition-all"
           >
-            <LogoSvg />
+            <LogoSvg className='max-w-[1.8rem]' />
           </Link>
         </NavbarBrand>
         <NavbarMenuToggle

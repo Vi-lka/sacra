@@ -51,7 +51,7 @@ export default async function Catalog({
       notFound
       goBack
     >
-      <div className="mx-auto w-[95%] max-w-[2200px] md:w-[85%] mt-24 mb-20">
+      <div className="mx-auto w-[95%] max-w-[2200px] md:w-[85%] pt-24 mb-20">
         <div className="mt-10">
           <h1 className="font-bold md:text-2xl text-xl mb-4">
             Поиск по коллекции
@@ -67,7 +67,7 @@ export default async function Catalog({
   );
 
   return (
-    <div className="mx-auto w-[95%] max-w-[2200px] md:w-[85%] mt-24 mb-20">
+    <div className="mx-auto w-[95%] max-w-[2200px] md:w-[85%] pt-24 mb-20">
         <div className="mb-6">
             <div className="mt-10">
                 <h1 className="font-bold md:text-2xl text-xl mb-4">

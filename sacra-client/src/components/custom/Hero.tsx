@@ -58,6 +58,7 @@ export default function Hero() {
                   animation={titleAnimations}
                   staggerChildren={0.02}
                   delay={1.2}
+                  once
                 />
                 <motion.p 
                     ref={ref}

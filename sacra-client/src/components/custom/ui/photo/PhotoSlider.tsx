@@ -51,7 +51,7 @@ export default function PhotoSlider({
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.3, type: "tween", delay: 0.2 }} 
-        className="keen-slider bg-secondary aspect-square max-h-96 cursor-grab rounded-md md:aspect-video 2xl:aspect-[2/1.2] 2xl:max-h-[500px]"
+        className="keen-slider bg-transparent aspect-square max-h-96 cursor-grab rounded-md md:aspect-video 2xl:aspect-[2/1.2] 2xl:max-h-[500px]"
       >
         {data.map((image, index) => (
           <div key={index} className="keen-slider__slide zoom-out__slide">

@@ -46,7 +46,7 @@ export default function RootLayout({
       suppressHydrationWarning
       className={`dark ${montserrat.variable}`}
     >
-      <body className='font-Montserrat'>
+      <body className='font-Montserrat gradient'>
       <Providers>
         <Header />
         <main>

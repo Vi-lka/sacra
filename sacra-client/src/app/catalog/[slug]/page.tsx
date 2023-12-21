@@ -65,7 +65,7 @@ export default async function Object({
 
   return (
     <ClientHydration fallback={<Loading />}>
-      <div className="mx-auto w-[95%] max-w-[2200px] md:w-[85%] mt-24 mb-20">
+      <div className="mx-auto w-[95%] max-w-[2200px] md:w-[85%] pt-24 mb-20">
         <GoBack />
         <div className='flex lg:flex-row flex-col gap-6 my-6'>
           <section className="flex flex-col gap-2 lg:w-1/2">

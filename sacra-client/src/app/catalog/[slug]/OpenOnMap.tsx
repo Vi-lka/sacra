@@ -2,7 +2,7 @@
 
 import { param  } from '@/components/custom/map/MapComponent';
 import type {Properties} from '@/components/custom/map/MapComponent';
-import { Button, Spinner } from '@nextui-org/react'
+import { Button } from '@nextui-org/react'
 import { motion } from 'framer-motion'
 import { MapPinned } from 'lucide-react';
 import { useRouter } from 'next/navigation';
@@ -34,14 +34,12 @@ export default function OpenOnMap({
         >
             <Button 
                 isIconOnly 
+                isLoading={isPending}
                 variant="bordered"
                 className="mt-1 font-medium text-xs border-accent hover:scale-110" 
                 onPress={() => goToMarker()}
             >
-                {isPending 
-                    ? <Spinner size="sm" />
-                    : <MapPinned className='w-5 h-5' />
-                }
+                <MapPinned className='w-5 h-5' />
             </Button>
         </motion.div>
   )

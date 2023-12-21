@@ -107,9 +107,9 @@ export default function MapComponent({
     options: { radius: 70, maxZoom: 22 }
   });
 
-  const onSelectCluster = React.useCallback((coordinates: LngLatLike, zoom: number) => {
-    mapRef.current?.flyTo({center: coordinates, duration: 1000, zoom});
-  }, []);
+  const onSelectCluster = React.useCallback((coordinates: LngLatLike) => {
+    mapRef.current?.flyTo({center: coordinates, duration: 1000, zoom: viewState.zoom + 2});
+  }, [viewState.zoom]);
 
   const onSelectMarker = React.useCallback((properties: Properties) => {
       mapRef.current?.flyTo({center: [properties.geolocation.longitude, properties.geolocation.latitude], duration: 1000});
@@ -168,7 +168,7 @@ export default function MapComponent({
                       height: `${10 + (pointCount / points.length) * 50}px`
                     }}
                     onClick={() => {
-                      onSelectCluster(cluster.geometry.coordinates as LngLatLike, viewState.zoom + 2)
+                      onSelectCluster(cluster.geometry.coordinates as LngLatLike)
                     }}
                   >
                     {pointCount}

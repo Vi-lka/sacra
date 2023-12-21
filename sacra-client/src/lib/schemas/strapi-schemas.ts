@@ -155,3 +155,13 @@ export const ObjectBySlug = z.object({
   }),
 });
 export type ObjectBySlug = z.infer<typeof ObjectBySlug>;
+
+
+export const Cities = z.object({
+  meta: z.object({
+    pagination: z.object({
+      total: z.number(),
+    })
+  }),
+});
+export type Cities = z.infer<typeof Cities>;

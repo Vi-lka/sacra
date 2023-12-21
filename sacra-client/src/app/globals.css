@@ -83,7 +83,7 @@ html {
 
 .gradient {
   background: rgb(11,24,51);
-  background: linear-gradient(180deg, rgba(11,24,51,0.8) 0%, rgba(16,53,149,0.3) 40%, rgba(2,5,35,0.1) 55%, rgba(2,5,35,1) 80%, rgba(2,5,35,1) 95%)
+  background: linear-gradient(180deg, rgba(11,24,51,0.8) 0%, rgba(16,53,149,0.3) 10%, rgba(2,5,35,0.1) 70%, rgba(2,5,35,1) 90%, rgba(2,5,35,1) 95%);
 }
 
 @media (max-width: 440px) {
