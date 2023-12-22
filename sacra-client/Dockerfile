@@ -9,7 +9,7 @@ FROM base AS builder
 WORKDIR /app
 
 # Install dependencies based on the preferred package manager
-COPY package.json yarn.lock* package-lock.json* pnpm-lock.yaml* ./
+COPY package.json yarn.lock* package-lock.json* pnpm-lock.yaml* .npmrc ./
 # Omit --production flag for TypeScript devDependencies
 RUN yarn global add pnpm
 
@@ -35,6 +35,8 @@ ENV NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN=${NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN}
 # Next.js collects completely anonymous telemetry data about general usage. Learn more here: https://nextjs.org/telemetry
 # Uncomment the following line to disable telemetry at build time
 # ENV NEXT_TELEMETRY_DISABLED 1
+
+RUN pnpm install sharp
 
 RUN pnpm install 
 
@@ -65,6 +67,8 @@ COPY --from=builder --chown=nextjs:nodejs /app/.next/cache ./.next/cache
 COPY --from=builder --chown=nextjs:nodejs /app/public ./public
 
 # Environment variables must be redefined at run time
+ENV NEXT_SHARP_PATH=/app/node_modules/sharp
+
 ARG NEXT_PUBLIC_URL
 ENV NEXT_PUBLIC_URL=${NEXT_PUBLIC_URL}
 ARG NEXT_PUBLIC_STRAPI_API_URL
