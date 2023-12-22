@@ -36,9 +36,7 @@ ENV NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN=${NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN}
 # Uncomment the following line to disable telemetry at build time
 # ENV NEXT_TELEMETRY_DISABLED 1
 
-RUN pnpm install sharp
-
-RUN pnpm install 
+RUN pnpm install
 
 # Build Next.js based on the preferred package manager
 RUN pnpm build
@@ -67,8 +65,6 @@ COPY --from=builder --chown=nextjs:nodejs /app/.next/cache ./.next/cache
 COPY --from=builder --chown=nextjs:nodejs /app/public ./public
 
 # Environment variables must be redefined at run time
-ENV NEXT_SHARP_PATH=/app/node_modules/sharp
-
 ARG NEXT_PUBLIC_URL
 ENV NEXT_PUBLIC_URL=${NEXT_PUBLIC_URL}
 ARG NEXT_PUBLIC_STRAPI_API_URL
