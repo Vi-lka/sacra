@@ -23,6 +23,7 @@ export default function GoToSection() {
             <motion.div ref={ref} className='relative'>
                 <Link href="/catalog" className='md:min-w-[21rem] min-w-[80%]' passHref>
                     <Button
+                        disableRipple
                         variant="ghost"
                         color="primary"
                         className="
@@ -46,6 +47,7 @@ export default function GoToSection() {
             <motion.div ref={ref} className='relative'>
                 <Link href="/map" className='md:min-w-[21rem] min-w-[80%]' passHref>
                     <Button
+                        disableRipple
                         variant="ghost"
                         color="primary"
                         className="
