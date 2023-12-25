@@ -46,7 +46,7 @@ export default function ImgText(props: Props) {
               height={props.height ? props.height : 320}
               fill={false}
               priority={true}
-              className={"min-h-full my-auto object-cover "}
+              className={"min-h-full my-auto mx-auto object-cover"}
               alt={props.title ? props.title : ""}
             />
             <div className="absolute bottom-0 h-full w-full bg-black bg-opacity-10" />

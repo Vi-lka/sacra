@@ -3,14 +3,14 @@
 import 'mapbox-gl/dist/mapbox-gl.css';
 
 import type { Objects } from '@/lib/schemas/strapi-schemas';
-import React from 'react'
+import React from 'react';
 import type { LngLatLike, MapRef} from 'react-map-gl';
-import Map, { Marker } from 'react-map-gl'
+import Map, { Marker } from 'react-map-gl';
 import MarkerIcon from './MarkerIcon';
 import MapboxLanguage from '@mapbox/mapbox-gl-language';
 import { motion } from 'framer-motion';
 import type { BBox } from "geojson";
-import useSupercluster from "use-supercluster"
+import useSupercluster from "use-supercluster";
 import type { PointFeature } from 'supercluster';
 import PopupMarker from './PopupMarker';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
@@ -62,9 +62,9 @@ export default function MapComponent({
   const [viewState, setViewState] = React.useState({
     longitude: paramJSON ? paramJSON.geolocation.longitude : 93.282883,
     latitude: paramJSON ? paramJSON.geolocation.latitude : 57.700747,
-    zoom: paramJSON ? 5 : 4,
+    zoom: paramJSON ? 5.9 : 5,
     bearing: 0,
-    pitch: 50
+    pitch: 45
   });
   const [bounds, setBounds] = React.useState<BBox | undefined>(undefined);
 
@@ -104,7 +104,7 @@ export default function MapComponent({
     points,
     bounds,
     zoom: viewState.zoom,
-    options: { radius: 70, maxZoom: 22 }
+    options: { radius: 45, maxZoom: 22 }
   });
 
   const onSelectCluster = React.useCallback((coordinates: LngLatLike) => {
@@ -167,7 +167,8 @@ export default function MapComponent({
                       width: `${10 + (pointCount / points.length) * 50}px`,
                       height: `${10 + (pointCount / points.length) * 50}px`
                     }}
-                    onClick={() => {
+                    onClick={(e) => {
+                      e.stopPropagation();
                       onSelectCluster(cluster.geometry.coordinates as LngLatLike)
                     }}
                   >
