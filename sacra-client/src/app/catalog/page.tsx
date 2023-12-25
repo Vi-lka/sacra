@@ -1,3 +1,4 @@
+
 import ErrorHandler from "@/components/custom/ui/ErrorHandler";
 import ImgText from "@/components/custom/ui/ImgText";
 import PaginationControls from "@/components/custom/ui/PaginationControls";
@@ -25,8 +26,12 @@ export default async function Catalog({
   const per = searchParams['per'] ?? defaultPageSize
   const sort = searchParams['sort'] as string | undefined
   const search = searchParams['search'] as string | undefined
+  const confession = searchParams['confession'] as string | undefined
   const architects = searchParams['architect'] as string | undefined
   const architecturalStyle = searchParams['architecturalStyle'] as string | undefined
+  const region = searchParams['region'] as string | undefined
+  const district = searchParams['district'] as string | undefined
+  const city = searchParams['city'] as string | undefined
 
   const sortData = [
     { val: 'title:asc', text: 'Название: А-Я' },
@@ -39,8 +44,12 @@ export default async function Catalog({
       Number(per), 
       sort, 
       search,
+      confession,
       architects,
-      architecturalStyle
+      architecturalStyle,
+      region,
+      district,
+      city,
     )
   ]);
   if (dataResult.status === "rejected")

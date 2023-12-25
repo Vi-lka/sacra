@@ -8,8 +8,12 @@ export const getObjects = async (
     per: number,
     sort = "order:asc",
     search = "",
+    confession?: string,
     architects?: string,
-    architecturalStyle?: string
+    architecturalStyle?: string,
+    region?: string,
+    district?: string,
+    city?: string,
   ): Promise<Objects> => {
     const headers = { "Content-Type": "application/json" };
 
@@ -24,13 +28,19 @@ export const getObjects = async (
           },
           filters: {
             and: [
-              { title: {containsi: "${search}"} },
+              {title: { containsi: "${search}" }},
+              ${confession 
+                ? `{
+                  confession: {
+                    title: { containsi: "${confession}" }
+                  }
+                }`
+                : ''
+              }
               ${architects 
                 ? `{
                   architects: {
-                    title: {
-                      containsi: "${architects}"
-                    }
+                    title: { containsi: "${architects}" }
                   }
                 }`
                 : ''
@@ -38,9 +48,31 @@ export const getObjects = async (
               ${architecturalStyle 
                 ? `{
                   architectural_styles: {
-                    title: {
-                      containsi: "${architecturalStyle}"
-                    }
+                    title: { containsi: "${architecturalStyle}" }
+                  }
+                }`
+                : ''
+              }
+              ${region 
+                ? `{
+                  region: {
+                    title: { containsi: "${region}" }
+                  }
+                }`
+                : ''
+              }
+              ${district 
+                ? `{
+                  district: {
+                    title: { containsi: "${district}" }
+                  }
+                }`
+                : ''
+              }
+              ${city 
+                ? `{
+                  city: {
+                    title: { containsi: "${city}" }
                   }
                 }`
                 : ''
