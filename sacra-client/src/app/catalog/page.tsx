@@ -94,8 +94,8 @@ export default async function Catalog({
 
             <div key={Math.random()} className="md:w-full w-[85%] mx-auto mb-12 grid min-[3000px]:grid-cols-6 min-[2000px]:grid-cols-4 lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-6">
                 {dataResult.value.data.map((object, index) => {
-                  const region = !!object.attributes.region.data ? object.attributes.region.data.attributes.title + ", " : ""
-                  const city = !!object.attributes.city.data ? object.attributes.city.data.attributes.title : ""
+                  const region = !!object.attributes.region.data ? object.attributes.region.data.attributes.title : ""
+                  const city = !!object.attributes.city.data ? ", " + object.attributes.city.data.attributes.title : ""
                   return (
                     <ImgText
                       key={index}
