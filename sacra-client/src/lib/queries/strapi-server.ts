@@ -1,7 +1,7 @@
 import "server-only"
 
 import { notFound } from "next/navigation";
-import { Cities, ObjectBySlug, Objects } from "../schemas/strapi-schemas";
+import { Cities, ObjectBySlug, Objects, Tour } from "../schemas/strapi-schemas";
 
 export const getObjects = async (
     page: number,
@@ -156,8 +156,6 @@ export const getObjects = async (
   
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     const json = await res.json();
-  
-    // await new Promise((resolve) => setTimeout(resolve, 1000));
 
     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     if ((json.data.objects.meta.pagination.total === 0) || (json.data.objects.data.length === 0)) {
@@ -186,11 +184,7 @@ export const getObjectBySlug = async (slug: string): Promise<ObjectBySlug> => {
             slug
             title
             imagesSlider {
-              data {
-                attributes {
-                  url
-                }
-              }
+              data {attributes {url}}
             }
             confession {
               data {
@@ -247,22 +241,17 @@ export const getObjectBySlug = async (slug: string): Promise<ObjectBySlug> => {
               longitude
             }
             dateConstruction
-            appearanceChangesList {
-              title
-            }
+            appearanceChangesList { title }
             historicalNote
             urlTour
             videos {
-              data {
-                attributes {
-                  url
-                }
-              }
+              data {attributes {url}}
             }
             sources {
               title
               url
             }
+            tour {data {id}}
             models {
               data {
                 attributes {
@@ -352,8 +341,6 @@ export const getCities = async (): Promise<Cities> => {
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   const json = await res.json();
 
-  // await new Promise((resolve) => setTimeout(resolve, 1000));
-
   // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
   if ((json.data.cities.meta.pagination.total === 0)) {
     notFound()
@@ -363,4 +350,81 @@ export const getCities = async (): Promise<Cities> => {
   const cities = Cities.parse(json.data.cities);
 
   return cities;
+};
+
+export const getTour = async (id: string): Promise<Tour> => {
+  const headers = { "Content-Type": "application/json" };
+  const query = /* GraphGL */ `
+    query Tour {
+      tour(id: "${id}") {
+        data {
+          attributes {
+            title
+            startNode {data { id }}
+            nodes {
+              data {
+                id
+                attributes {
+                  title
+                  thumbnail {
+                    data {attributes { url }}
+                  }
+                  panorama {
+                    data {attributes {url}}
+                  }
+                  description
+                  links {
+                    data {
+                      id
+                      attributes {
+                        toNode {data {id}}
+                        position {
+                          textureX
+                          textureY
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  `;
+  const res = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_API_URL}/graphql`, {
+    headers,
+    method: "POST",
+    body: JSON.stringify({
+      query,
+    }),
+    next: { 
+      tags: ["strapi"],
+      revalidate: 60
+    },
+  });
+
+  if (!res.ok) {
+    // Log the error to an error reporting service
+    const err = await res.text();
+    console.log(err);
+    // Throw an error
+    throw new Error("Failed to fetch data 'Tour'");
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+  const json = await res.json();
+
+  // await new Promise((resolve) => setTimeout(resolve, 2000));
+
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+  if ((json.data.tour.data === null)) {
+    notFound()
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+  const tour = Tour.parse(json.data.tour.data.attributes);
+
+  return tour;
 };

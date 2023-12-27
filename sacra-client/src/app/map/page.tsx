@@ -3,7 +3,12 @@ import MapComponent from '@/components/custom/map/MapComponent';
 import { ClientHydration } from '@/components/custom/ui/ClientHydration';
 import ErrorHandler from '@/components/custom/ui/ErrorHandler';
 import { getObjects } from '@/lib/queries/strapi-server';
+import type { Metadata } from 'next';
 import React from 'react';
+
+export const metadata: Metadata = {
+  title: "Карта",
+};
 
 export default async function MapPage() {
 

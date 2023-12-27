@@ -1,0 +1,18 @@
+{
+  "collectionName": "components_tour_positions",
+  "info": {
+    "displayName": "position",
+    "icon": "pinMap"
+  },
+  "options": {},
+  "attributes": {
+    "textureX": {
+      "type": "integer",
+      "required": true
+    },
+    "textureY": {
+      "type": "integer",
+      "required": true
+    }
+  }
+}

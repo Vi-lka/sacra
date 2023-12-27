@@ -12,11 +12,15 @@ import Metadata from './Metadata';
 import { ClientHydration } from '@/components/custom/ui/ClientHydration';
 import Loading from '@/components/custom/Loading';
 import OpenOnMap from './OpenOnMap';
+import OpenTour from './OpenTour';
+import Tour from './Tour';
 
 export default async function Object({
   params: { slug },
+  searchParams
 }: {
   params: { slug: string };
+  searchParams: { [key: string]: string | string[] | undefined },
 }) {
 
   const [ dataResult ] = await Promise.allSettled([ getObjectBySlug(slug) ]);
@@ -63,6 +67,8 @@ export default async function Object({
 
   const locationForMap = city + location
 
+  console.log(dataResult.value.tour.data)
+
   return (
     <ClientHydration fallback={<Loading />}>
       <div className="mx-auto w-[95%] max-w-[2200px] md:w-[85%] pt-24 mb-20">
@@ -100,6 +106,14 @@ export default async function Object({
                   ? dataResult.value.models.data[0].attributes.file.data?.attributes.url
                   : undefined
               }/>
+              {dataResult.value.tour.data
+                ? (
+                  <OpenTour>
+                    <Tour id={dataResult.value.tour.data.id} searchParams={searchParams}/>
+                  </OpenTour>
+                )
+                : null
+              }
               <OpenOnMap properties={{
                 objectId: dataResult.value.slug,
                 title: dataResult.value.title,

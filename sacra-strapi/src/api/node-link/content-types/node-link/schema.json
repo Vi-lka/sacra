@@ -1,0 +1,33 @@
+{
+  "kind": "collectionType",
+  "collectionName": "node_links",
+  "info": {
+    "singularName": "node-link",
+    "pluralName": "node-links",
+    "displayName": "NodeLink",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "toNode": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::node.node"
+    },
+    "node": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::node.node",
+      "inversedBy": "links"
+    },
+    "position": {
+      "type": "component",
+      "repeatable": false,
+      "component": "tour.position",
+      "required": true
+    }
+  }
+}

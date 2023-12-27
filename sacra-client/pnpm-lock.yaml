@@ -122,6 +122,9 @@ dependencies:
   react-markdown:
     specifier: ^9.0.1
     version: 9.0.1(@types/react@18.2.45)(react@18.2.0)
+  react-photo-sphere-viewer:
+    specifier: 4.0.2-psv5.4.4
+    version: 4.0.2-psv5.4.4(postcss@8.4.32)(three@0.159.0)
   react-select:
     specifier: ^5.8.0
     version: 5.8.0(@types/react@18.2.45)(react-dom@18.2.0)(react@18.2.0)
@@ -2027,6 +2030,154 @@ packages:
     dependencies:
       '@nodelib/fs.scandir': 2.1.5
       fastq: 1.15.0
+
+  /@photo-sphere-viewer/autorotate-plugin@5.5.1(@photo-sphere-viewer/core@5.5.1):
+    resolution: {integrity: sha512-ZU20ZYaa5VPNg3J+wh9GwS/yZxD9r+XPCE90FiekYnDyJ2wE3ckQ5m7h+BEvH4Hpb3rX0NVzyZl4iA9kubuxhQ==}
+    peerDependencies:
+      '@photo-sphere-viewer/core': 5.5.1
+    dependencies:
+      '@photo-sphere-viewer/core': 5.5.1
+    dev: false
+
+  /@photo-sphere-viewer/compass-plugin@5.5.1(@photo-sphere-viewer/core@5.5.1):
+    resolution: {integrity: sha512-tI5wKcVWwvebH2loI1C9B5CwR++Oz7yzODpGRhkjWADw2LLqjap0rJxiheYl6AiL+tHCWl4pIJ8lss6frZ1vkA==}
+    peerDependencies:
+      '@photo-sphere-viewer/core': 5.5.1
+    dependencies:
+      '@photo-sphere-viewer/core': 5.5.1
+    dev: false
+
+  /@photo-sphere-viewer/core@5.5.1:
+    resolution: {integrity: sha512-dddxySM0retvsO7cDa0lJ0oviGpSYZV9vJLqv126YoYnZZhL9fFOjkmJP+GSMLU6AU8pZIVuiVZ1TSWJaZcGrg==}
+    dependencies:
+      three: 0.159.0
+    dev: false
+
+  /@photo-sphere-viewer/cubemap-adapter@5.5.1(@photo-sphere-viewer/core@5.5.1):
+    resolution: {integrity: sha512-5K8UwrSlUR6EVFOoCxbZeLJXSJ40fgtTQ6Kj2ltZ++y9r9I6vkvtqTUCRnZs9yaYezcbCXbuppebLKSWhodZtA==}
+    peerDependencies:
+      '@photo-sphere-viewer/core': 5.5.1
+    dependencies:
+      '@photo-sphere-viewer/core': 5.5.1
+    dev: false
+
+  /@photo-sphere-viewer/cubemap-tiles-adapter@5.5.1(@photo-sphere-viewer/core@5.5.1)(@photo-sphere-viewer/cubemap-adapter@5.5.1):
+    resolution: {integrity: sha512-NEt4GYGo8ZlnV1rCe4KWtZLPbcxQHlEjqnOUn1Laf1aGcxo64WWHoFaeDkAHR9aky+VJS6tJXbl4HFCtaqdp1g==}
+    peerDependencies:
+      '@photo-sphere-viewer/core': 5.5.1
+      '@photo-sphere-viewer/cubemap-adapter': 5.5.1
+    dependencies:
+      '@photo-sphere-viewer/core': 5.5.1
+      '@photo-sphere-viewer/cubemap-adapter': 5.5.1(@photo-sphere-viewer/core@5.5.1)
+    dev: false
+
+  /@photo-sphere-viewer/cubemap-video-adapter@5.5.1(@photo-sphere-viewer/core@5.5.1):
+    resolution: {integrity: sha512-YnASpozLY+8Wjud8f0+3XG8zGfTtdFSFjWja8pPpTl23gVukpBlKElrEargNrOznGW1TXvGoNXE34r4/OLJjeg==}
+    peerDependencies:
+      '@photo-sphere-viewer/core': 5.5.1
+    dependencies:
+      '@photo-sphere-viewer/core': 5.5.1
+    dev: false
+
+  /@photo-sphere-viewer/equirectangular-tiles-adapter@5.5.1(@photo-sphere-viewer/core@5.5.1):
+    resolution: {integrity: sha512-Uf88wdMHlXTCl8zLnwdRPS8HgaofK6EJyARXew/smJ4mR/0VUt9RWRE/8K9LrLhh01OYDEK7eo6sNXOhWsddLw==}
+    peerDependencies:
+      '@photo-sphere-viewer/core': 5.5.1
+    dependencies:
+      '@photo-sphere-viewer/core': 5.5.1
+    dev: false
+
+  /@photo-sphere-viewer/equirectangular-video-adapter@5.5.1(@photo-sphere-viewer/core@5.5.1):
+    resolution: {integrity: sha512-Obh3n9K00d8NiRWPaOQLNI31iW32k8wrc9ANVUNxVSIzDt8Hkd/qBBV7VZoQtuELiFK+EPz+61h1uisckf50lQ==}
+    peerDependencies:
+      '@photo-sphere-viewer/core': 5.5.1
+    dependencies:
+      '@photo-sphere-viewer/core': 5.5.1
+    dev: false
+
+  /@photo-sphere-viewer/gallery-plugin@5.5.1(@photo-sphere-viewer/core@5.5.1):
+    resolution: {integrity: sha512-J+Futd4VSFmAU1kw7a9zBZi1GUZT5lGTf/mHmGdOZSX0+/hLY0txCJhD909aoFZYqC4JRczRWAgW5aIpdvfV+A==}
+    peerDependencies:
+      '@photo-sphere-viewer/core': 5.5.1
+    dependencies:
+      '@photo-sphere-viewer/core': 5.5.1
+    dev: false
+
+  /@photo-sphere-viewer/gyroscope-plugin@5.5.1(@photo-sphere-viewer/core@5.5.1):
+    resolution: {integrity: sha512-hgOzHHZyiM00/+5n3i386lI/Hf5dg4HCLpgxxeHP2eusieUI9JQIv4XNXWhzTq+OTdv1bwEj3wWXH65b+JuT/Q==}
+    peerDependencies:
+      '@photo-sphere-viewer/core': 5.5.1
+    dependencies:
+      '@photo-sphere-viewer/core': 5.5.1
+    dev: false
+
+  /@photo-sphere-viewer/map-plugin@5.5.1(@photo-sphere-viewer/core@5.5.1):
+    resolution: {integrity: sha512-Wbaco0/RvLOeq6u4FqzuEIsOY/gV2kzOTUnrYSVoGiP6opNfDT62Bd4F+MpUq+FjazI6uoXcfrbuz6SrZi7Nmg==}
+    peerDependencies:
+      '@photo-sphere-viewer/core': 5.5.1
+    dependencies:
+      '@photo-sphere-viewer/core': 5.5.1
+    dev: false
+
+  /@photo-sphere-viewer/markers-plugin@5.5.1(@photo-sphere-viewer/core@5.5.1):
+    resolution: {integrity: sha512-PnhmBplFFlT6CX4wz0qleGAHWOeZb+YmUCpOk/+zstUxf8Opf+XmXTZdk3M3bu/NmCe6DhkbyRl6f8aXDMQhhA==}
+    peerDependencies:
+      '@photo-sphere-viewer/core': 5.5.1
+    dependencies:
+      '@photo-sphere-viewer/core': 5.5.1
+    dev: false
+
+  /@photo-sphere-viewer/resolution-plugin@5.5.1(@photo-sphere-viewer/core@5.5.1)(@photo-sphere-viewer/settings-plugin@5.5.1):
+    resolution: {integrity: sha512-pa+mVfkfQ7AuypYNdHG8pFk9+bcn3GJpq1JMfcMwurKUVi4XbLxQCOb2yq7owZP/IEpp82L1cvV4o8cFIV+8Eg==}
+    peerDependencies:
+      '@photo-sphere-viewer/core': 5.5.1
+      '@photo-sphere-viewer/settings-plugin': 5.5.1
+    dependencies:
+      '@photo-sphere-viewer/core': 5.5.1
+      '@photo-sphere-viewer/settings-plugin': 5.5.1(@photo-sphere-viewer/core@5.5.1)
+    dev: false
+
+  /@photo-sphere-viewer/settings-plugin@5.5.1(@photo-sphere-viewer/core@5.5.1):
+    resolution: {integrity: sha512-M5FAdwBuPn7INW0q7MnYRscQMFJMlNb2yR1vyjyq5mmTsghnclsCPq+ghkFJ3n7aIsrwObxndbPtB1RvrA4Xbw==}
+    peerDependencies:
+      '@photo-sphere-viewer/core': 5.5.1
+    dependencies:
+      '@photo-sphere-viewer/core': 5.5.1
+    dev: false
+
+  /@photo-sphere-viewer/stereo-plugin@5.5.1(@photo-sphere-viewer/core@5.5.1)(@photo-sphere-viewer/gyroscope-plugin@5.5.1):
+    resolution: {integrity: sha512-WSoi1i5JabGG7j+xTHXEE7S/AFY4xEM28EdwgJgPz+/S3xba7ouXWhOKCBE+Vjrka+mv0uwasaqRvFfzJrRJ0Q==}
+    peerDependencies:
+      '@photo-sphere-viewer/core': 5.5.1
+      '@photo-sphere-viewer/gyroscope-plugin': 5.5.1
+    dependencies:
+      '@photo-sphere-viewer/core': 5.5.1
+      '@photo-sphere-viewer/gyroscope-plugin': 5.5.1(@photo-sphere-viewer/core@5.5.1)
+    dev: false
+
+  /@photo-sphere-viewer/video-plugin@5.5.1(@photo-sphere-viewer/core@5.5.1):
+    resolution: {integrity: sha512-sPxLWrwFnfj13XkxP+gCucagDDN0ZnYqUmrKpHe4aiAiwwiJIAdsllm7eq1e9dzYJoPk4tQuk9rJAuHseEbcsg==}
+    peerDependencies:
+      '@photo-sphere-viewer/core': 5.5.1
+    dependencies:
+      '@photo-sphere-viewer/core': 5.5.1
+    dev: false
+
+  /@photo-sphere-viewer/virtual-tour-plugin@5.5.1(@photo-sphere-viewer/core@5.5.1):
+    resolution: {integrity: sha512-1qnp8XBCb26WlVnR/8kalqIeGgC3+ioBOZGxPJ2pu88QUBfb6UHYub4lLdslvTVd0eaMrV4KamTtweoxLRfTjg==}
+    peerDependencies:
+      '@photo-sphere-viewer/core': 5.5.1
+    dependencies:
+      '@photo-sphere-viewer/core': 5.5.1
+    dev: false
+
+  /@photo-sphere-viewer/visible-range-plugin@5.5.1(@photo-sphere-viewer/core@5.5.1):
+    resolution: {integrity: sha512-Kt2zE99cHLdY0AjYVdmQjD0bQJj1MuSCz/J+2EFInA5O8xeanSjmTKOlaCoXuJPP8Q4j1e5gaY4/gguLjQ5P9w==}
+    peerDependencies:
+      '@photo-sphere-viewer/core': 5.5.1
+    dependencies:
+      '@photo-sphere-viewer/core': 5.5.1
+    dev: false
 
   /@radix-ui/number@1.0.1:
     resolution: {integrity: sha512-T5gIdVO2mmPW3NNhjNgEP3cqMXjXL9UbO0BzWcXfvdBs+BohbQxvd/K5hSVKmn9/lbTdsQVKbUcP5WLCwvUbBg==}
@@ -4591,7 +4742,6 @@ packages:
       picocolors: 1.0.0
       postcss: 8.4.32
       postcss-value-parser: 4.2.0
-    dev: true
 
   /available-typed-arrays@1.0.5:
     resolution: {integrity: sha512-DMD0KiN46eipeziST1LPP/STfDU0sufISXmjSgvVsoU2tqxctQeASejWcfNtxYKqETM1UxQ8sp2OrSBWpHY6sw==}
@@ -4672,7 +4822,6 @@ packages:
       electron-to-chromium: 1.4.614
       node-releases: 2.0.14
       update-browserslist-db: 1.0.13(browserslist@4.22.2)
-    dev: true
 
   /buffer@5.7.1:
     resolution: {integrity: sha512-EHcyIPBQ4BSGlvjB16k5KgAJ27CIsHY/2JBmCRReo48y9rQ3MaUzWX3KVlBa4U7MyX02HdVj0K7C3WaB3ju7FQ==}
@@ -5062,7 +5211,6 @@ packages:
 
   /electron-to-chromium@1.4.614:
     resolution: {integrity: sha512-X4ze/9Sc3QWs6h92yerwqv7aB/uU8vCjZcrMjA8N9R1pjMFRe44dLsck5FzLilOYvcXuDn93B+bpGYyufc70gQ==}
-    dev: true
 
   /emoji-regex@9.2.2:
     resolution: {integrity: sha512-L18DaJsXSUk2+42pv8mLs5jJT2hqFkFE4j21wOmgbUqsZ2hL72NsUU785g9RXgo3s0ZNgVl42TiHp3ZtOv/Vyg==}
@@ -5184,7 +5332,6 @@ packages:
   /escalade@3.1.1:
     resolution: {integrity: sha512-k0er2gUkLf8O0zKJiAhmkTnJlTvINGv7ygDNPbeIsX/TJjGJZHuh9B2UxbsaEkmlEo9MfhrSzmhIlhRlI2GXnw==}
     engines: {node: '>=6'}
-    dev: true
 
   /escape-string-regexp@1.0.5:
     resolution: {integrity: sha512-vbRorB5FUQWvla16U8R/qgaFIya2qGzwDrNmCZuYKrbdSUMG6I1ZCGQRefkRVhuOkIGVne7BQ35DSfo1qvJqFg==}
@@ -5501,6 +5648,10 @@ packages:
     engines: {node: '>=0.10.0'}
     dev: true
 
+  /eventemitter3@5.0.1:
+    resolution: {integrity: sha512-GWkBvjiSZK87ELrYOSESUYeVIc9mvLLf/nXalMOS5dYrgZq9o5OVkbZAVM06CVxYsCwH9BDZFPlQTlPA1j4ahA==}
+    dev: false
+
   /expand-template@2.0.3:
     resolution: {integrity: sha512-XYfuKMvj4O35f/pOXLObndIRvyQ+/+6AhODh+OKWj9S9498pHHn/IMszH+gt0fBCRWMNfk1ZSp5x3AifmnI2vg==}
     engines: {node: '>=6'}
@@ -5611,7 +5762,6 @@ packages:
 
   /fraction.js@4.3.7:
     resolution: {integrity: sha512-ZsDfxO51wGAXREY55a7la9LScWpwv9RxIrYABrlvOFBlH/ShPnrtsXeuUIfXKKOVicNxQ+o8JTbJvjS4M89yew==}
-    dev: true
 
   /framer-motion@10.16.16(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-je6j91rd7NmUX7L1XHouwJ4v3R+SO4umso2LUcgOct3rHZ0PajZ80ETYZTajzEXEl9DlKyzjyt4AvGQ+lrebOw==}
@@ -7046,7 +7196,6 @@ packages:
 
   /node-releases@2.0.14:
     resolution: {integrity: sha512-y10wOWt8yZpqXmOgRo77WaHEmhYQYGNA6y421PKsKYWEK8aW+cqAphborZDhqfyKrbZEN92CN1X2KbafY2s7Yw==}
-    dev: true
 
   /normalize-path@3.0.0:
     resolution: {integrity: sha512-6eZs5Ls3WtCisHWp9S2GUy8dqkpGi4BVSz3GaqiE6ezub0512ESztXUwUB6C6IKbQkY2Pnb/mD4WYojCRwcwLA==}
@@ -7055,7 +7204,6 @@ packages:
   /normalize-range@0.1.2:
     resolution: {integrity: sha512-bdok/XvKII3nUpklnV6P2hxtMNrCboOjAcyBuQnWEhO665FwrSNRxU+AqpsyvO6LgGYPspN+lu5CLtw4jPRKNA==}
     engines: {node: '>=0.10.0'}
-    dev: true
 
   /object-assign@4.1.1:
     resolution: {integrity: sha512-rJgTQnkUnH1sFw8yT6VSU3zD3sWmu6sZhIseY8VX+GRu3P6F7Fu+JNDoXfklElbLJSnc3FUQHVe4cU5hj+BcUg==}
@@ -7219,6 +7367,16 @@ packages:
     dependencies:
       ieee754: 1.2.1
       resolve-protobuf-schema: 2.1.0
+    dev: false
+
+  /photo-sphere-viewer-lensflare-plugin@2.0.1(@photo-sphere-viewer/core@5.5.1)(three@0.159.0):
+    resolution: {integrity: sha512-tF5uM/J0yOyYobTvcqPyClBXfdZbqfycBShZ8YSJDfjoi4co/y6gwsuN3XYvVKJz4GzfoY/t1BGQy/E0tLnMEA==}
+    peerDependencies:
+      '@photo-sphere-viewer/core': ^5.4.4
+      three: ^0.158.0
+    dependencies:
+      '@photo-sphere-viewer/core': 5.5.1
+      three: 0.159.0
     dev: false
 
   /picocolors@1.0.0:
@@ -7468,6 +7626,36 @@ packages:
 
   /react-merge-refs@1.1.0:
     resolution: {integrity: sha512-alTKsjEL0dKH/ru1Iyn7vliS2QRcBp9zZPGoWxUOvRGWPUYgjo+V01is7p04It6KhgrzhJGnIj9GgX8W4bZoCQ==}
+    dev: false
+
+  /react-photo-sphere-viewer@4.0.2-psv5.4.4(postcss@8.4.32)(three@0.159.0):
+    resolution: {integrity: sha512-OYjbatB58IUO1msgh/1TL1iJeEoZxPswUrvOGYsUL5a4PeOJ0fDvqbVuYA1ZhXYwhRM2mH/M1JPFpc4gB81drA==}
+    engines: {node: '>=8', npm: '>=5'}
+    dependencies:
+      '@photo-sphere-viewer/autorotate-plugin': 5.5.1(@photo-sphere-viewer/core@5.5.1)
+      '@photo-sphere-viewer/compass-plugin': 5.5.1(@photo-sphere-viewer/core@5.5.1)
+      '@photo-sphere-viewer/core': 5.5.1
+      '@photo-sphere-viewer/cubemap-adapter': 5.5.1(@photo-sphere-viewer/core@5.5.1)
+      '@photo-sphere-viewer/cubemap-tiles-adapter': 5.5.1(@photo-sphere-viewer/core@5.5.1)(@photo-sphere-viewer/cubemap-adapter@5.5.1)
+      '@photo-sphere-viewer/cubemap-video-adapter': 5.5.1(@photo-sphere-viewer/core@5.5.1)
+      '@photo-sphere-viewer/equirectangular-tiles-adapter': 5.5.1(@photo-sphere-viewer/core@5.5.1)
+      '@photo-sphere-viewer/equirectangular-video-adapter': 5.5.1(@photo-sphere-viewer/core@5.5.1)
+      '@photo-sphere-viewer/gallery-plugin': 5.5.1(@photo-sphere-viewer/core@5.5.1)
+      '@photo-sphere-viewer/gyroscope-plugin': 5.5.1(@photo-sphere-viewer/core@5.5.1)
+      '@photo-sphere-viewer/map-plugin': 5.5.1(@photo-sphere-viewer/core@5.5.1)
+      '@photo-sphere-viewer/markers-plugin': 5.5.1(@photo-sphere-viewer/core@5.5.1)
+      '@photo-sphere-viewer/resolution-plugin': 5.5.1(@photo-sphere-viewer/core@5.5.1)(@photo-sphere-viewer/settings-plugin@5.5.1)
+      '@photo-sphere-viewer/settings-plugin': 5.5.1(@photo-sphere-viewer/core@5.5.1)
+      '@photo-sphere-viewer/stereo-plugin': 5.5.1(@photo-sphere-viewer/core@5.5.1)(@photo-sphere-viewer/gyroscope-plugin@5.5.1)
+      '@photo-sphere-viewer/video-plugin': 5.5.1(@photo-sphere-viewer/core@5.5.1)
+      '@photo-sphere-viewer/virtual-tour-plugin': 5.5.1(@photo-sphere-viewer/core@5.5.1)
+      '@photo-sphere-viewer/visible-range-plugin': 5.5.1(@photo-sphere-viewer/core@5.5.1)
+      autoprefixer: 10.4.16(postcss@8.4.32)
+      eventemitter3: 5.0.1
+      photo-sphere-viewer-lensflare-plugin: 2.0.1(@photo-sphere-viewer/core@5.5.1)(three@0.159.0)
+    transitivePeerDependencies:
+      - postcss
+      - three
     dev: false
 
   /react-reconciler@0.27.0(react@18.2.0):
@@ -8515,7 +8703,6 @@ packages:
       browserslist: 4.22.2
       escalade: 3.1.1
       picocolors: 1.0.0
-    dev: true
 
   /uri-js@4.4.1:
     resolution: {integrity: sha512-7rKUyy33Q1yc98pQ1DAmLtwX109F7TIfWlW1Ydo8Wl1ii1SeHieeh0HHfPeL2fMXK6z0s8ecKs9frCuLJvndBg==}
