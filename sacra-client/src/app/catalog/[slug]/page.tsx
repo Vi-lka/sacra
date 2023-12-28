@@ -67,8 +67,6 @@ export default async function Object({
 
   const locationForMap = city + location
 
-  console.log(dataResult.value.tour.data)
-
   return (
     <ClientHydration fallback={<Loading />}>
       <div className="mx-auto w-[95%] max-w-[2200px] md:w-[85%] pt-24 mb-20">
