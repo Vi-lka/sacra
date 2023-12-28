@@ -153,8 +153,8 @@ export const ObjectBySlug = z.object({
   tour: z.object({
     data: z.object({
       id: z.string()
-    }).nullable()
-  }),
+    })
+  }).nullable(),
   models: z.object({
     data: Model.array()
   }),
