@@ -104,7 +104,7 @@ export default async function Object({
                   ? dataResult.value.models.data[0].attributes.file.data?.attributes.url
                   : undefined
               }/>
-              {dataResult.value.tour.data
+              {dataResult.value.tour
                 ? (
                   <OpenTour>
                     <Tour id={dataResult.value.tour.data.id} searchParams={searchParams}/>

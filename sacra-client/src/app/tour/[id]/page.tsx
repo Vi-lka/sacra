@@ -29,7 +29,7 @@ export default async function TourPage({
         nodes: [
             {
                 id: "1",
-                panorama: "/images/test_pano1.jpg",
+                panorama: "/images/image-placeholder-sacra.png",
                 thumbnail: "/images/image-placeholder-sacra.png",
                 name: "One",
                 caption: `[1]`,
@@ -45,7 +45,7 @@ export default async function TourPage({
             },
             {
                 id: "2",
-                panorama: "/images/test_pano1.jpg",
+                panorama: "/images/image-placeholder-sacra.png",
                 // thumbnail: baseUrl + "tour/key-biscayne-2-thumb.jpg",
                 thumbnail: "/images/image-placeholder-sacra.png",
                 name: "Two",
