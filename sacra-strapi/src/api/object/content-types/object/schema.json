@@ -187,6 +187,12 @@
         }
       },
       "type": "text"
+    },
+    "tour": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::tour.tour",
+      "mappedBy": "object"
     }
   }
 }

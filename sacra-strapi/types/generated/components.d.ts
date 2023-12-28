@@ -46,12 +46,25 @@ export interface ObjectsSources extends Schema.Component {
   };
 }
 
+export interface TourPosition extends Schema.Component {
+  collectionName: 'components_tour_positions';
+  info: {
+    displayName: 'position';
+    icon: 'pinMap';
+  };
+  attributes: {
+    textureX: Attribute.Integer & Attribute.Required;
+    textureY: Attribute.Integer & Attribute.Required;
+  };
+}
+
 declare module '@strapi/types' {
   export module Shared {
     export interface Components {
       'objects.appearance-changes': ObjectsAppearanceChanges;
       'objects.geolocation': ObjectsGeolocation;
       'objects.sources': ObjectsSources;
+      'tour.position': TourPosition;
     }
   }
 }

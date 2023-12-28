@@ -56,11 +56,15 @@ export default function NavMenu() {
         />
       </NavbarContent>
 
+      {/* Desktop */}
       <NavbarContent className="hidden sm:flex gap-4" justify="center">
         <NavMenuItem url="/" text='Главная' isBG={bg} />
         <NavMenuItem url="/catalog" text='Каталог' />
         <NavMenuItem url="/map" text='Карта' />
+        {/* <NavMenuItem url="/tour" text='Панорамы' /> */}
       </NavbarContent>
+      
+      {/* Mobile */}
       <NavbarMenu className='pt-12 bg-background/95'>
           <NavbarMenuItem>
             <NextUILink color="foreground" className="w-full font-medium text-lg mb-6" href="/" size="lg">
@@ -72,6 +76,9 @@ export default function NavMenu() {
             <NextUILink color="foreground" className="w-full font-medium text-lg mb-6" href="/map" size="lg">
               Карта
             </NextUILink>
+            {/* <NextUILink color="foreground" className="w-full font-medium text-lg mb-6" href="/tour" size="lg">
+              Панорамы
+            </NextUILink> */}
           </NavbarMenuItem>
       </NavbarMenu>
     </Navbar>

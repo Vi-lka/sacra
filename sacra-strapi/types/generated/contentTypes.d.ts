@@ -1004,6 +1004,83 @@ export interface ApiModels3DModels3D extends Schema.CollectionType {
   };
 }
 
+export interface ApiNodeNode extends Schema.CollectionType {
+  collectionName: 'nodes';
+  info: {
+    singularName: 'node';
+    pluralName: 'nodes';
+    displayName: 'Node';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    title: Attribute.String &
+      Attribute.Required &
+      Attribute.SetMinMaxLength<{
+        maxLength: 255;
+      }>;
+    panorama: Attribute.Media & Attribute.Required;
+    thumbnail: Attribute.Media;
+    description: Attribute.Text;
+    tour: Attribute.Relation<'api::node.node', 'manyToOne', 'api::tour.tour'>;
+    links: Attribute.Relation<
+      'api::node.node',
+      'oneToMany',
+      'api::node-link.node-link'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<'api::node.node', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<'api::node.node', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+  };
+}
+
+export interface ApiNodeLinkNodeLink extends Schema.CollectionType {
+  collectionName: 'node_links';
+  info: {
+    singularName: 'node-link';
+    pluralName: 'node-links';
+    displayName: 'NodeLink';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    toNode: Attribute.Relation<
+      'api::node-link.node-link',
+      'oneToOne',
+      'api::node.node'
+    >;
+    node: Attribute.Relation<
+      'api::node-link.node-link',
+      'manyToOne',
+      'api::node.node'
+    >;
+    position: Attribute.Component<'tour.position'> & Attribute.Required;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::node-link.node-link',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::node-link.node-link',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiObjectObject extends Schema.CollectionType {
   collectionName: 'objects';
   info: {
@@ -1144,6 +1221,11 @@ export interface ApiObjectObject extends Schema.CollectionType {
           localized: true;
         };
       }>;
+    tour: Attribute.Relation<
+      'api::object.object',
+      'oneToOne',
+      'api::tour.tour'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1214,6 +1296,45 @@ export interface ApiRegionRegion extends Schema.CollectionType {
   };
 }
 
+export interface ApiTourTour extends Schema.CollectionType {
+  collectionName: 'tours';
+  info: {
+    singularName: 'tour';
+    pluralName: 'tours';
+    displayName: '\u0422\u0443\u0440';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    title: Attribute.String &
+      Attribute.Required &
+      Attribute.Unique &
+      Attribute.SetMinMaxLength<{
+        maxLength: 255;
+      }>;
+    object: Attribute.Relation<
+      'api::tour.tour',
+      'oneToOne',
+      'api::object.object'
+    >;
+    nodes: Attribute.Relation<'api::tour.tour', 'oneToMany', 'api::node.node'>;
+    startNode: Attribute.Relation<
+      'api::tour.tour',
+      'oneToOne',
+      'api::node.node'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<'api::tour.tour', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<'api::tour.tour', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+  };
+}
+
 declare module '@strapi/types' {
   export module Shared {
     export interface ContentTypes {
@@ -1237,8 +1358,11 @@ declare module '@strapi/types' {
       'api::confession.confession': ApiConfessionConfession;
       'api::district.district': ApiDistrictDistrict;
       'api::models3d.models3d': ApiModels3DModels3D;
+      'api::node.node': ApiNodeNode;
+      'api::node-link.node-link': ApiNodeLinkNodeLink;
       'api::object.object': ApiObjectObject;
       'api::region.region': ApiRegionRegion;
+      'api::tour.tour': ApiTourTour;
     }
   }
 }

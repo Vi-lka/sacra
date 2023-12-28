@@ -150,6 +150,11 @@ export const ObjectBySlug = z.object({
     title: z.string(),
     url: z.string()
   }).array(),
+  tour: z.object({
+    data: z.object({
+      id: z.string()
+    }).nullable()
+  }),
   models: z.object({
     data: Model.array()
   }),
@@ -165,3 +170,54 @@ export const Cities = z.object({
   }),
 });
 export type Cities = z.infer<typeof Cities>;
+
+export const NodeLink = z.object({
+  id: z.string(),
+  attributes: z.object({
+    toNode: z.object({
+      data: z.object({
+        id: z.string()
+      }).nullable()
+    }),
+    position: z.object({
+      textureX: z.number(),
+      textureY: z.number(),
+    })
+  })
+});
+export type NodeLink = z.infer<typeof NodeLink>;
+
+export const Node = z.object({
+  id: z.string(),
+  attributes: z.object({
+    title: z.string(),
+    thumbnail: z.object({
+      data: Image
+    }),
+    panorama: z.object({
+      data: z.object({
+        attributes: z.object({
+          url: z.string(),
+        }),
+      })
+    }),
+    description: z.string().nullable(),
+    links: z.object({
+      data: NodeLink.array()
+    })
+  })
+});
+export type Node = z.infer<typeof Node>;
+
+export const Tour = z.object({
+  title: z.string(),
+  startNode: z.object({
+    data: z.object({
+      id: z.string()
+    }).nullable()
+  }),
+  nodes: z.object({
+    data: Node.array()
+  })
+});
+export type Tour = z.infer<typeof Tour>;

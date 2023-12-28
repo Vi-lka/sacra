@@ -49,6 +49,7 @@
     "react-icons": "^4.12.0",
     "react-map-gl": "^7.1.6",
     "react-markdown": "^9.0.1",
+    "react-photo-sphere-viewer": "4.0.2-psv5.4.4",
     "react-select": "^5.8.0",
     "react-zoom-pan-pinch": "^3.3.0",
     "rehype-raw": "^7.0.0",
