@@ -361,7 +361,9 @@ export const getTour = async (id: string): Promise<Tour> => {
           attributes {
             title
             startNode {data { id }}
-            nodes {
+            nodes(
+              pagination: { limit: 100000 }
+            ) {
               data {
                 id
                 attributes {
