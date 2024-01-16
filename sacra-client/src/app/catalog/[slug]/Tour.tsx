@@ -45,7 +45,7 @@ export default async function Tour({
                     position: link.attributes.position,
                     markerStyle: {
                         size: { width: 32, height: 32 },
-                        className: "animate-bounce"
+                        className: ""
                     },
                 }
             ))
