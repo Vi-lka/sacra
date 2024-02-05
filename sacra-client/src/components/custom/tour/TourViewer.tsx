@@ -64,8 +64,10 @@ export default function TourViewer({
         <div id={"container-tour"} className='h-full w-full'>
             <ReactPhotoSphereViewer 
                 ref={pSRef}
-                src="/images/image-placeholder-sacra.png" // placeholder
+                src="/images/A_black_image.jpg" // placeholder
                 // touchmoveTwoFingers={true}
+                loadingImg="/images/logo-icon.png"
+                loadingTxt='Загрузка...'
                 width={"100%"}
                 height={'85vh'}
                 littlePlanet={false}

@@ -37,7 +37,7 @@ export default async function Tour({
             id: node.id,
             panorama,
             thumbnail,
-            name: node.attributes.title,
+            name: "",
             caption: node.attributes.description ?? "",
             links: node.attributes.links.data.map((link): Link => (
                 {
