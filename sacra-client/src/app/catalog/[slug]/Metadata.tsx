@@ -108,12 +108,12 @@ export default function Metadata({
           {!!data.architectsString && data.architectsString?.length > 0 
           ? (
               <SingleItemTable
-                label="Архитектор"
+                label="Архитекторы и строители"
                 value={data.architectsString}
               />
             ) :  (
               <SingleItemTableArray
-                label="Архитектор"
+                label="Архитекторы и строители"
                 value={architects}
               />
             )
