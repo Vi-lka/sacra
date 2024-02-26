@@ -71,6 +71,13 @@ export default function TourViewer({
                 width={"100%"}
                 height={'85vh'}
                 littlePlanet={false}
+                navbar={[
+                    'zoom',
+                    'move',
+                    'description',
+                    'caption',
+                    'fullscreen',
+                ]}
                 plugins={[
                     MarkersPlugin,
                     [

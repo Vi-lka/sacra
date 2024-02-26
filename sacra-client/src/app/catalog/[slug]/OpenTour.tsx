@@ -34,7 +34,7 @@ export default function OpenTour({
                 onOpenChange={onOpenChange}
                 placement="center"
                 classNames={{
-                    closeButton: "z-50 text-foreground bg-background hover:bg-background hover:scale-125 transition-all"
+                    closeButton: "z-50 text-xl text-background hover:bg-transparent hover:scale-125 transition-all"
                 }}
             >
                 <ModalContent className="bg-secondary h-[85vh] max-w-[90vw] overflow-hidden p-0">
