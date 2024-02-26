@@ -1030,6 +1030,18 @@ export interface ApiNodeNode extends Schema.CollectionType {
       'oneToMany',
       'api::node-link.node-link'
     >;
+    defaultYaw: Attribute.Float &
+      Attribute.SetMinMax<{
+        min: 0;
+        max: 6.3;
+      }> &
+      Attribute.DefaultTo<0>;
+    defaultPitch: Attribute.Float &
+      Attribute.SetMinMax<{
+        min: -1.6;
+        max: 1.6;
+      }> &
+      Attribute.DefaultTo<0>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;

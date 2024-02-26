@@ -19,19 +19,20 @@
       "maxLength": 255
     },
     "panorama": {
-      "allowedTypes": [
-        "images"
-      ],
       "type": "media",
       "multiple": false,
-      "required": true
-    },
-    "thumbnail": {
+      "required": true,
       "allowedTypes": [
         "images"
-      ],
+      ]
+    },
+    "thumbnail": {
       "type": "media",
-      "multiple": false
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
     },
     "description": {
       "type": "text"
@@ -47,6 +48,18 @@
       "relation": "oneToMany",
       "target": "api::node-link.node-link",
       "mappedBy": "node"
+    },
+    "defaultYaw": {
+      "type": "float",
+      "default": 0,
+      "max": 6.3,
+      "min": 0
+    },
+    "defaultPitch": {
+      "type": "float",
+      "default": 0,
+      "min": -1.6,
+      "max": 1.6
     }
   }
 }
