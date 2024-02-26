@@ -372,9 +372,15 @@ export const getTour = async (id: string): Promise<Tour> => {
                     data {attributes { url }}
                   }
                   panorama {
-                    data {attributes {url}}
+                    data {attributes {
+                      url
+                      width
+                      height
+                    }}
                   }
                   description
+                  defaultYaw
+                  defaultPitch
                   links(
                     pagination: { limit: 100000 }
                   ) {

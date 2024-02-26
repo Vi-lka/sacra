@@ -16,6 +16,19 @@ export type Link = {
         className: string
     },
 }
+
+type PanoData = {
+    isEquirectangular: true;
+    fullWidth: number;
+    fullHeight: number;
+    croppedWidth: number;
+    croppedHeight: number;
+    croppedX: number;
+    croppedY: number;
+    poseHeading?: number;
+    posePitch?: number;
+};
+
 export type Node = {
     id: string,
     panorama: string,
@@ -23,6 +36,7 @@ export type Node = {
     name: string,
     caption: string,
     links: Link[],
+    panoData?: PanoData,
 }
 export type Data = {
     nodes: Node[],
@@ -31,10 +45,10 @@ export type Data = {
 
 export default function TourViewer({
     data,
-    debug
+    debug,
 }: {
-    data: Data
-    debug: string | undefined
+    data: Data,
+    debug: string | undefined,
 }) {
     const pSRef = React.createRef<ViewerAPI>();
 
@@ -42,23 +56,21 @@ export default function TourViewer({
         const virtualTour: any = instance.getPlugin(VirtualTourPlugin);
         if (!virtualTour) return;
 
-        // const markerLighthouse: any = {
-        //     id: "marker-1",
-        //     image: "/images/image-placeholder-sacra.png",
-        //     tooltip: "Cape Florida Light, Key Biscayne",
-        //     size: { width: 32, height: 32 },
-        //     anchor: "bottom center",
-        //     position: {
-        //         textureX: 1500,
-        //         textureY: 780,
-        //     }
-        // };
-
         (virtualTour as VirtualTourPlugin).setNodes(
             data.nodes,
             data.startNode,
         );
+
+        (virtualTour as VirtualTourPlugin).addEventListener('node-changed', ({ node }) => {
+            pSRef.current?.animate({
+                yaw: (node.panoData as PanoData).poseHeading,
+                pitch: (node.panoData as PanoData).posePitch,
+                speed: 600,
+            })
+        });
     };
+    
+    
 
     return (
         <div id={"container-tour"} className='h-full w-full'>
@@ -90,6 +102,11 @@ export default function TourViewer({
                       VirtualTourPlugin,
                       {
                         renderMode: "markers",
+                        transitionOptions: {
+                            speed: 600,
+                            fadeIn: true,
+                            rotation: false,
+                        }
                       },
                     ],
                 ]}
@@ -97,7 +114,11 @@ export default function TourViewer({
                 onReady={handleReady}
                 onClick={(event) => {
                     if (debug === "1") {
-                        console.log(event.data)
+                        console.log("Marker: ", {
+                            textureX: event.data.textureX, 
+                            textureY: event.data.textureY,
+                        })
+                        console.log("Camera Position: ", pSRef.current?.getPosition())
                     }
                 }} 
             />

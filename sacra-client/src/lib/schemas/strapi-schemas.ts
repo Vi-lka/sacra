@@ -198,10 +198,14 @@ export const Node = z.object({
       data: z.object({
         attributes: z.object({
           url: z.string(),
+          width: z.number(),
+          height: z.number()
         }),
       })
     }),
     description: z.string().nullable(),
+    defaultYaw: z.number().nullable(),
+    defaultPitch: z.number().nullable(),
     links: z.object({
       data: NodeLink.array()
     })
