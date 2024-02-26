@@ -92,7 +92,7 @@ export default function SelectFilter({
         variant="underlined"
         classNames={{popoverContent: "bg-background border border-border"}}
         className={cn(
-          "autocomplete max-w-sm lg:min-w-[40vw] min-w-[65vw]",
+          "autocomplete max-w-sm",
           className
         )}
       >
