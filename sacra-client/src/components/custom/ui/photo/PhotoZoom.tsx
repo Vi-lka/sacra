@@ -3,9 +3,9 @@
 import React from "react";
 import { TransformComponent, TransformWrapper } from "react-zoom-pan-pinch";
 import ImageComponent from "../ImageComponent";
-import { cn } from "@/lib/utils";
-import { Modal, ModalContent, useDisclosure } from "@nextui-org/react";
+import { Button, Modal, ModalContent, Tooltip, useDisclosure } from "@nextui-org/react";
 import { motion } from "framer-motion";
+import { Maximize } from "lucide-react";
 
 export default function PhotoZoom({
   alt,
@@ -15,7 +15,6 @@ export default function PhotoZoom({
   src: string | undefined;
 }) {
     const {isOpen, onOpen, onOpenChange} = useDisclosure();
-    const [loading, setLoading] = React.useState(true);
 
     return (
         <>
@@ -24,22 +23,46 @@ export default function PhotoZoom({
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.3, type: "tween", delay: 0.2 }}
-              className="max-h-fit w-full cursor-pointer" 
-              onClick={onOpen}
             >
-                <ImageComponent
-                  src={src}
-                  fill={false}
-                  width={600}
-                  height={600}
-                  className={cn(
-                    "mx-auto max-h-[70vh] overflow-hidden rounded-md object-contain",
-                    loading ? "" : "h-auto w-auto",
-                  )}
-                  alt={alt}
-                  priority={true}
-                  onLoad={() => setLoading(false)}
-                />
+              <Tooltip 
+                content="Фотография"
+                placement="bottom"
+                delay={0}
+                closeDelay={0}
+                motionProps={{
+                  variants: {
+                    exit: {
+                      opacity: 0,
+                      transition: {
+                        duration: 0.1,
+                        ease: "easeIn",
+                      }
+                    },
+                    enter: {
+                      opacity: 1,
+                      transition: {
+                        duration: 0.15,
+                        ease: "easeOut",
+                      }
+                    },
+                  },
+                }}
+                classNames={{
+                    content: [
+                      "py-2 px-4 shadow-xl",
+                      "text-foreground bg-background",
+                    ],
+                }}
+              >
+                <Button 
+                    isIconOnly
+                    variant="light"
+                    className="mt-1 font-medium text-xs hover:scale-110" 
+                    onPress={onOpen}
+                >
+                  <Maximize />
+                </Button>
+              </Tooltip>
             </motion.div>
             <Modal 
               isOpen={isOpen} 

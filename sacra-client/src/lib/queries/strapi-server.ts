@@ -1,7 +1,7 @@
 import "server-only"
 
 import { notFound } from "next/navigation";
-import { Cities, ObjectBySlug, Objects, Tour } from "../schemas/strapi-schemas";
+import { Cities, ObjectBySlug, Objects, Tour, Tours } from "../schemas/strapi-schemas";
 
 export const getObjects = async (
     page: number,
@@ -183,7 +183,9 @@ export const getObjectBySlug = async (slug: string): Promise<ObjectBySlug> => {
           attributes {
             slug
             title
-            imagesSlider {
+            imagesSlider(pagination: {
+              pageSize: 9999
+            }) {
               data {attributes {url}}
             }
             confession {
@@ -244,7 +246,9 @@ export const getObjectBySlug = async (slug: string): Promise<ObjectBySlug> => {
             appearanceChangesList { title }
             historicalNote
             urlTour
-            videos {
+            videos(pagination: {
+              pageSize: 9999
+            }) {
               data {attributes {url}}
             }
             sources {
@@ -252,20 +256,7 @@ export const getObjectBySlug = async (slug: string): Promise<ObjectBySlug> => {
               url
             }
             tour {data {id}}
-            models {
-              data {
-                attributes {
-                  title
-                  file {
-                    data {
-                      attributes {
-                        url
-                      }
-                    }
-                  }
-                }
-              }
-            }
+            model
           }
         }
       }
@@ -352,6 +343,55 @@ export const getCities = async (): Promise<Cities> => {
   return cities;
 };
 
+export const getTours = async (): Promise<Tours> => {
+  const headers = { "Content-Type": "application/json" };
+  const query = /* GraphGL */ `
+    query Tours {
+      tours {
+        meta {
+          pagination {
+            total
+          }
+        }
+      }
+    }
+  `;
+  const res = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_API_URL}/graphql`, {
+    headers,
+    method: "POST",
+    body: JSON.stringify({
+      query,
+    }),
+    next: { 
+      tags: ["strapi"],
+      revalidate: 60
+    },
+  });
+
+  if (!res.ok) {
+    // Log the error to an error reporting service
+    const err = await res.text();
+    console.log(err);
+    // Throw an error
+    throw new Error("Failed to fetch data 'Tours'");
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+  const json = await res.json();
+
+  // await new Promise((resolve) => setTimeout(resolve, 2000));
+
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+  if ((json.data.tours.meta.pagination.total === 0)) {
+    notFound()
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+  const tours = Tours.parse(json.data.tours);
+
+  return tours;
+};
+
 export const getTour = async (id: string): Promise<Tour> => {
   const headers = { "Content-Type": "application/json" };
   const query = /* GraphGL */ `
@@ -372,9 +412,15 @@ export const getTour = async (id: string): Promise<Tour> => {
                     data {attributes { url }}
                   }
                   panorama {
-                    data {attributes {url}}
+                    data {attributes {
+                      url
+                      width
+                      height
+                    }}
                   }
                   description
+                  defaultYaw
+                  defaultPitch
                   links(
                     pagination: { limit: 100000 }
                   ) {

@@ -1,13 +1,14 @@
 import AnimatedNumber from '@/components/custom/animation/AnimatedNumber'
 import ErrorHandler from '@/components/custom/ui/ErrorHandler';
-import { getCities, getObjects } from '@/lib/queries/strapi-server';
+import { getCities, getObjects, getTours } from '@/lib/queries/strapi-server';
 import React from 'react'
 
 export default async function ContentHome() {
 
-    const [ objectsResult, citiesResult ] = await Promise.allSettled([ 
+    const [ objectsResult, toursResult, citiesResult ] = await Promise.allSettled([ 
         getObjects(1, 2147483647),
-        getCities()
+        getTours(),
+        getCities(),
     ]);
 
     return (
@@ -27,6 +28,25 @@ export default async function ContentHome() {
                     : (
                         <ErrorHandler 
                             error={objectsResult.reason as unknown} 
+                            place="Home"
+                            notFound={false} 
+                        />
+                    )
+                }
+                {!(toursResult.status === "rejected") 
+                    ? (
+                        <div className='text-center'>
+                            <AnimatedNumber 
+                                number={toursResult.value.meta.pagination.total} 
+                                className='lg:text-9xl text-7xl font-bold'
+                            >
+                                <h2 className='lg:text-lg mt-3'>Виртуальных туров</h2>
+                            </AnimatedNumber>
+                        </div>
+                    )
+                    : (
+                        <ErrorHandler 
+                            error={toursResult.reason as unknown} 
                             place="Home"
                             notFound={false} 
                         />

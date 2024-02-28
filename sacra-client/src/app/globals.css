@@ -193,3 +193,22 @@ html {
 .popup-marker .mapboxgl-popup-close-button:focus {
   background-color: hsl(var(--accent))
 }
+
+.container-tour,
+.psv-caption-content {
+  font-family: var(--Montserrat);
+}
+.psv-caption-content {
+  font-size: 0.875rem/* 14px */;
+  line-height: 1.25rem/* 20px */;
+}
+.psv-navbar {
+  background: hsla(235, 89%, 7%, 0.4) !important;
+}
+
+.sketchfab-embed-wrapper,
+.sketchfab-embed-wrapper > iframe  {
+  width: 100%;
+  height: 100%;
+  z-index: 50;
+}

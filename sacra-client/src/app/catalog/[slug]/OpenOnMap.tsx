@@ -2,7 +2,7 @@
 
 import { param  } from '@/components/custom/map/MapComponent';
 import type {Properties} from '@/components/custom/map/MapComponent';
-import { Button } from '@nextui-org/react'
+import { Button, Tooltip } from '@nextui-org/react'
 import { motion } from 'framer-motion'
 import { MapPinned } from 'lucide-react';
 import { useRouter } from 'next/navigation';
@@ -32,15 +32,46 @@ export default function OpenOnMap({
             viewport={{ once: true }}
             transition={{ duration: 0.3, type: "tween", delay: 0.3 }}
         >
-            <Button 
-                isIconOnly 
-                isLoading={isPending}
-                variant="bordered"
-                className="mt-1 font-medium text-xs border-accent hover:scale-110" 
-                onPress={() => goToMarker()}
+            <Tooltip 
+                content="На карте"
+                placement="bottom"
+                delay={0}
+                closeDelay={0}
+                motionProps={{
+                  variants: {
+                    exit: {
+                      opacity: 0,
+                      transition: {
+                        duration: 0.1,
+                        ease: "easeIn",
+                      }
+                    },
+                    enter: {
+                      opacity: 1,
+                      transition: {
+                        duration: 0.15,
+                        ease: "easeOut",
+                      }
+                    },
+                  },
+                }}
+                classNames={{
+                    content: [
+                      "py-2 px-4 shadow-xl",
+                      "text-foreground bg-background",
+                    ],
+                }}
             >
-                <MapPinned className='w-5 h-5' />
-            </Button>
+                <Button 
+                    isIconOnly 
+                    isLoading={isPending}
+                    variant="light"
+                    className="mt-1 font-medium text-xs hover:scale-110" 
+                    onPress={() => goToMarker()}
+                >
+                    <MapPinned />
+                </Button>
+            </Tooltip>
         </motion.div>
   )
 }

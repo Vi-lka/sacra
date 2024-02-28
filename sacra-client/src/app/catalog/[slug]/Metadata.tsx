@@ -85,7 +85,7 @@ export default function Metadata({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.3, type: "tween", delay: 0.3 }}
-      className="w-full"
+      className="w-full flex flex-col"
     >
       <h2 className="mb-3 text-xl font-bold lg:text-2xl">
         Метаданные

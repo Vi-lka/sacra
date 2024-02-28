@@ -14,6 +14,8 @@ import Loading from '@/components/custom/Loading';
 import OpenOnMap from './OpenOnMap';
 import OpenTour from './OpenTour';
 import Tour from './Tour';
+import ImageComponent from '@/components/custom/ui/ImageComponent';
+import PhotoModal from '@/components/custom/ui/photo/PhotoModal';
 
 export default async function Object({
   params: { slug },
@@ -48,6 +50,8 @@ export default async function Object({
 
   const images = dataResult.value.imagesSlider.data.filter(isImage)
 
+  console.log(images)
+
   const titleAnimations = {
     hidden: {
       opacity: 0,
@@ -71,11 +75,85 @@ export default async function Object({
     <ClientHydration fallback={<Loading />}>
       <div className="mx-auto w-[95%] max-w-[2200px] md:w-[85%] pt-24 mb-20">
         <GoBack />
-        <div className='flex lg:flex-row flex-col gap-6 my-6'>
-          <section className="flex flex-col gap-2 lg:w-1/2">
+        <div className='my-6 min-h-[350px]'>
+          <AnimatedText
+            text={dataResult.value.title}
+            className='2xl:text-3xl lg:text-2xl text-xl font-bold drop-shadow-[0_6px_6px_rgba(0,0,0,0.7)] lg:hidden block'
+            animation={titleAnimations}
+            staggerChildren={0.01}
+            delay={0.1}
+            once
+          />
+
+          <section className="lg:w-1/2 lg:float-right lg:m-6 mx-auto my-6">
+            {images.length === 1 ? (<>
+              <ImageComponent
+                src={imagePrimary}
+                fill={false}
+                width={600}
+                height={600}
+                className="mx-auto max-h-[70vh] overflow-hidden rounded-md object-contain h-auto w-auto"
+                alt={dataResult.value.title}
+                priority={true}
+              />
+              <div className="mt-3 flex flex-wrap gap-3 items-center justify-end">
+                <OpenOnMap properties={{
+                  objectId: dataResult.value.slug,
+                  title: dataResult.value.title,
+                  image: dataResult.value.imagesSlider.data[0]?.attributes.url,
+                  locationFull: locationForMap,
+                  geolocation: dataResult.value.geolocation,
+                  point_count: 1,
+                  cluster: false
+                }}/>
+                <Open3DModel embededHTML={dataResult.value.model} />
+                {dataResult.value.tour && dataResult.value.tour.data
+                  ? (
+                    <OpenTour>
+                      <Tour id={dataResult.value.tour.data.id} searchParams={searchParams}/>
+                    </OpenTour>
+                  )
+                  : null
+                }
+                {images.length === 1 
+                  ? <PhotoZoom src={imagePrimary} alt={dataResult.value.title} />
+                  : <PhotoModal data={images} />
+                }
+              </div>
+            </>) : (
+              <PhotoSlider data={images}>
+                <div className="mt-1 flex flex-wrap gap-3 items-center justify-end">
+                  <OpenOnMap properties={{
+                    objectId: dataResult.value.slug,
+                    title: dataResult.value.title,
+                    image: dataResult.value.imagesSlider.data[0]?.attributes.url,
+                    locationFull: locationForMap,
+                    geolocation: dataResult.value.geolocation,
+                    point_count: 1,
+                    cluster: false
+                  }}/>
+                  <Open3DModel embededHTML={dataResult.value.model} />
+                  {dataResult.value.tour && dataResult.value.tour.data
+                    ? (
+                      <OpenTour>
+                        <Tour id={dataResult.value.tour.data.id} searchParams={searchParams}/>
+                      </OpenTour>
+                    )
+                    : null
+                  }
+                  {images.length === 1 
+                    ? <PhotoZoom src={imagePrimary} alt={dataResult.value.title} />
+                    : <PhotoModal data={images} />
+                  }
+                </div>
+              </PhotoSlider>
+            )}
+          </section>
+
+          <section className="">
             <AnimatedText
               text={dataResult.value.title}
-              className='2xl:text-3xl lg:text-2xl text-xl font-bold drop-shadow-[0_6px_6px_rgba(0,0,0,0.7)]'
+              className='2xl:text-3xl lg:text-2xl text-xl font-bold drop-shadow-[0_6px_6px_rgba(0,0,0,0.7)] lg:block hidden'
               animation={titleAnimations}
               staggerChildren={0.01}
               delay={0.1}
@@ -88,41 +166,6 @@ export default async function Object({
               className='lg:block hidden'
             />
           </section>
-
-          <div className="lg:w-1/2">
-            {images.length < 2 ? (
-              <PhotoZoom
-                src={imagePrimary}
-                alt={dataResult.value.title}
-              />
-            ) : (
-              <PhotoSlider data={images} />
-            )}
-            <div className="mt-3 flex flex-wrap gap-3 items-center justify-end">
-              <Open3DModel url={
-                dataResult.value.models.data[0] 
-                  ? dataResult.value.models.data[0].attributes.file.data?.attributes.url
-                  : undefined
-              }/>
-              {dataResult.value.tour && dataResult.value.tour.data
-                ? (
-                  <OpenTour>
-                    <Tour id={dataResult.value.tour.data.id} searchParams={searchParams}/>
-                  </OpenTour>
-                )
-                : null
-              }
-              <OpenOnMap properties={{
-                objectId: dataResult.value.slug,
-                title: dataResult.value.title,
-                image: dataResult.value.imagesSlider.data[0]?.attributes.url,
-                locationFull: locationForMap,
-                geolocation: dataResult.value.geolocation,
-                point_count: 1,
-                cluster: false
-              }}/>
-            </div>
-          </div>
 
           {/* Mobile Info */}
           <Info 

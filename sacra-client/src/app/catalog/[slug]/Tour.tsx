@@ -33,12 +33,25 @@ export default async function Tour({
             ? BASE_IMAGE_URL + node.attributes.thumbnail.data.attributes.url
             : "/images/image-placeholder-sacra.png"
 
+        const panoData = {
+                isEquirectangular: true as const,
+                fullWidth: node.attributes.panorama.data.attributes.width,
+                fullHeight: node.attributes.panorama.data.attributes.height,
+                croppedWidth: node.attributes.panorama.data.attributes.width,
+                croppedHeight: node.attributes.panorama.data.attributes.height,
+                croppedX: 0,
+                croppedY: 0,
+                poseHeading: node.attributes.defaultYaw ?? 0,
+                posePitch: node.attributes.defaultPitch ?? 0,
+            }
+
         return {
             id: node.id,
             panorama,
             thumbnail,
             name: "",
             caption: node.attributes.description ?? "",
+            panoData,
             links: node.attributes.links.data.map((link): Link => (
                 {
                     nodeId: link.attributes.toNode.data?.id ?? node.id,

@@ -65,7 +65,7 @@ export default async function Catalog({
           <h1 className="font-bold md:text-2xl text-xl mb-4">
             Поиск по коллекции
           </h1>
-          <div className="flex items-center gap-3">
+          <div className="flex flex-col gap-6">
             <SearchField placeholder="Найти..." className="flex-1" />
             <Filters />
           </div>
@@ -82,7 +82,7 @@ export default async function Catalog({
                 <h1 className="font-bold md:text-2xl text-xl mb-4">
                     Поиск по коллекции
                 </h1>
-                <div className="flex items-center gap-3">
+                <div className="flex flex-col gap-6">
                   <SearchField placeholder="Найти..." className="flex-1" />
                   <Filters />
                 </div>

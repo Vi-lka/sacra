@@ -4,7 +4,7 @@ import React from "react";
 import { useKeenSlider } from "keen-slider/react";
 import { ArrowLeft, ArrowRight, Maximize } from "lucide-react";
 import { TransformComponent, TransformWrapper } from "react-zoom-pan-pinch";
-import { Button, Modal, ModalContent, Skeleton, useDisclosure } from "@nextui-org/react";
+import { Button, Modal, ModalContent, Skeleton, Tooltip, useDisclosure } from "@nextui-org/react";
 import { cn } from "@/lib/utils";
 import ImageComponent from "../ImageComponent";
 
@@ -44,9 +44,45 @@ export default function PhotoModal({
 
   return (
     <>
-      <Button isIconOnly variant="light" onPress={onOpen}>
-        <Maximize className="h-6 w-6 cursor-pointer transition-all hover:scale-125" />
-      </Button>
+      <Tooltip 
+        content="Фотографии"
+        placement="bottom"
+        delay={0}
+        closeDelay={0}
+        motionProps={{
+          variants: {
+            exit: {
+              opacity: 0,
+              transition: {
+                duration: 0.1,
+                ease: "easeIn",
+              }
+            },
+            enter: {
+              opacity: 1,
+              transition: {
+                duration: 0.15,
+                ease: "easeOut",
+              }
+            },
+          },
+        }}
+        classNames={{
+            content: [
+              "py-2 px-4 shadow-xl",
+              "text-foreground bg-background",
+            ],
+        }}
+      >
+        <Button 
+          isIconOnly 
+          variant="light" 
+          onPress={onOpen}
+          className="mt-1 font-medium text-xs hover:scale-110" 
+        >
+          <Maximize />
+        </Button>
+      </Tooltip>
       <Modal 
         isOpen={isOpen}
         onOpenChange={() => {
