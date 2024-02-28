@@ -132,12 +132,6 @@
       "targetField": "title",
       "required": true
     },
-    "models": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::models3d.models3d",
-      "mappedBy": "object"
-    },
     "dateConstruction": {
       "pluginOptions": {
         "i18n": {
@@ -193,6 +187,14 @@
       "relation": "oneToOne",
       "target": "api::tour.tour",
       "mappedBy": "object"
+    },
+    "model": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      },
+      "type": "text"
     }
   }
 }

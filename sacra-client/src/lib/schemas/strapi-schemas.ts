@@ -15,8 +15,6 @@ export enum EntityEnum {
   district = "district",
   cities = "cities",
   city = "city",
-  models3D = "models3D",
-  model3D = "model3D",
 }
 
 //.........................IMAGE.........................//
@@ -47,28 +45,6 @@ export const ItemsList = z.object({
   data: Item.array()
 });
 export type ItemsList = z.infer<typeof ItemsList>;
-
-//.........................MODELS.........................//
-export const Model = z.object({
-  attributes: z.object({
-    title: z.string(),
-    file: z.object({
-      data: Image
-    }),
-  })
-});
-export type Model = z.infer<typeof Model>;
-
-export const Models = z.object({
-  meta: z.object({
-    pagination: z.object({
-      total: z.number(),
-    })
-  }),
-  data: Model.array()
-});
-export type Models = z.infer<typeof Models>;
-
 
 //.........................OBJECTS.........................//
 export const Object = z.object({
@@ -155,9 +131,7 @@ export const ObjectBySlug = z.object({
       id: z.string()
     }).nullable()
   }).nullable(),
-  models: z.object({
-    data: Model.array()
-  }),
+  model: z.string().nullable()
 });
 export type ObjectBySlug = z.infer<typeof ObjectBySlug>;
 
@@ -170,6 +144,15 @@ export const Cities = z.object({
   }),
 });
 export type Cities = z.infer<typeof Cities>;
+
+export const Tours = z.object({
+  meta: z.object({
+    pagination: z.object({
+      total: z.number(),
+    })
+  }),
+});
+export type Tours = z.infer<typeof Tours>;
 
 export const NodeLink = z.object({
   id: z.string(),

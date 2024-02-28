@@ -962,48 +962,6 @@ export interface ApiDistrictDistrict extends Schema.CollectionType {
   };
 }
 
-export interface ApiModels3DModels3D extends Schema.CollectionType {
-  collectionName: 'model3d';
-  info: {
-    singularName: 'models3d';
-    pluralName: 'model3d';
-    displayName: '3D \u043C\u043E\u0434\u0435\u043B\u0438';
-    description: '';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    file: Attribute.Media & Attribute.Required;
-    title: Attribute.String &
-      Attribute.Required &
-      Attribute.Unique &
-      Attribute.SetMinMaxLength<{
-        maxLength: 255;
-      }>;
-    object: Attribute.Relation<
-      'api::models3d.models3d',
-      'manyToOne',
-      'api::object.object'
-    >;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::models3d.models3d',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::models3d.models3d',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-  };
-}
-
 export interface ApiNodeNode extends Schema.CollectionType {
   collectionName: 'nodes';
   info: {
@@ -1187,11 +1145,6 @@ export interface ApiObjectObject extends Schema.CollectionType {
           localized: true;
         };
       }>;
-    models: Attribute.Relation<
-      'api::object.object',
-      'oneToMany',
-      'api::models3d.models3d'
-    >;
     dateConstruction: Attribute.Text &
       Attribute.SetPluginOptions<{
         i18n: {
@@ -1238,6 +1191,12 @@ export interface ApiObjectObject extends Schema.CollectionType {
       'oneToOne',
       'api::tour.tour'
     >;
+    model: Attribute.Text &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1369,7 +1328,6 @@ declare module '@strapi/types' {
       'api::city.city': ApiCityCity;
       'api::confession.confession': ApiConfessionConfession;
       'api::district.district': ApiDistrictDistrict;
-      'api::models3d.models3d': ApiModels3DModels3D;
       'api::node.node': ApiNodeNode;
       'api::node-link.node-link': ApiNodeLinkNodeLink;
       'api::object.object': ApiObjectObject;
