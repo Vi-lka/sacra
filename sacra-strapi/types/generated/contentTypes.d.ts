@@ -962,6 +962,39 @@ export interface ApiDistrictDistrict extends Schema.CollectionType {
   };
 }
 
+export interface ApiFooterFooter extends Schema.SingleType {
+  collectionName: 'footers';
+  info: {
+    singularName: 'footer';
+    pluralName: 'footers';
+    displayName: '\u041F\u043E\u0434\u0432\u0430\u043B \u0441\u0430\u0439\u0442\u0430';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    number: Attribute.String;
+    email: Attribute.String;
+    icons: Attribute.Media;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::footer.footer',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::footer.footer',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiNodeNode extends Schema.CollectionType {
   collectionName: 'nodes';
   info: {
@@ -1328,6 +1361,7 @@ declare module '@strapi/types' {
       'api::city.city': ApiCityCity;
       'api::confession.confession': ApiConfessionConfession;
       'api::district.district': ApiDistrictDistrict;
+      'api::footer.footer': ApiFooterFooter;
       'api::node.node': ApiNodeNode;
       'api::node-link.node-link': ApiNodeLinkNodeLink;
       'api::object.object': ApiObjectObject;
