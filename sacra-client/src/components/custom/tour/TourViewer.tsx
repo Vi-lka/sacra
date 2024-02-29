@@ -6,7 +6,7 @@
 
 import React from 'react'
 import type { ViewerAPI } from 'react-photo-sphere-viewer';
-import { ReactPhotoSphereViewer, GalleryPlugin, MarkersPlugin, VirtualTourPlugin } from 'react-photo-sphere-viewer';
+import { MarkersPlugin, ReactPhotoSphereViewer, VirtualTourPlugin } from 'react-photo-sphere-viewer';
 
 export type Link = {
     nodeId: string, 
@@ -53,24 +53,24 @@ export default function TourViewer({
     const pSRef = React.createRef<ViewerAPI>();
 
     const handleReady = (instance: any) => {
-        const virtualTour: any = instance.getPlugin(VirtualTourPlugin);
+        const virtualTour: VirtualTourPlugin = instance.getPlugin(VirtualTourPlugin);
         if (!virtualTour) return;
 
-        (virtualTour as VirtualTourPlugin).setNodes(
+        virtualTour.setNodes(
             data.nodes,
             data.startNode,
         );
 
-        (virtualTour as VirtualTourPlugin).addEventListener('node-changed', ({ node }) => {
-            pSRef.current?.animate({
-                yaw: (node.panoData as PanoData).poseHeading,
-                pitch: (node.panoData as PanoData).posePitch,
-                speed: 600,
-            })
+        virtualTour.addEventListener('node-changed', ({ node }) => {
+            if ((node.panoData as PanoData).poseHeading !== undefined && (node.panoData as PanoData).posePitch !== undefined) {
+                pSRef.current?.animate({
+                    yaw: (node.panoData as PanoData).poseHeading,
+                    pitch: (node.panoData as PanoData).posePitch,
+                    speed: 600,
+                })   
+            }
         });
     };
-    
-    
 
     return (
         <div id={"container-tour"} className='h-full w-full'>
@@ -92,12 +92,6 @@ export default function TourViewer({
                 ]}
                 plugins={[
                     MarkersPlugin,
-                    [
-                      GalleryPlugin,
-                      {
-                        thumbnailSize: { width: 100, height: 100 },
-                      },
-                    ],
                     [
                       VirtualTourPlugin,
                       {

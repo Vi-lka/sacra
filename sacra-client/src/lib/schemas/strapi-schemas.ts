@@ -208,3 +208,9 @@ export const Tour = z.object({
   })
 });
 export type Tour = z.infer<typeof Tour>;
+
+export const FooterT = z.object({
+  number: z.string().nullable(),
+  email: z.string().nullable(),
+})
+export type FooterT = z.infer<typeof FooterT>
