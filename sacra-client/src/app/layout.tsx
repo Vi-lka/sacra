@@ -5,6 +5,7 @@ import './globals.css'
 import { Toaster } from '@/components/ui/toaster';
 import Header from '@/components/custom/header/Header';
 import { Providers } from './providers';
+import Footer from '@/components/custom/Footer';
 
 const montserrat = Montserrat({ 
   subsets: ['cyrillic'],
@@ -53,7 +54,7 @@ export default function RootLayout({
           {children}
           <Toaster />
         </main>
-        {/* <Footer /> */}
+        <Footer />
       </Providers>
       </body>
     </html>

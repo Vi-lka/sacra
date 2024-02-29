@@ -1,8 +1,18 @@
 import type { Data, Link, Node } from '@/components/custom/tour/TourViewer';
-import TourViewer from '@/components/custom/tour/TourViewer';
 import ErrorHandler from '@/components/custom/ui/ErrorHandler';
 import { getTour } from '@/lib/queries/strapi-server';
 import React from 'react'
+import dynamic from 'next/dynamic';
+import Loading from '@/app/loading';
+
+const TourViewer = dynamic(
+    () =>
+    import('@/components/custom/tour/TourViewer'),
+    {
+      ssr: false,
+      loading: () => <Loading />,
+    }
+);
 
 const BASE_IMAGE_URL = process.env.NEXT_PUBLIC_STRAPI_API_URL;
 
@@ -36,13 +46,13 @@ export default async function Tour({
         const panoData = {
                 isEquirectangular: true as const,
                 fullWidth: node.attributes.panorama.data.attributes.width,
-                fullHeight: node.attributes.panorama.data.attributes.height,
+                fullHeight: Math.round(node.attributes.panorama.data.attributes.width / 2),
                 croppedWidth: node.attributes.panorama.data.attributes.width,
                 croppedHeight: node.attributes.panorama.data.attributes.height,
                 croppedX: 0,
-                croppedY: 0,
-                poseHeading: node.attributes.defaultYaw ?? 0,
-                posePitch: node.attributes.defaultPitch ?? 0,
+                croppedY: Math.round((node.attributes.panorama.data.attributes.width / 2 - node.attributes.panorama.data.attributes.height) / 2),
+                poseHeading: node.attributes.defaultYaw ?? undefined,
+                posePitch: node.attributes.defaultPitch ?? undefined,
             }
 
         return {

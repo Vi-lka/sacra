@@ -1,7 +1,7 @@
 import "server-only"
 
 import { notFound } from "next/navigation";
-import { Cities, ObjectBySlug, Objects, Tour, Tours } from "../schemas/strapi-schemas";
+import { Cities, FooterT, ObjectBySlug, Objects, Tour, Tours } from "../schemas/strapi-schemas";
 
 export const getObjects = async (
     page: number,
@@ -477,4 +477,55 @@ export const getTour = async (id: string): Promise<Tour> => {
   const tour = Tour.parse(json.data.tour.data.attributes);
 
   return tour;
+};
+
+
+export const getFooter = async (): Promise<FooterT> => {
+  const headers = { "Content-Type": "application/json" };
+  const query = /* GraphGL */ `
+    query Footer {
+      footer {
+        data {
+          attributes {
+            number
+            email
+          }
+        }
+      }
+    }
+  `;
+  const res = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_API_URL}/graphql`, {
+    headers,
+    method: "POST",
+    body: JSON.stringify({
+      query,
+    }),
+    next: { 
+      tags: ["strapi"],
+      revalidate: 60
+    },
+  });
+
+  if (!res.ok) {
+    // Log the error to an error reporting service
+    const err = await res.text();
+    console.log(err);
+    // Throw an error
+    throw new Error("Failed to fetch data 'Footer'");
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+  const json = await res.json();
+
+  // await new Promise((resolve) => setTimeout(resolve, 2000));
+
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+  if ((json.data.footer.data === null)) {
+    notFound()
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+  const footer = FooterT.parse(json.data.footer.data.attributes);
+
+  return footer;
 };
