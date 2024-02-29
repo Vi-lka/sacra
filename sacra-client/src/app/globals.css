@@ -206,6 +206,10 @@ html {
   background: hsla(235, 89%, 7%, 0.4) !important;
 }
 
+.psv-tooltip-content img {
+  margin: 0 auto !important;
+}
+
 .sketchfab-embed-wrapper,
 .sketchfab-embed-wrapper > iframe  {
   width: 100%;
