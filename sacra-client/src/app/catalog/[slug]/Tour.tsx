@@ -43,17 +43,17 @@ export default async function Tour({
             ? BASE_IMAGE_URL + node.attributes.thumbnail.data.attributes.url
             : "/images/image-placeholder-sacra.png"
 
-        const panoData = {
-                isEquirectangular: true as const,
-                fullWidth: node.attributes.panorama.data.attributes.width,
-                fullHeight: Math.round(node.attributes.panorama.data.attributes.width / 2),
-                croppedWidth: node.attributes.panorama.data.attributes.width,
-                croppedHeight: node.attributes.panorama.data.attributes.height,
-                croppedX: 0,
-                croppedY: Math.round((node.attributes.panorama.data.attributes.width / 2 - node.attributes.panorama.data.attributes.height) / 2),
-                poseHeading: node.attributes.defaultYaw ?? undefined,
-                posePitch: node.attributes.defaultPitch ?? undefined,
-            }
+        // const panoData = {
+        //         isEquirectangular: true as const,
+        //         fullWidth: node.attributes.panorama.data.attributes.width,
+        //         fullHeight: Math.round(node.attributes.panorama.data.attributes.width / 2),
+        //         croppedWidth: node.attributes.panorama.data.attributes.width,
+        //         croppedHeight: node.attributes.panorama.data.attributes.height,
+        //         croppedX: 0,
+        //         croppedY: Math.round((node.attributes.panorama.data.attributes.width / 2 - node.attributes.panorama.data.attributes.height) / 2),
+        //         poseHeading: node.attributes.defaultYaw ?? undefined,
+        //         posePitch: node.attributes.defaultPitch ?? undefined,
+        //     }
 
         return {
             id: node.id,
@@ -61,7 +61,7 @@ export default async function Tour({
             thumbnail,
             name: "",
             caption: node.attributes.description ?? "",
-            panoData,
+            // panoData,
             links: node.attributes.links.data.map((link): Link => (
                 {
                     nodeId: link.attributes.toNode.data?.id ?? node.id,
