@@ -22,17 +22,17 @@ export type Link = {
     },
 }
 
-type PanoData = {
-    isEquirectangular: true;
-    fullWidth: number;
-    fullHeight: number;
-    croppedWidth: number;
-    croppedHeight: number;
-    croppedX: number;
-    croppedY: number;
-    poseHeading?: number;
-    posePitch?: number;
-};
+// type PanoData = {
+//     isEquirectangular: true;
+//     fullWidth: number;
+//     fullHeight: number;
+//     croppedWidth: number;
+//     croppedHeight: number;
+//     croppedX: number;
+//     croppedY: number;
+//     poseHeading?: number;
+//     posePitch?: number;
+// };
 
 export type Node = {
     id: string,
@@ -41,7 +41,7 @@ export type Node = {
     name: string,
     caption: string,
     links: Link[],
-    panoData?: PanoData,
+    // panoData?: PanoData,
 }
 export type Data = {
     nodes: Node[],
@@ -96,15 +96,15 @@ export default function TourViewer({
                 data.startNode,
             );
     
-            virtualTour.addEventListener('node-changed', ({ node }) => {
-                if ((node.panoData as PanoData).poseHeading !== undefined && (node.panoData as PanoData).posePitch !== undefined) {
-                    viewer.animate({
-                        yaw: (node.panoData as PanoData).poseHeading,
-                        pitch: (node.panoData as PanoData).posePitch,
-                        speed: 600,
-                    })   
-                }
-            });
+            // virtualTour.addEventListener('node-changed', ({ node }) => {
+            //     if ((node.panoData as PanoData).poseHeading !== undefined && (node.panoData as PanoData).posePitch !== undefined) {
+            //         viewer.animate({
+            //             yaw: (node.panoData as PanoData).poseHeading,
+            //             pitch: (node.panoData as PanoData).posePitch,
+            //             speed: 600,
+            //         })
+            //     }
+            // });
         };
 
         viewer.addEventListener("ready", () => {
