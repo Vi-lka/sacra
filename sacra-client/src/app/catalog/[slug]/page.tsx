@@ -50,8 +50,6 @@ export default async function Object({
 
   const images = dataResult.value.imagesSlider.data.filter(isImage)
 
-  console.log(images)
-
   const titleAnimations = {
     hidden: {
       opacity: 0,

@@ -4,9 +4,14 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 "use client"
 
-import React from 'react'
-import type { ViewerAPI } from 'react-photo-sphere-viewer';
-import { MarkersPlugin, ReactPhotoSphereViewer, VirtualTourPlugin } from 'react-photo-sphere-viewer';
+import React, { useEffect } from 'react'
+import { Viewer } from '@photo-sphere-viewer/core';
+import { MarkersPlugin } from "@photo-sphere-viewer/markers-plugin"
+import { VirtualTourPlugin } from "@photo-sphere-viewer/virtual-tour-plugin"
+
+import "@photo-sphere-viewer/core/index.css"
+import "@photo-sphere-viewer/markers-plugin/index.css"
+import "@photo-sphere-viewer/virtual-tour-plugin/index.css"
 
 export type Link = {
     nodeId: string, 
@@ -50,72 +55,82 @@ export default function TourViewer({
     data: Data,
     debug: string | undefined,
 }) {
-    const pSRef = React.createRef<ViewerAPI>();
 
-    const handleReady = (instance: any) => {
-        const virtualTour: VirtualTourPlugin = instance.getPlugin(VirtualTourPlugin);
-        if (!virtualTour) return;
+    const viewerRef = React.createRef<HTMLDivElement>();
 
-        virtualTour.setNodes(
-            data.nodes,
-            data.startNode,
-        );
-
-        virtualTour.addEventListener('node-changed', ({ node }) => {
-            if ((node.panoData as PanoData).poseHeading !== undefined && (node.panoData as PanoData).posePitch !== undefined) {
-                pSRef.current?.animate({
-                    yaw: (node.panoData as PanoData).poseHeading,
-                    pitch: (node.panoData as PanoData).posePitch,
-                    speed: 600,
-                })   
-            }
+    useEffect(() => {
+        const viewer = new Viewer({
+            container: viewerRef.current!,
+            panorama: '/images/A_black_image.jpg',
+            loadingImg: "/images/logo-icon.png",
+            loadingTxt: 'Загрузка...',
+            navbar: [
+                'zoom',
+                'move',
+                'description',
+                'caption',
+                'fullscreen',
+            ],
+            plugins: [
+                MarkersPlugin,
+                [
+                    VirtualTourPlugin,
+                    {
+                      renderMode: "markers",
+                      transitionOptions: {
+                          speed: 600,
+                          fadeIn: true,
+                          rotation: false,
+                      }
+                    },
+                ],
+            ],
         });
-    };
+
+        const handleReady = (instance: any) => {
+            const virtualTour: VirtualTourPlugin = instance.getPlugin(VirtualTourPlugin);
+            if (!virtualTour) return;
+    
+            virtualTour.setNodes(
+                data.nodes,
+                data.startNode,
+            );
+    
+            virtualTour.addEventListener('node-changed', ({ node }) => {
+                if ((node.panoData as PanoData).poseHeading !== undefined && (node.panoData as PanoData).posePitch !== undefined) {
+                    viewer.animate({
+                        yaw: (node.panoData as PanoData).poseHeading,
+                        pitch: (node.panoData as PanoData).posePitch,
+                        speed: 600,
+                    })   
+                }
+            });
+        };
+
+        viewer.addEventListener("ready", () => {
+            handleReady(viewer)
+        }, { once: true })
+
+        // eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents
+        viewer.addEventListener("click", (event: any & {
+            type: "click";
+        },) => {
+            if (debug === "1") {
+                console.log("Marker: ", {
+                    textureX: event.data.textureX, 
+                    textureY: event.data.textureY,
+                })
+                console.log("Camera Position: ", viewer.getPosition())
+            }
+        })
+    }, [data, debug, viewerRef])
 
     return (
-        <div id={"container-tour"} className='h-full w-full'>
-            <ReactPhotoSphereViewer 
-                ref={pSRef}
-                src="/images/A_black_image.jpg" // placeholder
-                // touchmoveTwoFingers={true}
-                loadingImg="/images/logo-icon.png"
-                loadingTxt='Загрузка...'
-                width={"100%"}
-                height={'85vh'}
-                littlePlanet={false}
-                navbar={[
-                    'zoom',
-                    'move',
-                    'description',
-                    'caption',
-                    'fullscreen',
-                ]}
-                plugins={[
-                    MarkersPlugin,
-                    [
-                      VirtualTourPlugin,
-                      {
-                        renderMode: "markers",
-                        transitionOptions: {
-                            speed: 600,
-                            fadeIn: true,
-                            rotation: false,
-                        }
-                      },
-                    ],
-                ]}
-                container={"container-tour"}
-                onReady={handleReady}
-                onClick={(event) => {
-                    if (debug === "1") {
-                        console.log("Marker: ", {
-                            textureX: event.data.textureX, 
-                            textureY: event.data.textureY,
-                        })
-                        console.log("Camera Position: ", pSRef.current?.getPosition())
-                    }
-                }} 
-            />
+        <div
+            id={"container-tour"} 
+            className='h-full w-full'
+        >
+            <div ref={viewerRef} className=' w-full h-[85vh]'></div>
         </div>
     )
 }
