@@ -49,12 +49,14 @@ export default function RootLayout({
     >
       <body className='font-Montserrat gradient'>
         <Providers>
-          <Header />
-          <main>
-            {children}
-            <Toaster />
-          </main>
-          <Footer />
+          <div className='flex flex-col min-h-screen'>
+            <Header />
+            <main className='flex-1'>
+              {children}
+              <Toaster />
+            </main>
+            <Footer />
+          </div>
         </Providers>
       </body>
     </html>
