@@ -17,6 +17,8 @@ export default async function Footer() {
       />
     );
 
+    const year = new Date().getFullYear();
+
     return (
         <div className="w-full px-4 py-8 md:px-0 text-foreground bg-[#01041D] relative z-50">
             <div className="mx-auto flex w-[95%] max-w-[2200px] items-center justify-between md:w-[85%]">
@@ -41,7 +43,7 @@ export default async function Footer() {
                     <Link href={`mailto:${dataResult.value.email}`} className='mt-2 block'>{dataResult.value.email}</Link>
                 </div>
                 <div className="flex flex-col h-full justify-between">
-                    <p className="font-normal md:text-sm text-[9px] md:text-left text-right">© 2023 Сакральное Пространтсво Енисейской Сибири</p>
+                    <p className="font-normal md:text-sm text-[9px] md:text-left text-right">{year} Сакральное Пространтсво Енисейской Сибири</p>
                 </div>
             </div>
         </div>

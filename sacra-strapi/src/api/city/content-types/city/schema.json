@@ -4,7 +4,8 @@
   "info": {
     "singularName": "city",
     "pluralName": "cities",
-    "displayName": "Город"
+    "displayName": "Города",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true

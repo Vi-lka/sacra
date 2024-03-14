@@ -1,0 +1,19 @@
+{
+  "collectionName": "components_content_video_files",
+  "info": {
+    "displayName": "VideoFile",
+    "icon": "slideshow",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "file": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": [
+        "videos"
+      ]
+    }
+  }
+}

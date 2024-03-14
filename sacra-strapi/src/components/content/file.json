@@ -1,0 +1,26 @@
+{
+  "collectionName": "components_content_files",
+  "info": {
+    "displayName": "File",
+    "icon": "attachment"
+  },
+  "options": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true,
+      "maxLength": 255
+    },
+    "file": {
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ],
+      "type": "media",
+      "multiple": false,
+      "required": true
+    }
+  }
+}

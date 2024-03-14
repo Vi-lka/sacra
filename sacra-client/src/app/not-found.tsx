@@ -3,6 +3,8 @@ import NotFound from "@/components/custom/ui/NotFound";
 
 export default function NotFoundPage() {
   return (
-    <NotFound goBack />
+    <div className="flex items-center justify-center min-h-screen">
+      <NotFound goBack />
+    </div>
   )
 }

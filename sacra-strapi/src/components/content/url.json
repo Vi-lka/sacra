@@ -1,0 +1,21 @@
+{
+  "collectionName": "components_content_urls",
+  "info": {
+    "displayName": "Url",
+    "icon": "link",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "maxLength": 255,
+      "required": true
+    },
+    "url": {
+      "type": "text",
+      "required": true,
+      "regex": "^https?:\\/\\/(?:www\\.)?[-a-zA-Z0-9@:%.,_\\+~#=]{1,256}(?:.[a-zA-Z0-9()]{1,6})\\b(?:[-a-zA-Z0-9()@:%_\\+.,~#?&\\/=]*)$"
+    }
+  }
+}
