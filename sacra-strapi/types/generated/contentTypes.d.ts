@@ -723,7 +723,7 @@ export interface ApiArchitectArchitect extends Schema.CollectionType {
   info: {
     singularName: 'architect';
     pluralName: 'architects';
-    displayName: '\u0410\u0440\u0445\u0438\u0442\u0435\u043A\u0442\u043E\u0440';
+    displayName: '\u0410\u0440\u0445\u0438\u0442\u0435\u043A\u0442\u043E\u0440\u044B';
     description: '';
   };
   options: {
@@ -781,7 +781,7 @@ export interface ApiArchitecturalStyleArchitecturalStyle
   info: {
     singularName: 'architectural-style';
     pluralName: 'architectural-styles';
-    displayName: '\u0410\u0440\u0445\u0438\u0442\u0435\u043A\u0442\u0443\u0440\u043D\u044B\u0439 \u0441\u0442\u0438\u043B\u044C';
+    displayName: '\u0410\u0440\u0445\u0438\u0442\u0435\u043A\u0442\u0443\u0440\u043D\u044B\u0435 \u0441\u0442\u0438\u043B\u0438';
     description: '';
   };
   options: {
@@ -838,7 +838,8 @@ export interface ApiCityCity extends Schema.CollectionType {
   info: {
     singularName: 'city';
     pluralName: 'cities';
-    displayName: '\u0413\u043E\u0440\u043E\u0434';
+    displayName: '\u0413\u043E\u0440\u043E\u0434\u0430';
+    description: '';
   };
   options: {
     draftAndPublish: true;
@@ -875,7 +876,7 @@ export interface ApiConfessionConfession extends Schema.CollectionType {
   info: {
     singularName: 'confession';
     pluralName: 'confessions';
-    displayName: '\u041A\u043E\u043D\u0444\u0435\u0441\u0441\u0438\u044F';
+    displayName: '\u041A\u043E\u043D\u0444\u0435\u0441\u0441\u0438\u0438';
     description: '';
   };
   options: {
@@ -916,7 +917,7 @@ export interface ApiDistrictDistrict extends Schema.CollectionType {
   info: {
     singularName: 'district';
     pluralName: 'districts';
-    displayName: '\u0420\u0430\u0439\u043E\u043D';
+    displayName: '\u0420\u0430\u0439\u043E\u043D\u044B';
     description: '';
   };
   options: {
@@ -1089,7 +1090,7 @@ export interface ApiObjectObject extends Schema.CollectionType {
   info: {
     singularName: 'object';
     pluralName: 'objects';
-    displayName: '\u041E\u0431\u044A\u0435\u043A\u0442';
+    displayName: '\u041E\u0431\u044A\u0435\u043A\u0442\u044B';
     description: '';
   };
   options: {
@@ -1254,12 +1255,64 @@ export interface ApiObjectObject extends Schema.CollectionType {
   };
 }
 
+export interface ApiPublicationPublication extends Schema.CollectionType {
+  collectionName: 'publications';
+  info: {
+    singularName: 'publication';
+    pluralName: 'publications';
+    displayName: '\u041F\u0443\u0431\u043B\u0438\u043A\u0430\u0446\u0438\u0438';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    title: Attribute.String &
+      Attribute.Required &
+      Attribute.SetMinMaxLength<{
+        maxLength: 255;
+      }>;
+    image: Attribute.Media;
+    date: Attribute.Date;
+    short_description: Attribute.Text &
+      Attribute.SetMinMaxLength<{
+        maxLength: 800;
+      }>;
+    content: Attribute.DynamicZone<
+      [
+        'content.file',
+        'content.rich-text',
+        'content.slider',
+        'content.url',
+        'content.video-file',
+        'content.video'
+      ]
+    >;
+    order: Attribute.Integer;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::publication.publication',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::publication.publication',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiRegionRegion extends Schema.CollectionType {
   collectionName: 'regions';
   info: {
     singularName: 'region';
     pluralName: 'regions';
-    displayName: '\u0420\u0435\u0433\u0438\u043E\u043D';
+    displayName: '\u0420\u0435\u0433\u0438\u043E\u043D\u044B';
     description: '';
   };
   options: {
@@ -1305,7 +1358,7 @@ export interface ApiTourTour extends Schema.CollectionType {
   info: {
     singularName: 'tour';
     pluralName: 'tours';
-    displayName: '\u0422\u0443\u0440';
+    displayName: '\u0422\u0443\u0440\u044B';
     description: '';
   };
   options: {
@@ -1365,6 +1418,7 @@ declare module '@strapi/types' {
       'api::node.node': ApiNodeNode;
       'api::node-link.node-link': ApiNodeLinkNodeLink;
       'api::object.object': ApiObjectObject;
+      'api::publication.publication': ApiPublicationPublication;
       'api::region.region': ApiRegionRegion;
       'api::tour.tour': ApiTourTour;
     }

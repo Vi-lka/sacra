@@ -1,10 +1,10 @@
 module.exports = ({ env }) => ({
-    // ...
-    'drag-drop-content-types': {
+  // ...
+  'drag-drop-content-types': {
+    enabled: true
+  },
+  'publisher': {
       enabled: true
     },
-    'publisher': {
-        enabled: true
-      },
-    // ...
-  });
+  // ...
+});

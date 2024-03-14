@@ -1,0 +1,50 @@
+{
+  "kind": "collectionType",
+  "collectionName": "publications",
+  "info": {
+    "singularName": "publication",
+    "pluralName": "publications",
+    "displayName": "Публикации",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "maxLength": 255,
+      "required": true
+    },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "date": {
+      "type": "date"
+    },
+    "short_description": {
+      "type": "text",
+      "maxLength": 800
+    },
+    "content": {
+      "type": "dynamiczone",
+      "components": [
+        "content.file",
+        "content.rich-text",
+        "content.slider",
+        "content.url",
+        "content.video-file",
+        "content.video"
+      ]
+    },
+    "order": {
+      "type": "integer"
+    }
+  }
+}

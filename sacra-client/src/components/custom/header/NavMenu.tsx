@@ -61,7 +61,7 @@ export default function NavMenu() {
         <NavMenuItem url="/" text='Главная' isBG={bg} />
         <NavMenuItem url="/catalog" text='Каталог' />
         <NavMenuItem url="/map" text='Карта' />
-        {/* <NavMenuItem url="/tour" text='Панорамы' /> */}
+        <NavMenuItem url="/publications" text='Публикации' />
       </NavbarContent>
       
       {/* Mobile */}
@@ -76,9 +76,9 @@ export default function NavMenu() {
             <NextUILink color="foreground" className="w-full font-medium text-lg mb-6" href="/map" size="lg">
               Карта
             </NextUILink>
-            {/* <NextUILink color="foreground" className="w-full font-medium text-lg mb-6" href="/tour" size="lg">
-              Панорамы
-            </NextUILink> */}
+            <NextUILink color="foreground" className="w-full font-medium text-lg mb-6" href="/publications" size="lg">
+              Публикации
+            </NextUILink>
           </NavbarMenuItem>
       </NavbarMenu>
     </Navbar>

@@ -1,0 +1,15 @@
+{
+  "collectionName": "components_content_videos",
+  "info": {
+    "displayName": "VideoEmbed",
+    "icon": "cast",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "embeded": {
+      "type": "text",
+      "required": true
+    }
+  }
+}

@@ -48,14 +48,14 @@ export default function RootLayout({
       className={`dark ${montserrat.variable}`}
     >
       <body className='font-Montserrat gradient'>
-      <Providers>
-        <Header />
-        <main>
-          {children}
-          <Toaster />
-        </main>
-        <Footer />
-      </Providers>
+        <Providers>
+          <Header />
+          <main>
+            {children}
+            <Toaster />
+          </main>
+          <Footer />
+        </Providers>
       </body>
     </html>
   )
