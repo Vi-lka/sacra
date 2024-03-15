@@ -69,14 +69,18 @@ export type VideoEmbedComp = z.infer<typeof VideoEmbedComp>;
 
 export const VideoFileComp = z.object({
   __typename: z.literal("ComponentContentVideoFile"),
-  file: Image,
+  file: z.object({
+    data: Image
+  }),
 })
 export type VideoFileComp = z.infer<typeof VideoFileComp>;
 
 export const FileComp = z.object({
   __typename: z.literal("ComponentContentFile"),
   name: z.string(),
-  file: Image,
+  file: z.object({
+    data: Image
+  }),
 })
 export type FileComp = z.infer<typeof FileComp>;
 
@@ -255,16 +259,13 @@ export type Tour = z.infer<typeof Tour>;
 
 //.........................PUBLICATIONS.........................//
 export const Publication = z.object({
-  id: z.string(),
-  attributes: z.object({
-    title: z.string(),
-    image: z.object({
-      data: Image
-    }),
-    date: z.string(),
-    short_description: z.string(),
-    content: DynamicZone.array()
+  title: z.string(),
+  image: z.object({
+    data: Image
   }),
+  date: z.string(),
+  short_description: z.string(),
+  content: DynamicZone.array()
 });
 export type Publication = z.infer<typeof Publication>;
 

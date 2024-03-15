@@ -6,13 +6,16 @@ import ImageComponent from "../ImageComponent";
 import { Button, Modal, ModalContent, Tooltip, useDisclosure } from "@nextui-org/react";
 import { motion } from "framer-motion";
 import { Maximize } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 export default function PhotoZoom({
   alt,
   src,
+  className
 }: {
   alt: string;
   src: string | undefined;
+  className?: string
 }) {
     const {isOpen, onOpen, onOpenChange} = useDisclosure();
 
@@ -57,10 +60,10 @@ export default function PhotoZoom({
                 <Button 
                     isIconOnly
                     variant="light"
-                    className="mt-1 font-medium text-xs hover:scale-110" 
                     onPress={onOpen}
+                    className={cn("mt-1 font-medium text-xs hover:scale-110", className)}
                 >
-                  <Maximize />
+                  <Maximize className="drop-shadow-md" />
                 </Button>
               </Tooltip>
             </motion.div>
