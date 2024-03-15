@@ -10,12 +10,14 @@ import ImageComponent from "../ImageComponent";
 
 export default function PhotoModal({
   data,
+  className
 }: {
   data: {
     attributes: {
         url: string;
     };
   }[];
+  className?: string
 }) {
   const {isOpen, onOpen, onOpenChange} = useDisclosure();
   const [created, setCreated] = React.useState<boolean>();
@@ -78,9 +80,9 @@ export default function PhotoModal({
           isIconOnly 
           variant="light" 
           onPress={onOpen}
-          className="mt-1 font-medium text-xs hover:scale-110" 
+          className={cn("mt-1 font-medium text-xs hover:scale-110", className)}
         >
-          <Maximize />
+          <Maximize className="drop-shadow-md" />
         </Button>
       </Tooltip>
       <Modal 

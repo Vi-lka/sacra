@@ -13,14 +13,16 @@ import ImageComponent from "../ImageComponent";
 
 export default function PhotoSlider({
   data,
-  children
+  children,
+  className
 }: {
   data: {
     attributes: {
         url: string;
     };
   }[];
-  children?: React.ReactNode
+  children?: React.ReactNode,
+  className?: string
 }) {
   const [created, setCreated] = React.useState<boolean>();
   const [currentSlide, setCurrentSlide] = React.useState(0);
@@ -46,7 +48,7 @@ export default function PhotoSlider({
   });
 
   return (
-    <div className="w-full">
+    <div className={cn("w-full", className)}>
       <motion.div
         ref={sliderRef}
         initial={{ opacity: 0, y: -10 }}
